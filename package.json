@@ -1,6 +1,10 @@
 {
   "name": "webnebula",
   "version": "0.1.0",
+  "description": "At Webnebula, we specialize in crafting dynamic and visually stunning websites that captivate users and drive results. Get a seamless and interactive web solution with our custom front-end and back-end development packages.",
+  "keywords": ["Webnebula", "web development", "custom websites", "responsive design", "front-end development", "back-end development", "React.js", "Tailwind CSS", "Laravel", "PHP", "RESTful APIs", "SEO", "project management", "web design", "website development", "user experience (UX)", "mobile-friendly websites", "e-commerce websites", "content management systems (CMS)", "WordPress development", "UI/UX design", "website maintenance", "website optimization", "cross-browser compatibility", "web application development", "database design", "JavaScript development", "CSS3", "HTML5", "website performance", "website security", "responsive web design", "website architecture"],
+  "authors": [{"name":"Yassir Elkhaili", "url": "https://github.com/yassirelkhaili"}, {"name": "Zakaria Ghazoune", "url": "https://github.com/ZakariaCoder"}],
+  "license": "All Rights Reserved",
   "private": true,
   "scripts": {
     "dev": "next dev",
