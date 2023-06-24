@@ -1,6 +1,9 @@
 import './globals.css';
 import { Metadata } from 'next';
 import Header from './header'
+import { Roboto } from 'next/font/google'
+
+const roboto = Roboto({subsets: ["latin"], weight: ["400", "700"],  variable: '--font-roboto',})
 
 export const metadata : Metadata = {
   title: {
@@ -35,7 +38,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-    <body>
+    <body className={`${roboto.variable}`}>
       <Header/>
       {children}
       </body>
