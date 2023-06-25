@@ -9,6 +9,7 @@ module.exports = {
     extend: {
       fontFamily: {
         roboto: ['var(--font-roboto)'], 
+        inter: ['var(--font-inter)'], 
       }
     },
   },

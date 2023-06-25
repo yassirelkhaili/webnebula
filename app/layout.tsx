@@ -1,10 +1,10 @@
 import './globals.css';
 import { Metadata } from 'next';
 import Header from './header'
-import { Roboto } from 'next/font/google'
+import { Roboto, Inter} from 'next/font/google'
 
-const roboto = Roboto({subsets: ["latin"], weight: ["400", "700"],  variable: '--font-roboto',})
-
+const roboto = Roboto({subsets: ["latin"], weight: ["400"],  variable: '--font-roboto',})
+const inter = Inter({subsets: ["latin"], weight: ["500"],  variable: '--font-inter',})
 export const metadata : Metadata = {
   title: {
     template: '%s | Webnebula Web Development Services', 
@@ -38,7 +38,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-    <body className={`${roboto.variable}`}>
+    <body className={`${roboto.variable} ${inter.variable} bg-white`}>
       <Header/>
       {children}
       </body>
