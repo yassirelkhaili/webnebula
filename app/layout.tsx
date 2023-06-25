@@ -5,6 +5,7 @@ import { Roboto, Inter} from 'next/font/google'
 
 const roboto = Roboto({subsets: ["latin"], weight: ["400"],  variable: '--font-roboto',})
 const inter = Inter({subsets: ["latin"], weight: ["500"],  variable: '--font-inter',})
+
 export const metadata : Metadata = {
   title: {
     template: '%s | Webnebula Web Development Services', 
