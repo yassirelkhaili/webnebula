@@ -1,11 +1,12 @@
 import './globals.css';
 import { Metadata } from 'next';
 import Header from './header'
-import { Roboto, Inter} from 'next/font/google'
+import { Roboto, Inter, Lato} from 'next/font/google'
 import ContextProvider from './utils/themeprovider';
 
-const roboto = Roboto({subsets: ["latin"], weight: ["400"],  variable: '--font-roboto',})
-const inter = Inter({subsets: ["latin"], weight: ["400"],  variable: '--font-inter',})
+const roboto = Roboto({subsets: ["latin"], weight: ["700"],  variable: '--font-roboto',})
+const inter = Inter({subsets: ["latin"], weight: ["500"],  variable: '--font-inter',})
+const lato = Inter({subsets: ["latin"], weight: ["600"],  variable: '--font-lato',}) 
 
 export const metadata : Metadata = {
   title: {
@@ -40,7 +41,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className="scroll-smooth">
-      <body className={`${roboto.variable} ${inter.variable}`}>
+      <body className={`${roboto.variable} ${inter.variable} ${lato.variable}`}>
       <ContextProvider>
       <Header/>
       {children}

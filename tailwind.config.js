@@ -16,6 +16,11 @@ module.exports = {
       },
     },
     extend: {
+      fontFamily: {
+        roboto: ['var(--font-roboto)'],
+        inter: ['var(--font-inter)'],
+        lato: ['var(--font-lato)']
+      },
       keyframes: {
         "accordion-down": {
           from: { height: 0 },
