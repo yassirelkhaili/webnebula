@@ -12,10 +12,7 @@ export default function Home() {
 type Name = string
 const name : Name = "Yassir"; 
   return (
-    <main className="min-h-screen bg-white">
-    <p className={`font-roboto text-red-500`}>
-      Hello {people.map(person => person.name + " " + person.age + "\n")}
-    </p>
+    <main className="dark:bg-[#101522] bg-white min-h-screen">
     </main>
   )
 }

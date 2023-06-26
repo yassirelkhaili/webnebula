@@ -2,14 +2,15 @@ import './globals.css';
 import { Metadata } from 'next';
 import Header from './header'
 import { Roboto, Inter} from 'next/font/google'
+import ContextProvider from './utils/themeprovider';
 
 const roboto = Roboto({subsets: ["latin"], weight: ["400"],  variable: '--font-roboto',})
-const inter = Inter({subsets: ["latin"], weight: ["500"],  variable: '--font-inter',})
+const inter = Inter({subsets: ["latin"], weight: ["400"],  variable: '--font-inter',})
 
 export const metadata : Metadata = {
   title: {
-    template: '%s | Webnebula Web Development Services', 
-    default: 'Dynamic and Visually Stunning Websites | Webnebula Web Development Services'
+    template: '%s | Webnebula', 
+    default: 'Webnebula | Web Services'
   },
   description: 'At Webnebula, we specialize in crafting dynamic and visually stunning websites that captivate users and drive results. Get a seamless and interactive web solution with our custom front-end and back-end development packages.',
   generator: 'Next.js',
@@ -38,10 +39,12 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en">
-    <body className={`${roboto.variable} ${inter.variable} bg-white`}>
+    <html lang="en" className="scroll-smooth">
+      <body className={`${roboto.variable} ${inter.variable}`}>
+      <ContextProvider>
       <Header/>
       {children}
+      </ContextProvider>
       </body>
   </html>
   )
