@@ -6,7 +6,7 @@ import ContextProvider from './utils/themeprovider';
 
 const roboto = Roboto({subsets: ["latin"], weight: ["700"],  variable: '--font-roboto',})
 const inter = Inter({subsets: ["latin"], weight: ["500"],  variable: '--font-inter',})
-const lato = Inter({subsets: ["latin"], weight: ["600"],  variable: '--font-lato',}) 
+const lato = Lato({subsets: ["latin"], weight: ["700"],  variable: '--font-lato',}) 
 
 export const metadata : Metadata = {
   title: {
