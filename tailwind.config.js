@@ -16,6 +16,13 @@ module.exports = {
       },
     },
     extend: {
+      colors: {
+        'logo': {
+          '100': '#1959EE', 
+          '900': "#2d53bd"
+        }, 
+        'dark': '222222'
+      },
       fontFamily: {
         roboto: ['var(--font-roboto)'],
         inter: ['var(--font-inter)'],

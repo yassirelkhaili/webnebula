@@ -43,7 +43,7 @@ export default function Header() {
         isScrolled && "translate-y-[-5rem]"
       }`}
     >
-      <div className="main-logo flex items-center text-[#1959EE] dark:text-[#2d53bd] pl-5 text-xl font-roboto">
+      <div className="main-logo flex items-center text-logo-100 dark:text-logo-900 pl-5 text-xl font-roboto">
         <div className="flex flex-row gap-1">
           <Image
             src={currentTheme === "dark" ? "/dark-icon.png" : "/light-icon.png"}
@@ -55,7 +55,7 @@ export default function Header() {
           <h1>WebNebula</h1>
         </div>
       </div>
-      <nav className="flex items-center text-[#222222] dark:text-slate-50 mx-auto">
+      <nav className="flex items-center text-dark dark:text-slate-50 mx-auto">
         <ul className="nav-items font-inter text-xl flex gap-x-6">
           {navitems.map((item: navItem) => (
             <li
