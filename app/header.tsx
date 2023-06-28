@@ -11,11 +11,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import navitems from "./constants/navitems";
 import { useEffect, useState } from "react";
-
-interface navItem {
-  key: number;
-  name: string;
-}
+import { navitem } from "./constants/navitems";
 
 export default function Header() {
   const { setTheme, theme, systemTheme } = useTheme();
@@ -57,7 +53,7 @@ export default function Header() {
       </div>
       <nav className="flex items-center text-dark dark:text-slate-50 mx-auto">
         <ul className="nav-items font-inter text-xl flex gap-x-6">
-          {navitems.map((item: navItem) => (
+          {navitems.map((item: navitem) => (
             <li
               key={item.name}
               className={`cursor-pointer duration-200 dark:hover:text-gray-200 hover:text-[#696969] h-full`}

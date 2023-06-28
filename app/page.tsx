@@ -1,6 +1,7 @@
 import Hero from "./partials/hero"
 import About from "./partials/about"
 import Packages from "./partials/packages"
+import Skills from "./partials/skills"
 
 export default function Home() { 
   return (
@@ -8,6 +9,7 @@ export default function Home() {
       <Hero />
       <About />
       <Packages />
+      <Skills />
     </main>
   )
 }

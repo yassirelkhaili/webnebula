@@ -1,4 +1,4 @@
-type navitem = {
+export type navitem = {
   name: string, 
   key: number
 }

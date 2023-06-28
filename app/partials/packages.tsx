@@ -8,11 +8,9 @@ import {
   } from "@/components/ui/card"
 import packagesContent from "../constants/packages"
 import { packagesTitle } from "../constants/packages"
-
-interface Content {
-    title: string
-    description: string
-}
+import { buttonVariants } from "@/components/ui/button"
+import Link from "next/link"
+import { Content } from "../constants/packages"
 
 const Packages = () => {
     return (
@@ -30,8 +28,8 @@ const Packages = () => {
     <CardContent>
       <p>{item.description}</p>
     </CardContent>
-    <CardFooter>
-      <p>Card Footer</p>
+    <CardFooter className="flex justify-center">
+    <Link href="#services" className={buttonVariants({ variant: "primary" })}>Get Started Today!</Link>
     </CardFooter>
   </Card>
 ))}

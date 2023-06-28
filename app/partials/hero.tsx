@@ -14,7 +14,7 @@ return (
         <h2>Elevate Your Web Presence with Dynamic and Engaging Websites</h2>
         </div>
         <div className="pt-9">
-        <Link href="#services" className={buttonVariants({ variant: "primary" })}>Get Started Today!</Link>
+        <Link href="#Services" scroll={false} className={buttonVariants({ variant: "primary" })}>Get Started Today!</Link>
         </div>
     </div>
 )
