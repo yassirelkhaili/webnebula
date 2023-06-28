@@ -1,7 +1,7 @@
 import './globals.css';
 import { Metadata } from 'next';
 import Header from './header'
-import { Roboto, Inter, Lato} from 'next/font/google'
+import { Roboto, Inter, Lato } from 'next/font/google'
 import ContextProvider from './utils/themeprovider';
 
 const roboto = Roboto({subsets: ["latin"], weight: ["700"],  variable: '--font-roboto',})
