@@ -2,7 +2,7 @@ import { buttonVariants } from "@/components/ui/button"
 import Link from "next/link"
 
 const Hero = () => {
-return (
+return ( 
     <div id="Home" className="flex items-center justify-center h-screen flex flex-col font-lato text-dark dark:text-slate-50 text-center">
         <div className="text-4xl">
         <h1>Transforming Ideas into Reality:</h1>
