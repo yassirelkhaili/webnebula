@@ -6,7 +6,7 @@ interface OutsideClickHandlerProps {
   ishidden : boolean;
 }
 
-const OutsideClickHandler: React.FC<OutsideClickHandlerProps> = ({ children , onOutsideClick, ishidden}) => {
+const OutsideClickHandler = ({ children , onOutsideClick, ishidden} : OutsideClickHandlerProps) => {
   const wrapperRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
