@@ -27,17 +27,15 @@ export default function Header() {
     const handleScroll = () => {
       const scrollY: number = window.scrollY;
       const threshold: number = 120;
-      scrollY > prevscrollY && scrollY > threshold
-        ? setIsScrolled(true)
-        : setIsScrolled(false);
+        ishidden && setIsScrolled(scrollY > prevscrollY && scrollY > threshold);
       setprevscrollY(scrollY);
     };
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
-  }, [prevscrollY]);
+  }, [prevscrollY, ishidden]);
   const handleOutsideClick = () => {
-    setishidden(prev=>!prev)
-        setIsScrolled(false)
+    setishidden(true)
+    setIsScrolled(false)
   };
   return (
     <>
