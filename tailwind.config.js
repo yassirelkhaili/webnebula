@@ -1,5 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
+  important: true, 
   darkMode: ["class"],
   content: [
     './pages/**/*.{ts,tsx}',
@@ -24,9 +25,10 @@ module.exports = {
         'dark': '#222222'
       },
       fontFamily: {
-        roboto: ['var(--font-roboto)'],
+        robotolight: ['var(--font-robotolight)'],
         inter: ['var(--font-inter)'],
-        lato: ['var(--font-lato)']
+        lato: ['var(--font-lato)'], 
+        roboto: ['var(--font-roboto)']
       },
       keyframes: {
         "accordion-down": {

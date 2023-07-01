@@ -24,6 +24,7 @@ const OutsideClickHandler = ({ children , onOutsideClick, ishidden} : OutsideCli
   }, [onOutsideClick]);
 
   return <div ref={wrapperRef}>{children}</div>;
+  
 };
 
 export default OutsideClickHandler;

@@ -5,8 +5,13 @@ const nextConfig = {
           {
             protocol: 'https',
             hostname: 'img.icons8.com',
-            pathname: '/color/30/react-native.png',
+            pathname: '**',
           },
+          {
+            protocol: 'https',
+            hostname: 'cdn.cdnlogo.com',
+            pathname: '**',
+          }
         ],
       },
 }
