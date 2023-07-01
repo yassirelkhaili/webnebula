@@ -1,5 +1,6 @@
 import Image from "next/image"
 import NextsvgHandler from "../utils/svghandler"
+import { LivewireSvgHandler,  ExpressSvgHandler, NodeSvgHandler, InertiaSvgHandler } from "../utils/svghandler"
 
 export interface Content {
     title: string, 
@@ -26,19 +27,19 @@ const skillsContent : Array<Content> = [
     },
     {
         title: "Livewire", 
-        img: <Image width="30" height="30" src="https://img.icons8.com/color/30/react-native.png" alt="react-native"/>
+        img: <LivewireSvgHandler />
     },
     {
         title: "Inertia", 
-        img: <Image width="30" height="30" src="https://img.icons8.com/color/30/react-native.png" alt="react-native"/>
+        img: <InertiaSvgHandler />
     },
     {
         title: "Express", 
-        img: <Image width="30" height="30" src="https://cdn.cdnlogo.com/logos/n/94/nodejs-icon.svg" alt="expressjs-logo"/>
+        img: <ExpressSvgHandler />
     },
     {
         title: "Node", 
-        img: <Image width="50" height="50" src="https://img.icons8.com/color/50/nodejs.png" alt="nodejs-logo"/>
+        img: <NodeSvgHandler />
     },
     {
         title: "Prisma", 
