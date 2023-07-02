@@ -14,17 +14,17 @@ return (
     <div>
     <h1 id="Process" className="text-3xl font-lato font-bold dark:text-slate-50 text-dark p-3 border-b-[3px] border-b-logo-100 dark:border-b-logo-900 w-fit">{processTitle}</h1>
     </div>
-    <div className="container">
-    <Accordion type="single" collapsible>
+    <div className="container mt-[1.2rem]">
     {processContent.map((item : processProps) => {
         return (
+            <Accordion type="single" collapsible>
             <AccordionItem value="item-1">
         <AccordionTrigger>{item.question}</AccordionTrigger>
     <AccordionContent>{item.answer}</AccordionContent>
     </AccordionItem>
+    </Accordion>
         )
     })}
-</Accordion>
     </div>
     </section>
 )
