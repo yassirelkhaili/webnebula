@@ -17,7 +17,7 @@ return (
     </div>
     <div className="grid grid-cols-4 gap-4 container">
     {skillsContent.map((item : Content)=> (
-        <Card className="mt-8"> 
+        <Card className="mt-10"> 
         <CardHeader className="flex flex-col items-center gap-2 pt-[1.5rem]">
             <CardTitle className="text-lg font-robotolight font-light">
             {item.title}
