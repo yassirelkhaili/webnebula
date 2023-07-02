@@ -1,0 +1,22 @@
+import {
+    Card,
+    CardContent,
+    CardFooter,
+  } from "@/components/ui/card"
+import aboutContent from "../constants/about"
+
+const About = () => {
+return (
+    <section className="min-h-screen mt-4 flex flex-col items-center"> 
+<div>
+<h1 id="About" className="text-3xl font-lato dark:text-slate-50 text-dark p-3 border-b-[3px] border-b-logo-100 dark:border-b-logo-900 w-fit">{aboutContent.title}</h1>
+</div>
+<Card className="mt-8 sm:max-w-[40rem] mx-8"> 
+<CardContent className="flex flex-col gap-2 pt-[1.5rem]">{aboutContent.content}</CardContent> 
+<CardFooter className="flex flex-col items-start gap-2">{aboutContent.footer}</CardFooter> 
+</Card> 
+</section>
+)
+}
+
+export default About

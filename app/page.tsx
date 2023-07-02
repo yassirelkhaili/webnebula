@@ -1,23 +1,19 @@
-import Image from 'next/image'
+import Hero from "./partials/hero"
+import About from "./partials/about"
+import Packages from "./partials/packages"
+import Skills from "./partials/skills"
+import Process from "./partials/process"
+import Contact from "./partials/contact"
 
-export default function Home() {
-  type Person = {
-    name : string, 
-    age : number
-  }
-  let people : Array<Person> = [ 
-  {
-    name: "Yassir",   
-    age : 22
-  }
-]
-type Name = string
-const name : Name = "Yassir"; 
+export default function Home() { 
   return (
-    <main className="min-h-screen bg-white">
-    <p className={`font-roboto text-red-500`}>
-      Hello {people.map(person => person.name + " " + person.age + "\n")}
-    </p>
+    <main className="dark:bg-[#101522] bg-slate-50 min-h-screen">
+      <Hero />
+      <About />
+      <Packages />
+      <Skills />
+      <Process />
+      <Contact />
     </main>
   )
 }
