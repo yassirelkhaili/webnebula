@@ -44,7 +44,7 @@ export default function Header() {
         isScrolled && "translate-y-[-5rem]"
       }`}
     >
-      <div className="main-logo flex items-center text-logo-100 dark:text-logo-900 pl-5 text-xl font-roboto">
+      <div className="main-logo flex items-center text-logo-100 dark:text-logo-900 pl-5 text-xl font-roboto font-bold">
         <div className="flex flex-row gap-1">
           <Image
             src={currentTheme === "dark" ? "/dark-icon.png" : "/light-icon.png"}
