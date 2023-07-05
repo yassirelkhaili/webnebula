@@ -40,4 +40,56 @@ const socialsContent : Array<socialsContentProps> = [
     },
 ]
 
+type sectionContent = {
+    title: string, 
+    href: string,
+}
+
+export interface footerContentProps {
+    sectionTitle: string, 
+    sectionContent: Array<sectionContent>, 
+}
+
+export const footerContent = [
+    {
+        sectionTitle: "Resources", 
+        sectionContent: [
+            {
+                title: "Icons8", 
+                href: "https://icons8.com/"
+            },
+            {
+                title: "Techicons", 
+                href: "https://techicons.dev/"
+            },
+        ]
+    },
+    {
+        sectionTitle: "Follow Us", 
+        sectionContent: [
+            {
+                title: "Github", 
+                href: "https://github.com/themesberg/flowbite/"
+            },
+            {
+                title: "Discord", 
+                href: "https://discord.gg/4eeurUVvTy"
+            },
+        ]
+    },
+    {
+        sectionTitle: "Legal", 
+        sectionContent: [
+            {
+                title: "Privacy Policy", 
+                href: "https://discord.gg/4eeurUVvTy"
+            },
+            {
+                title: "Terms &amp; Conditions", 
+                href: "https://discord.gg/4eeurUVvTy"
+            },
+        ]
+    },
+]
+
 export default socialsContent

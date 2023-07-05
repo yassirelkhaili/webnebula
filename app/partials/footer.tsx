@@ -17,10 +17,10 @@ const Footer = () => {
                   <h2 className="mb-6 text-sm font-semibold text-dark uppercase dark:text-slate-50">Resources</h2>
                   <ul className="text-slate-500 dark:text-slate-400 font-medium">
                       <li className="mb-4 ">
-                          <a href="https://flowbite.com/" className="hover:underline">Flowbite</a>
+                          <a href="https://icons8.com/" className="hover:underline">Icons8</a>
                       </li>
                       <li>
-                          <a href="https://tailwindcss.com/" className="hover:underline">Tailwind CSS</a>
+                          <a href="https://techicons.dev/" className="hover:underline">Techicons</a>
                       </li>
                   </ul>
               </div>
@@ -50,7 +50,7 @@ const Footer = () => {
       </div>
       <hr className="my-6 border-gray-200 sm:mx-auto dark:border-gray-700 lg:my-8" />
       <div className="sm:flex sm:items-center sm:justify-between">
-          <span className="text-sm text-slate-500 sm:text-center dark:text-slate-400">© {currentDate} <a href="https://flowbite.com/" className="hover:underline">WebNebula™</a>. All Rights Reserved.
+          <span className="text-sm text-slate-500 sm:text-center dark:text-slate-400">© {currentDate} <a href="https://Webnebula.pro/" className="hover:underline">WebNebula™</a>. All Rights Reserved.
           </span>
           <div className="flex mt-4 space-x-5 sm:justify-center sm:mt-0">
               {socialsContent.map((socialsItem: socialsContentProps) => {
