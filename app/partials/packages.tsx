@@ -10,7 +10,7 @@ import packagesContent from "../constants/packages"
 import { packagesTitle } from "../constants/packages"
 import { buttonVariants } from "@/components/ui/button"
 import Link from "next/link"
-import { Content } from "../constants/packages"
+import { Content, buttonLabel } from "../constants/packages"
 
 const Packages = () => {
     return (
@@ -29,7 +29,7 @@ const Packages = () => {
       <p>{item.description}</p>
     </CardContent>
     <CardFooter className="flex justify-center">
-    <Link href="#services" className={buttonVariants({ variant: "primary" })}>Get Started Today!</Link>
+    <Link href="#services" className={buttonVariants({ variant: "primary" })}>{buttonLabel}</Link>
     </CardFooter>
   </Card>
 ))}
