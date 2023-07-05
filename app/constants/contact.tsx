@@ -1,5 +1,6 @@
 "use client"
 
+import { useEffect } from "react";
 import printData from "../api/actions";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
@@ -32,8 +33,10 @@ const formSchema = z.object({
   Message: z.string().nonempty("Please enter a message."),
 })
 
+export type FormValueProps = z.infer<typeof formSchema>;
+
 export default function ContactForm () {
-  const form = useForm<z.infer<typeof formSchema>>({
+  const form = useForm<FormValueProps>({
     resolver: zodResolver(formSchema),
     defaultValues: {
       Name: "",
@@ -45,8 +48,12 @@ export default function ContactForm () {
     },
   })
   
-    function onSubmit(data: z.infer<typeof formSchema>) {
-      printData(data)
+    function onSubmit(data: FormValueProps) {
+      printData(data).then(result => {
+        console.log(result)
+      }).catch(error => {
+        throw new Error(error)
+      })
       toast({
         title: "You submitted the following values:",
         description: (
