@@ -8,7 +8,7 @@ import Contact from "./partials/contact"
 
 export default function Home() { 
   return (
-    <main className="dark:bg-[#101522] bg-slate-50 min-h-screen">
+    <main className="dark:bg-[#101522] bg-slate-50">
       <Hero />
       <About />
       <Packages />

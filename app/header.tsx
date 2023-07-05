@@ -102,7 +102,7 @@ export default function Header() {
     <div  className={`flex flex-col p-6 gap-4 fixed bg-transparent w-[18rem] z-50 h-screen backdrop-blur-[10px] backdrop-saturate-[180%] shadow-md ease-in-out transition duration-500 ${
         ishidden && "translate-x-[-20rem]"
       }`}>
-        <div className="main-logo flex items-center justify-center text-logo-100 dark:text-logo-900 pl-5 text-xl font-roboto">
+        <div className="main-logo flex items-center justify-center text-logo-100 dark:text-logo-900 pl-5 text-xl font-roboto font-bold">
         <div className="flex flex-row gap-1">
           <Image
             src={currentTheme === "dark" ? "/dark-icon.png" : "/light-icon.png"}
