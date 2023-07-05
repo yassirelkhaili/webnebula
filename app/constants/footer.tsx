@@ -1,0 +1,1 @@
+export const currentDate : number = new Date().getFullYear()

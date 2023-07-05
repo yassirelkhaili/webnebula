@@ -25,7 +25,7 @@ const Packages = () => {
       <CardTitle>{item.title}</CardTitle>
       <CardDescription>{item.description}</CardDescription>
     </CardHeader>
-    <CardContent>
+    <CardContent className="font-robotolight">
       <p>{item.description}</p>
     </CardContent>
     <CardFooter className="flex justify-center">

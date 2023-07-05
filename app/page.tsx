@@ -4,7 +4,7 @@ import Packages from "./partials/packages"
 import Skills from "./partials/skills"
 import Process from "./partials/process"
 import Contact from "./partials/contact"
-
+import Footer from "./partials/footer"
 
 export default function Home() { 
   return (
@@ -15,6 +15,7 @@ export default function Home() {
       <Skills />
       <Process />
       <Contact />
+      <Footer />
     </main>
   )
 }
