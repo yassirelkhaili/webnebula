@@ -1,5 +1,5 @@
 import Logo from "../utils/logohandler"
-import { currentDate, footerContent, footerContentProps, socialsContentProps, sectionContent } from "../constants/footer"
+import { currentDate, footerContent, footerContentProps, socialsContentProps, sectionContent, copyrightNotice } from "../constants/footer"
 import socialsContent from "../constants/footer"
 
 const Footer = () => {
@@ -32,7 +32,7 @@ const Footer = () => {
       </div>
       <hr className="my-6 border-gray-200 sm:mx-auto dark:border-gray-700 lg:my-8" />
       <div className="sm:flex sm:items-center sm:justify-between">
-          <span className="text-sm text-slate-500 sm:text-center dark:text-slate-400">© {currentDate} <a href="https://Webnebula.pro/" className="hover:underline">WebNebula™</a>. All Rights Reserved.
+          <span className="text-sm text-slate-500 sm:text-center dark:text-slate-400">{copyrightNotice.currentDate}<a href="https://Webnebula.pro/" className="hover:underline">{copyrightNotice.siteName}</a>{copyrightNotice.copyrightStatement}
           </span>
           <div className="flex mt-4 space-x-5 sm:justify-center sm:mt-0">
               {socialsContent.map((socialsItem: socialsContentProps) => {

@@ -1,5 +1,16 @@
 export const currentDate : number = new Date().getFullYear()
 
+interface copyrightNoticeProps {
+    currentDate: string, 
+    siteName: string, 
+    copyrightStatement: string
+}
+export const copyrightNotice : copyrightNoticeProps = {
+    currentDate: `© ${currentDate} `, 
+    siteName: "WebNebula™", 
+    copyrightStatement: ". All Rights Reserved."
+}
+
 export interface socialsContentProps {
     title: string, 
     svg: React.ReactElement<SVGElement>, 
