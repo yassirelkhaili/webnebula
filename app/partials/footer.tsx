@@ -1,7 +1,6 @@
 import Logo from "../utils/logohandler"
-import { currentDate } from "../constants/footer"
+import { currentDate, footerContent, footerContentProps, socialsContentProps, sectionContent } from "../constants/footer"
 import socialsContent from "../constants/footer"
-import { socialsContentProps } from "../constants/footer"
 
 const Footer = () => {
     return (
@@ -13,39 +12,22 @@ const Footer = () => {
           <Logo />
           </div>
           <div className="grid grid-cols-2 gap-8 sm:gap-6 sm:grid-cols-3">
-              <div>
-                  <h2 className="mb-6 text-sm font-semibold text-dark uppercase dark:text-slate-50">Resources</h2>
-                  <ul className="text-slate-500 dark:text-slate-400 font-medium">
-                      <li className="mb-4 ">
-                          <a href="https://icons8.com/" className="hover:underline">Icons8</a>
-                      </li>
-                      <li>
-                          <a href="https://techicons.dev/" className="hover:underline">Techicons</a>
-                      </li>
-                  </ul>
-              </div>
-              <div>
-                  <h2 className="mb-6 text-sm font-semibold text-dark uppercase dark:text-slate-50">Follow us</h2>
-                  <ul className="text-slate-500 dark:text-slate-400 font-medium">
-                      <li className="mb-4">
-                          <a href="https://github.com/themesberg/flowbite" className="hover:underline ">Github</a>
-                      </li>
-                      <li>
-                          <a href="https://discord.gg/4eeurUVvTy" className="hover:underline">Discord</a>
-                      </li>
-                  </ul>
-              </div>
-              <div>
-                  <h2 className="mb-6 text-sm font-semibold text-dark uppercase dark:text-slate-50">Legal</h2>
-                  <ul className="text-slate-500 dark:text-slate-400 font-medium">
-                      <li className="mb-4">
-                          <a href="#" className="hover:underline">Privacy Policy</a>
-                      </li>
-                      <li>
-                          <a href="#" className="hover:underline">Terms &amp; Conditions</a>
-                      </li>
-                  </ul>
-              </div>
+             { footerContent.map((footerItem : footerContentProps) => {
+                return (
+                    <div>
+                    <h2 className="mb-6 text-sm font-semibold text-dark uppercase dark:text-slate-50">{footerItem.sectionTitle}</h2>
+                    <ul className="text-slate-500 dark:text-slate-400 font-medium">
+                        {footerItem.sectionContent.map(((liItem : sectionContent, index : number) => {
+                            return (
+                                <li className={index === 0 ? "mb-4" : ""}>
+                            <a href={liItem.href} className="hover:underline">{liItem.title}</a>
+                        </li>
+                            )
+                        }))}
+                    </ul>
+                </div>
+                )
+             }) }
           </div>
       </div>
       <hr className="my-6 border-gray-200 sm:mx-auto dark:border-gray-700 lg:my-8" />

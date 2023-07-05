@@ -40,7 +40,7 @@ const socialsContent : Array<socialsContentProps> = [
     },
 ]
 
-type sectionContent = {
+export type sectionContent = {
     title: string, 
     href: string,
 }
@@ -85,7 +85,7 @@ export const footerContent = [
                 href: "https://discord.gg/4eeurUVvTy"
             },
             {
-                title: "Terms &amp; Conditions", 
+                title: "Terms & Conditions", 
                 href: "https://discord.gg/4eeurUVvTy"
             },
         ]
