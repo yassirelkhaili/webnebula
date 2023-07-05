@@ -1,6 +1,7 @@
 "use server"
-import { FormValueProps } from "../constants/contact"
 
-export default async function printData (data : FormValueProps) {
+import { formValueProps } from "../utils/contactformhandler"
+
+export default async function printData (data : formValueProps) {
     return data
 }

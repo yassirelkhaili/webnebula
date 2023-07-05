@@ -1,5 +1,5 @@
-import { contactTitle } from "../constants/contact"
-import ContactForm from "../constants/contact"
+import { contactTitle } from "../utils/contactformhandler"
+import ContactForm from "../utils/contactformhandler"
 
 const Contact = () => {
   return (
