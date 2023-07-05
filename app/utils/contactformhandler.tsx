@@ -1,6 +1,6 @@
 "use client"
 
-import printData from "../api/actions";
+import sendEmail from "../api/actions";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
@@ -49,7 +49,7 @@ const formSchema = z.object({
     })
     
       function onSubmit(data: formValueProps) {
-        printData(data).then(result => {
+        sendEmail(data).then(result => {
           console.log(result)
         }).catch(error => {
           throw new Error(error)
