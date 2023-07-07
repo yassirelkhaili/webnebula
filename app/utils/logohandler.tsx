@@ -10,7 +10,7 @@ const Logo = () => {
     const [currentTheme, setcurrentTheme] = useState(theme);
     useEffect(() => {
         setcurrentTheme(theme === "system" ? systemTheme : theme);
-      }, [theme]);
+      }, [theme, systemTheme]);
     return (
         <div className="main-logo flex items-center text-logo-100 dark:text-logo-900 pl-5 text-xl font-roboto font-bold">
         <div className="flex flex-row gap-1">

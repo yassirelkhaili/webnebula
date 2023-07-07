@@ -22,7 +22,7 @@ export default function Header() {
   const [ishidden, setishidden] = useState(true); 
   useEffect(() => {
     setcurrentTheme(theme === "system" ? systemTheme : theme);
-  }, [theme]);
+  }, [theme, systemTheme]);
   useEffect(() => {
     const handleScroll = () => {
       const scrollY: number = window.scrollY;

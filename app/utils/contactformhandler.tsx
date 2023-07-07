@@ -1,11 +1,13 @@
 "use client"
-
+import ReCAPTCHA from "react-google-recaptcha";
 import sendEmail from "../api/actions";
+import { useState, useEffect } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea"
+import { useTheme } from "next-themes";
 import {
   Form,
   FormControl,
@@ -36,6 +38,14 @@ const formSchema = z.object({
   export type formValueProps = z.infer<typeof formSchema>;
 
   export default function ContactForm () {
+    const { theme, systemTheme } = useTheme();
+    const [forceRerender, setForceRerender] = useState(false);
+const [currentTheme, setCurrentTheme] = useState(theme);
+useEffect(() => {
+  setCurrentTheme(theme === "system" ? systemTheme : theme);
+  setForceRerender(prevState => !prevState);
+}, [theme, systemTheme]);
+
     const form = useForm<formValueProps>({
       resolver: zodResolver(formSchema),
       defaultValues: {
@@ -47,7 +57,6 @@ const formSchema = z.object({
         Message: ""
       },
     })
-    
       function onSubmit(data: formValueProps) {
         sendEmail(data).then(result => {
           console.log(result)
@@ -63,7 +72,9 @@ const formSchema = z.object({
           ),
         });
       }
-  
+const handleChange = () => {
+  console.log("captcha is ok")
+}
     return (
       <Card className="container mt-8 sm:max-w-[40rem]">
       <Form {...form}>
@@ -107,6 +118,12 @@ const formSchema = z.object({
               </FormItem>
             )}
           />
+          <ReCAPTCHA
+  sitekey="6LewC8MlAAAAAHQA7jPOK3SNbc1w2djr_LweNCas"
+  onChange={handleChange}
+  theme={currentTheme}
+  key={forceRerender}
+/>
           <Button type="submit" className={buttonVariants({ variant: "primary" })}>{buttonLabel}</Button>
           </CardContent>
         </form>

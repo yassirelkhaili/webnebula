@@ -1,5 +1,5 @@
 import Logo from "../utils/logohandler"
-import { currentDate, footerContent, footerContentProps, socialsContentProps, sectionContent, copyrightNotice } from "../constants/footer"
+import { footerContent, footerContentProps, socialsContentProps, sectionContent, copyrightNotice } from "../constants/footer"
 import socialsContent from "../constants/footer"
 
 const Footer = () => {
