@@ -18,4 +18,6 @@ const packagesContent : Array<Content> = [
     }
 ]
 
+export const buttonLabel : string = "Get Started Today!"
+
 export default packagesContent
