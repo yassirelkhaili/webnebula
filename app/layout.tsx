@@ -1,9 +1,9 @@
 import './globals.css';
 import { Metadata } from 'next';
-import Header from './header'
 import { Roboto, Inter, Lato } from 'next/font/google'
 import ContextProvider from './utils/themeprovider';
 import { Toaster } from "@/components/ui/toaster"
+import Footer from "./partials/footer"
 
 const robotolight = Roboto({subsets: ["latin"], weight: ["400"],  variable: '--font-robotolight',})
 const roboto = Roboto({subsets: ["latin"], weight: ["700"],  variable: '--font-roboto',})
@@ -43,10 +43,10 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className="scroll-smooth">
-      <body className={`${roboto.variable} ${robotolight.variable} ${inter.variable} ${lato.variable}`}>
+      <body className={`${roboto.variable} ${robotolight.variable} ${inter.variable} ${lato.variable} dark:bg-[#101522] bg-slate-50`}>
       <ContextProvider>
-      <Header/>
       {children}
+      <Footer />
       </ContextProvider>
       <Toaster />
       </body>
