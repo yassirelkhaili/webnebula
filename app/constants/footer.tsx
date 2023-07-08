@@ -93,11 +93,11 @@ export const footerContent = [
         sectionContent: [
             {
                 title: "Privacy Policy", 
-                href: "https://discord.gg/4eeurUVvTy"
+                href: "http://localhost:3000/policy"
             },
             {
                 title: "Terms & Conditions", 
-                href: "https://discord.gg/4eeurUVvTy"
+                href: "http://localhost:3000/terms"
             },
         ]
     },

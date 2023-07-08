@@ -1,6 +1,7 @@
 import Logo from "../utils/logohandler"
 import { footerContent, footerContentProps, socialsContentProps, sectionContent, copyrightNotice } from "../constants/footer"
 import socialsContent from "../constants/footer"
+import Link from "next/link"
 
 const Footer = () => {
     return (
@@ -20,7 +21,7 @@ const Footer = () => {
                         {footerItem.sectionContent.map(((liItem : sectionContent, index : number) => {
                             return (
                                 <li className={index === 0 ? "mb-4" : ""}>
-                            <a href={liItem.href} className="hover:underline">{liItem.title}</a>
+                            <Link href={liItem.href} className="hover:underline">{liItem.title}</Link>
                         </li>
                             )
                         }))}
