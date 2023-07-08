@@ -1,12 +1,12 @@
 "use client"
 import ReCAPTCHA from "react-google-recaptcha";
 import sendEmail from "../api/actions";
-import { useState, useEffect } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea"
+import { useEffect, useState } from "react";
 import { useTheme } from "next-themes";
 import {
   Form,
@@ -39,13 +39,12 @@ const formSchema = z.object({
 
   export default function ContactForm () {
     const { theme, systemTheme } = useTheme();
-    const [forceRerender, setForceRerender] = useState(false);
-const [currentTheme, setCurrentTheme] = useState(theme);
-useEffect(() => {
-  setCurrentTheme(theme === "system" ? systemTheme : theme);
-  setForceRerender(prevState => !prevState);
-}, [theme, systemTheme]);
-
+    const [currentTheme, setcurrentTheme] = useState(theme);
+    const [forceRerender, setforceRerender] = useState(false); 
+    useEffect(() => {
+      setcurrentTheme(theme === "system" ? systemTheme : theme);
+      setforceRerender(prev => !prev); 
+    }, [theme, systemTheme]);
     const form = useForm<formValueProps>({
       resolver: zodResolver(formSchema),
       defaultValues: {
@@ -119,8 +118,8 @@ const handleChange = () => {
             )}
           />
           <ReCAPTCHA
-  sitekey="6LewC8MlAAAAAHQA7jPOK3SNbc1w2djr_LweNCas"
-  onChange={handleChange}
+  className=".g-recaptcha"
+  sitekey={process.env.NEXT_PUBLIC_CAPTCHA_SITE_KEY}
   theme={currentTheme}
   key={forceRerender}
 />
