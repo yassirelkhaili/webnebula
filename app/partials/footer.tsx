@@ -38,7 +38,7 @@ const Footer = () => {
           <div className="flex mt-4 space-x-5 sm:justify-center sm:mt-0">
               {socialsContent.map((socialsItem: socialsContentProps) => {
                 return (
-              <a href="#" className="text-slate-500 hover:text-slate-900 dark:hover:text-slate-50">
+              <a href={socialsItem.href} className="text-slate-500 hover:text-slate-900 dark:hover:text-slate-50">
                 {socialsItem.svg}
                 <span className="sr-only">{socialsItem.title}</span>
               </a>
