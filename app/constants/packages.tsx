@@ -1,13 +1,21 @@
 export interface Content {
+    key: string, 
     title: string
     description: string, 
+    price: string, 
+    discountPrice: string, 
+    href: string, 
     features: React.ReactNode
 }
 export const packagesTitle : string = "Our Packages"
 const packagesContent : Array<Content> = [
     {
+        key: "basic", 
         title: "Essential Web Presence Package", 
         description: "Responsive,Custom Website Front-End.Built with React,Tailwind and more.SEO/Documentation included.",
+        price: "$149.99", 
+        discountPrice: "$199.99", 
+        href: `${process.env.NEXT_PUBLIC_APP_URL}/packages/basic`, 
         features: (
             <>
             <h3>Features:</h3>
@@ -21,8 +29,12 @@ const packagesContent : Array<Content> = [
         )
     }, 
     {
+        key: "standard",
         title: "Complete Web Solution Package", 
         description: "Complete Website Front-End+Back-End.Built with React, Laravel and more.SEO/Documentation included.",
+        price: "$249.99", 
+        discountPrice: "$299.99", 
+        href: `${process.env.NEXT_PUBLIC_APP_URL}/packages/standard`, 
         features: (
             <>
             <h3>Features:</h3>
@@ -36,8 +48,12 @@ const packagesContent : Array<Content> = [
         )
     },
     {
+        key: "premium",
         title: "Premium Web Solution Package", 
         description: "Complete Website Front-End+Back-End including a customized admin panel.SEO/Documentation included.",
+        price: "$349.99", 
+        discountPrice: "$399.99", 
+        href: `${process.env.NEXT_PUBLIC_APP_URL}/packages/premium`, 
         features: (
             <>
             <h3>Features:</h3>

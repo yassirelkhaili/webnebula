@@ -20,7 +20,7 @@ const Packages = () => {
 </div>
 <div className="container mt-8 grid md:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-2">
 {packagesContent.map((item : Content) => (
-    <Card className="flex flex-col justify-between">
+    <Card className="flex flex-col justify-between" key={item.key}>
     <div className="package-description">
     <CardHeader>
       <CardTitle>{item.title}</CardTitle>
@@ -31,8 +31,9 @@ const Packages = () => {
     </CardContent>
     </div>
     <div className="calltoaction">
-    <CardFooter className="pt-0 pb-3">
-    <Link href="#services" className={buttonVariants({ variant: "primary" })}>{buttonLabel}</Link>
+    <CardFooter className="pt-0 pb-3 flex items-center justify-between">
+    <Link href={item.href} className={buttonVariants({ variant: "primary" })}>{buttonLabel}</Link>
+    <span className="text-3xl font-bold text-dark dark:text-slate-50 font-robotolight">{item.price} <span className="text-sm text-dark dark:text-slate-50 line-through">{item.discountPrice}</span></span>
     </CardFooter>
     </div>
   </Card>
