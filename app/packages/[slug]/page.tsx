@@ -14,7 +14,6 @@ return (
 <Card className="mt-8 sm:max-w-[40rem] mx-8 font-robotolight"> 
 <CardContent className="flex flex-col gap-2 pt-[1.5rem]">
     {policyContent.content}
-    <p>{params.slug}</p>
     </CardContent> 
 <CardFooter className="flex flex-col items-start gap-2">{policyContent.footer}</CardFooter> 
 </Card> 
