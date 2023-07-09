@@ -3,6 +3,7 @@ import ReCAPTCHA from "react-google-recaptcha";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
+import { parseCookies } from 'nookies';
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea"
 import { useEffect, useState } from "react";
@@ -44,14 +45,10 @@ const formSchema = z.object({
     useEffect(() => {
       setcurrentTheme(theme === "system" ? systemTheme : theme);
       setforceRerender(prev => !prev); 
-      fetch(`${process.env.NEXT_PUBLIC_APP_URL}/api/contact`, {
-        credentials: 'include',
-      })
-        .then((response) => response.json())
-        .then((data) => {
-          setToken(data.token);
-        })
-        .catch((error) => console.error(error));
+      fetch(`${process.env.NEXT_PUBLIC_APP_URL}/api/contact`)
+        .then(() => {
+          setToken(parseCookies().csrfToken)
+        }).catch((error) => console.error(error));
     }, [theme, systemTheme]);
     const form = useForm<formValueProps>({
       resolver: zodResolver(formSchema),

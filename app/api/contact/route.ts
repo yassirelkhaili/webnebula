@@ -20,16 +20,15 @@ export async function GET(request: NextRequest) {
       return new Response('Invalid referer', { status: 403 });
     }
 
-  const response = new Response(JSON.stringify({ csrf_token }), {
-    headers: {
-      'Content-Type': 'application/json',
-      'Set-Cookie': `csrf_token=${csrf_token}; SameSite=Strict; Secure`,
-    },
-  });
-
-  return response;
+    return new Response(null, {
+      status: 200, 
+      headers: {
+        'Set-Cookie': `csrf_token=${csrf_token}; Path=/; SameSite=Strict; Secure`,
+      },
+    });
   }
 
+  
   export async function POST(request: NextRequest) {
     const Token = request.headers.get("X-CSRF-Token")
     if (Token !== csrf_token) {
