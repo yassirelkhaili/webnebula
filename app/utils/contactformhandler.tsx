@@ -64,20 +64,16 @@ const formSchema = z.object({
         Message: ""
       },
     })
-    interface extendedformValueProps extends formValueProps {
-      token: string
-    }
+
       async function onSubmit(data: formValueProps) {
-      const displayData : formValueProps = data
-      const postData: extendedformValueProps = { ...data, token: Token };
-      console.log(postData)
         try {
           const response = await fetch(`${process.env.NEXT_PUBLIC_APP_URL}/api/contact`, {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',
+              'X-CSRF-Token': Token
             },
-            body: JSON.stringify(postData),
+            body: JSON.stringify(data),
           });
     
           if (response.ok) {
@@ -93,7 +89,7 @@ const formSchema = z.object({
           title: "You submitted the following values:",
           description: (
             <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
-              <code className="text-white">{JSON.stringify(displayData, null, 2)}</code>
+              <code className="text-white">{JSON.stringify(data, null, 2)}</code>
             </pre>
           ),
         });
