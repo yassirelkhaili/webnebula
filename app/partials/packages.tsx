@@ -10,7 +10,7 @@ import packagesContent from "../constants/packages"
 import { packagesTitle } from "../constants/packages"
 import { buttonVariants } from "@/components/ui/button"
 import Link from "next/link"
-import { Content, buttonLabel } from "../constants/packages"
+import { Content, buttonLabel, customQuote } from "../constants/packages"
 
 const Packages = () => {
     return (
@@ -20,19 +20,26 @@ const Packages = () => {
 </div>
 <div className="container mt-8 grid md:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-2">
 {packagesContent.map((item : Content) => (
-    <Card>
+    <Card className="flex flex-col justify-between">
+    <div className="package-description">
     <CardHeader>
       <CardTitle>{item.title}</CardTitle>
       <CardDescription>{item.description}</CardDescription>
     </CardHeader>
-    <CardContent className="font-robotolight">
-      <p>{item.description}</p>
+    <CardContent className="font-robotolight pt-0 pb-3">
+      {item.features}
     </CardContent>
-    <CardFooter className="flex justify-center">
+    </div>
+    <div className="calltoaction">
+    <CardFooter className="pt-0 pb-3">
     <Link href="#services" className={buttonVariants({ variant: "primary" })}>{buttonLabel}</Link>
     </CardFooter>
+    </div>
   </Card>
 ))}
+</div>
+<div className="container flex items-center flex-1">
+{customQuote}
 </div>
 </section>
     )
