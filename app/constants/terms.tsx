@@ -35,7 +35,7 @@ const termsContent: Content = {
   footer: (
     <>
       <h3>Contact Us</h3>
-      <p>If you have any questions or concerns about these terms and conditions of use, please contact us at {process.env.NEXT_PUBLIC_CONTACT_EMAIL}</p>
+      <p>If you have any questions or concerns about these terms and conditions of use, please contact us at <a className="underline" href={`mailto:${process.env.NEXT_PUBLIC_CONTACT_EMAIL}`}>{process.env.NEXT_PUBLIC_CONTACT_EMAIL}</a></p>
     </>
   )
 };
