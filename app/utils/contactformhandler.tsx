@@ -1,6 +1,5 @@
 "use client"
 import ReCAPTCHA from "react-google-recaptcha";
-import sendEmail from "../api/actions";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
@@ -41,9 +40,18 @@ const formSchema = z.object({
     const { theme, systemTheme } = useTheme();
     const [currentTheme, setcurrentTheme] = useState(theme);
     const [forceRerender, setforceRerender] = useState(false); 
+    const [Token, setToken] = useState("")
     useEffect(() => {
       setcurrentTheme(theme === "system" ? systemTheme : theme);
       setforceRerender(prev => !prev); 
+      fetch(`${process.env.NEXT_PUBLIC_APP_URL}/api/contact`, {
+        credentials: 'include',
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          setToken(data.token);
+        })
+        .catch((error) => console.error(error));
     }, [theme, systemTheme]);
     const form = useForm<formValueProps>({
       resolver: zodResolver(formSchema),
@@ -56,12 +64,27 @@ const formSchema = z.object({
         Message: ""
       },
     })
-      function onSubmit(data: formValueProps) {
-        sendEmail(data).then(result => {
-          console.log(result)
-        }).catch(error => {
-          throw new Error(error)
-        })
+
+      async function onSubmit(data: formValueProps) {
+        try {
+          const response = await fetch(`${process.env.NEXT_PUBLIC_APP_URL}/api/contact`, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              'X-CSRF-Token': Token
+            },
+            body: JSON.stringify(data),
+          });
+    
+          if (response.ok) {
+            const data = await response.json();
+            console.log('Response:', data);
+          } else {
+            console.error('Request failed with status:', response.status);
+          }
+        } catch (error) {
+          console.error('Error:', error);
+        }
         toast({
           title: "You submitted the following values:",
           description: (
@@ -71,9 +94,7 @@ const formSchema = z.object({
           ),
         });
       }
-const handleChange = () => {
-  console.log("captcha is ok")
-}
+
     return (
       <Card className="container mt-8 sm:max-w-[40rem]">
       <Form {...form}>
