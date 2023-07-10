@@ -85,17 +85,17 @@ const formSchema = z.object({
             toast({
               title: "You submitted the following values:",
               description: (
-                <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
-                  <code className="text-white">{JSON.stringify(data, null, 2)}</code>
+                <pre className="mt-2 w-[340px] rounded-md dark:bg-slate-950 bg-slate-50 p-4">
+                  <code className="dark:text-white text-dark">{JSON.stringify(data, null, 2)}</code>
                 </pre>
               ),
             });
           } else {
             toast({
-              title: "Form submission failed. Try again later or contact us directly via:",
+              title: "Form submission failed. Refresh the page and try again or contact us directly via:",
               description: (
-                <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
-                  <a className="underline text-slate-50" href={`mailto:${process.env.NEXT_PUBLIC_CONTACT_EMAIL}`}>{process.env.NEXT_PUBLIC_CONTACT_EMAIL}</a>
+                <pre className="mt-2 w-[340px] rounded-md dark:bg-slate-950 bg-slate-50 p-4">
+                  <a className="underline dark:text-white text-dark" href={`mailto:${process.env.NEXT_PUBLIC_CONTACT_EMAIL}`}>{process.env.NEXT_PUBLIC_CONTACT_EMAIL}</a>
                 </pre>
               ),
             });
