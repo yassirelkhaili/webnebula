@@ -3,7 +3,6 @@ import ReCAPTCHA from "react-google-recaptcha";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
-import { parseCookies } from 'nookies';
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea"
 import { useEffect, useState } from "react";
@@ -41,15 +40,25 @@ const formSchema = z.object({
     const { theme, systemTheme } = useTheme();
     const [currentTheme, setcurrentTheme] = useState(theme);
     const [forceRerender, setforceRerender] = useState(false); 
-    const [Token, setToken] = useState("")
     useEffect(() => {
       setcurrentTheme(theme === "system" ? systemTheme : theme);
       setforceRerender(prev => !prev); 
-      fetch(`${process.env.NEXT_PUBLIC_APP_URL}/api/contact`)
-        .then(() => {
-          setToken(parseCookies().csrfToken)
-        }).catch((error) => console.error(error));
     }, [theme, systemTheme]);
+    useEffect(() => {
+      const fetchToken = async() => {
+        try {
+          const response = await fetch(`${process.env.NEXT_PUBLIC_APP_URL}/api/contact`, {method: "GET"})
+          if(!response.ok) {
+            const responseMessage = await response.json()
+            console.error(responseMessage.message)
+          }
+        } catch (error) {
+          console.error('Error:', error);
+        }
+      }
+      fetchToken()
+    }, [])
+    
     const form = useForm<formValueProps>({
       resolver: zodResolver(formSchema),
       defaultValues: {
@@ -68,28 +77,34 @@ const formSchema = z.object({
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',
-              'X-CSRF-Token': Token
             },
             body: JSON.stringify(data),
           });
     
           if (response.ok) {
-            const data = await response.json();
-            console.log('Response:', data);
+            toast({
+              title: "You submitted the following values:",
+              description: (
+                <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
+                  <code className="text-white">{JSON.stringify(data, null, 2)}</code>
+                </pre>
+              ),
+            });
           } else {
-            console.error('Request failed with status:', response.status);
+            toast({
+              title: "Form submission failed. Try again later or contact us directly via:",
+              description: (
+                <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
+                  <a className="underline text-slate-50" href={`mailto:${process.env.NEXT_PUBLIC_CONTACT_EMAIL}`}>{process.env.NEXT_PUBLIC_CONTACT_EMAIL}</a>
+                </pre>
+              ),
+            });
+            const responseMessage = await response.json()
+            throw new Error(responseMessage.message)
           }
         } catch (error) {
           console.error('Error:', error);
         }
-        toast({
-          title: "You submitted the following values:",
-          description: (
-            <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
-              <code className="text-white">{JSON.stringify(data, null, 2)}</code>
-            </pre>
-          ),
-        });
       }
 
     return (
