@@ -1,4 +1,5 @@
 "use server"
+
 import { NextRequest } from 'next/server';
 import { randomBytes } from 'crypto';
 
@@ -11,29 +12,29 @@ export async function GET(request: NextRequest) {
 
   if(origin) {
     if (!allowedOrigins.includes(origin)) {
-      return new Response('Invalid origin', { status: 403 });
+      return new Response(JSON.stringify({error: true, message: "Invalid Origin"}), { status: 403 });
     }
   }
 
   const referer = request.headers.get('Referer');
     if (!referer || !allowedOrigins.some((allowedOrigin) => referer.startsWith(allowedOrigin))) {
-      return new Response('Invalid referer', { status: 403 });
+      return new Response(JSON.stringify({error: true, message: "Invalid referer"}), { status: 403 });
     }
-
-    return new Response(null, {
+    return new Response(JSON.stringify(csrf_token), {
       status: 200, 
       headers: {
-        'Set-Cookie': `csrf_token=${csrf_token}; Path=/; SameSite=Strict; Secure`,
+        'Set-Cookie': `csrf=${csrf_token}; Path=/; HttpOnly; SameSite=Strict; Secure`,
       },
     });
   }
 
   
   export async function POST(request: NextRequest) {
-    const Token = request.headers.get("X-CSRF-Token")
-    if (Token !== csrf_token) {
-      return new Response('Invalid CSRF token', { status: 403 });
+    const Token = request.cookies.get("csrf")
+    if(Token?.value !== csrf_token) {
+      return new Response(JSON.stringify({error: true, message: "Tokens dont match"}), {status: 401})
     }
+    return new Response(JSON.stringify({error: false, message: "Tokens match"}), {status: 200})
   }
 
 
