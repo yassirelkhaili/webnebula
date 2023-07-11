@@ -1,4 +1,4 @@
-const contactemailTemplate : string = `
+export const contactemailTemplate : string = `
 <html>
   <head>
     <style>
