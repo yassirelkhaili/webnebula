@@ -8,7 +8,8 @@ import { createTransport } from 'nodemailer';
 let csrf_token : string
 
 export async function GET(request: NextRequest) {
-  csrf_token = randomBytes(32).toString('hex')
+  const token = randomBytes(32).toString('hex')
+  csrf_token = token
     const origin = request.headers.get('Origin');
   const allowedOrigins = [`${process.env.NEXT_PUBLIC_APP_URL}`, `${process.env.NEXT_PUBLIC_APP_URL_WWW}`]; 
 
@@ -59,14 +60,11 @@ export async function GET(request: NextRequest) {
       to: `${data.Email}`, 
       subject: "Hello from Webnebula", 
       html: contactemailTemplate
-    }).then((info) => {
-      return new Response(JSON.stringify({error: false, message: "email has been sent", codename: info}), {status: 200})
-    }).catch((error) => {
-      return new Response(JSON.stringify({error: true, message: "email was not sent", codename: error}), {status: 400})
     })
   }
   if (success) {
   sendMail()
+  return new Response(JSON.stringify({error: false, message: "email has been sent"}), {status: 200})
   } else {
     return new Response(JSON.stringify({error: true, message: "reCAPTCHA verification failed"}), {status: 401})
   }
