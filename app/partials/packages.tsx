@@ -31,8 +31,8 @@ const Packages = () => {
     </CardContent>
     </div>
     <div className="calltoaction">
-    <CardFooter className="pt-0 pb-3 flex items-center justify-between">
-    <Link href={item.href} className={buttonVariants({ variant: "primary" })}>{buttonLabel}</Link>
+    <CardFooter className="pt-0 pb-3 flex items-center justify-between gap-2">
+    <Link href={item.href} className={`${buttonVariants({ variant: "primary"})} h-10 sm:h-auto tablet:h-10 text-center`}>{buttonLabel}</Link>
     <span className="text-3xl font-bold text-dark dark:text-slate-50 font-robotolight">{item.price} <span className="text-sm text-dark dark:text-slate-50 line-through">{item.discountPrice}</span></span>
     </CardFooter>
     </div>

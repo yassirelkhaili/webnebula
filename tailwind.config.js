@@ -16,6 +16,9 @@ module.exports = {
       },
     },
     extend: {
+      screens: {
+        "tablet": "1230px", 
+      },
       colors: {
         'logo': {
           '100': '#1959EE', 

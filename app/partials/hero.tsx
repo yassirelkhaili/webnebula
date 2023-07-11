@@ -17,7 +17,7 @@ return (
         <h2>{heroContent.subtitle}</h2>
         </div>
         <div className="pt-9">
-        <Link href="#Services" scroll={false} className={buttonVariants({ variant: "primary" })}>{heroContent.buttonLabel}</Link>
+        <Link href="#Services" scroll={false} className={`${buttonVariants({ variant: "primary", size: "lg"})}`}>{heroContent.buttonLabel}</Link>
         </div>
     </div>
 )
