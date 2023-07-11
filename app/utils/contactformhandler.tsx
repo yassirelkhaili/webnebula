@@ -40,12 +40,14 @@ const formSchema = z.object({
     const { theme, systemTheme } = useTheme();
     const [currentTheme, setcurrentTheme] = useState(theme);
     const [forceRerender, setforceRerender] = useState(false); 
+    const [recaptchaToken, setrecaptchaToken] = useState("")
     useEffect(() => {
       setcurrentTheme(theme === "system" ? systemTheme : theme);
       setforceRerender(prev => !prev); 
     }, [theme, systemTheme]);
     useEffect(() => {
       const fetchToken = async() => {
+        console.log("token changed")
         try {
           const response = await fetch(`${process.env.NEXT_PUBLIC_APP_URL}/api/contact`, {method: "GET"})
           if(!response.ok) {
@@ -58,7 +60,7 @@ const formSchema = z.object({
       }
       fetchToken()
     }, [])
-    
+    const { setError, formState: { errors } } = useForm();
     const form = useForm<formValueProps>({
       resolver: zodResolver(formSchema),
       defaultValues: {
@@ -70,43 +72,51 @@ const formSchema = z.object({
         Message: ""
       },
     })
-
-      async function onSubmit(data: formValueProps) {
-        try {
-          const response = await fetch(`${process.env.NEXT_PUBLIC_APP_URL}/api/contact`, {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(data),
-          });
-    
-          if (response.ok) {
-            toast({
-              title: "You submitted the following values:",
-              description: (
-                <pre className="mt-2 w-[340px] rounded-md dark:bg-slate-950 bg-slate-50 p-4">
-                  <code className="dark:text-white text-dark">{JSON.stringify(data, null, 2)}</code>
-                </pre>
-              ),
-            });
-          } else {
-            toast({
-              title: "Form submission failed. Refresh the page and try again or contact us directly via:",
-              description: (
-                <pre className="mt-2 w-[340px] rounded-md dark:bg-slate-950 bg-slate-50 p-4">
-                  <a className="underline dark:text-white text-dark" href={`mailto:${process.env.NEXT_PUBLIC_CONTACT_EMAIL}`}>{process.env.NEXT_PUBLIC_CONTACT_EMAIL}</a>
-                </pre>
-              ),
-            });
-            const responseMessage = await response.json()
-            throw new Error(responseMessage.message)
-          }
-        } catch (error) {
-          console.error('Error:', error);
-        }
+      
+      const handleRecaptchaChange = (token : string) => {
+        setrecaptchaToken(token)
       }
 
+      async function onSubmit(data: formValueProps) {
+        if(recaptchaToken) {
+          try {
+            const response = await fetch(`${process.env.NEXT_PUBLIC_APP_URL}/api/contact`, {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify({...data, recaptchaToken: recaptchaToken}),
+            });
+            const responseMessage = await response.json()
+            if (response.ok) {
+              toast({
+                title: "You submitted the following values:",
+                description: (
+                  <pre className="mt-2 w-[340px] rounded-md dark:bg-slate-950 bg-slate-50 p-4">
+                    <code className="dark:text-white text-dark">{JSON.stringify(data, null, 2)}</code>
+                  </pre>
+                ),
+              });
+              console.log(responseMessage.message)
+            } else {
+              toast({
+                title: "Form submission failed. Refresh the page and try again or contact us directly via:",
+                description: (
+                  <pre className="mt-2 w-[340px] rounded-md dark:bg-slate-950 bg-slate-50 p-4">
+                    <a className="underline dark:text-white text-dark" href={`mailto:${process.env.NEXT_PUBLIC_CONTACT_EMAIL}`}>{process.env.NEXT_PUBLIC_CONTACT_EMAIL}</a>
+                  </pre>
+                ),
+              });
+              throw new Error(responseMessage.message)
+            }
+          } catch (error) {
+            console.error('Error:', error);
+          }
+        } else {
+          setError('recaptcha', { type: 'manual', message: 'Please complete the reCAPTCHA' });
+        }
+      }
+      const errorMessage = errors.recaptcha?.message?.toString() ?? null;
     return (
       <Card className="container mt-8 sm:max-w-[40rem]">
       <Form {...form}>
@@ -150,12 +160,16 @@ const formSchema = z.object({
               </FormItem>
             )}
           />
-          <ReCAPTCHA
+         <div className="captcha-container">
+         <ReCAPTCHA
   className=".g-recaptcha"
   sitekey={process.env.NEXT_PUBLIC_CAPTCHA_SITE_KEY}
   theme={currentTheme}
   key={forceRerender}
+  onChange={handleRecaptchaChange}
 />
+{errors.recaptcha && <p className="text-sm font-medium text-red-500 dark:text-red-900 mt-[8px]">{errorMessage}</p>}
+         </div>
           <Button type="submit" className={buttonVariants({ variant: "primary" })}>{buttonLabel}</Button>
           </CardContent>
         </form>

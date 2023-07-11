@@ -93,6 +93,7 @@
     "zod": "^3.21.4"
   },
   "devDependencies": {
+    "@types/nodemailer": "^6.4.8",
     "@types/react-google-recaptcha": "^2.1.5"
   }
 }
