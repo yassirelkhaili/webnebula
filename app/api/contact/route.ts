@@ -2,6 +2,7 @@
 
 import { NextRequest } from 'next/server';
 import { randomBytes } from 'crypto';
+import axios from 'axios';
 
 let csrf_token : string
 
@@ -34,7 +35,22 @@ export async function GET(request: NextRequest) {
     if(Token?.value !== csrf_token) {
       return new Response(JSON.stringify({error: true, message: "Tokens dont match"}), {status: 401})
     }
-    return new Response(JSON.stringify({error: false, message: "Tokens match"}), {status: 200})
+    const data = await request.json()
+    const recaptchaToken = data.recaptchaToken; 
+  const response = await axios.post('https://www.google.com/recaptcha/api/siteverify', null, {
+    params: {
+      secret: process.env.RECAPTCHA_SECRET_KEY,
+      response: recaptchaToken,
+    },
+  });
+  const { success } = response.data;
+
+  if (success) {
+    
+    return new Response(JSON.stringify({error: false, message: "reCAPTCHA verification successful"}), {status: 200})
+  } else {
+    return new Response(JSON.stringify({error: true, message: "reCAPTCHA verification failed"}), {status: 401})
   }
+}
 
 
