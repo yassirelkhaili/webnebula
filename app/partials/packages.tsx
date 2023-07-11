@@ -18,7 +18,7 @@ const Packages = () => {
 <div>
 <h1 id="Services" className="text-3xl font-lato dark:text-slate-50 text-dark p-3 border-b-[3px] border-b-logo-100 dark:border-b-logo-900 w-fit font-bold">{packagesTitle}</h1>
 </div>
-<div className="container mt-8 grid md:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-2">
+<div className="container mt-8 grid phone:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-2">
 {packagesContent.map((item : Content) => (
     <Card className="flex flex-col justify-between" key={item.key}>
     <div className="package-description">

@@ -17,6 +17,7 @@ module.exports = {
     },
     extend: {
       screens: {
+        "phone" : "878px", 
         "tablet": "1230px", 
       },
       colors: {
