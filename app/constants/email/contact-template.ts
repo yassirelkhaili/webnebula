@@ -45,7 +45,7 @@ const generateEmail = (data : formValueProps) : string => {
               font-family: 'Lato', sans-serif;
               font-size: 30px;
               height: fit-content; 
-              padding-bottom: 0.8rem; 
+              padding-bottom: 0.9rem; 
           }
           .text {
             text-align: center;
