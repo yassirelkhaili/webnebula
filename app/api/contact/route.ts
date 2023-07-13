@@ -52,14 +52,14 @@ export async function GET(request: NextRequest) {
       port: 465,
       secure: true,
       auth: {
-        user: 'webnebula0@gmail.com',
-        pass: process.env.GOOGLE_SMTP_EMAIL
+        user: 'elkhailiyassir@gmail.com',
+        pass: process.env.GOOGLE_SMTP_EMAIL_TEST
       }
     });
     await transporter.sendMail({
-      from: "webnebula0@gmail.com", 
+      from: "elkhailiyassir@gmail.com", 
       to: `${data.Email}`, 
-      subject: "Hello from Webnebula", 
+      subject: "Thank you for contacting us!", 
       html: generateEmail(data)
     })
   }
