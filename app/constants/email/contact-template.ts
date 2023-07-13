@@ -1,6 +1,34 @@
 import { formValueProps } from "@/app/utils/contactformhandler";
 
 const generateEmail = (data : formValueProps) : string => {
+  const emailTemplate : string = `
+  <html>
+      <head>
+          <style>
+              .hello {
+                color: red; 
+              }
+              .b-panel {
+                background-color: black; 
+              }
+          </style>
+      </head>
+      <body>
+      <div class="container">
+        <div class="title">
+          <span class="text">WebNebula - Transforming Ideas into Reality</span>
+        </div>
+          <div class="main">
+            <p>Greetings ${data.Name}e</p>
+            <p>Here is the message</p>
+          </div>
+      </div>
+    </body>
+  </html>`
+  return emailTemplate
+}
+
+
 const contactemailTemplate : string = `
 <html>
   <head>
@@ -56,14 +84,12 @@ const contactemailTemplate : string = `
         <span class="text">WebNebula - Transforming Ideas into Reality</span>
       </div>
         <div class="main">
-          <p>Greetings ${data.Name} from ${data.Organisation}</p>
+          <p>Greetings Name</p>
           <p>Here is the message</p>
         </div>
     </div>
   </body>
 </html>
 `;
-  return contactemailTemplate
-}
 
 export default generateEmail
