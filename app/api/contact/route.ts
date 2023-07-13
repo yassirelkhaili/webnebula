@@ -1,5 +1,6 @@
 "use server"
-import { contactemailTemplate } from '@/app/constants/email/contact-template';
+
+import generateEmail from '@/app/constants/email/contact-template';
 import { NextRequest } from 'next/server';
 import { randomBytes } from 'crypto';
 import axios from 'axios';
@@ -59,7 +60,7 @@ export async function GET(request: NextRequest) {
       from: "webnebula0@gmail.com", 
       to: `${data.Email}`, 
       subject: "Hello from Webnebula", 
-      html: contactemailTemplate
+      html: generateEmail(data)
     })
   }
   if (success) {
