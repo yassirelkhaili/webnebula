@@ -16,7 +16,7 @@ const generateEmail = (name : string, theme : string) : string => {
                 color: red; 
               }
               .main-container {
-                height: 100vh; 
+                min-height: 100vh; 
                 background-color: ${theme === "dark" ? "#101522" : "#F8FAFC"};
                 display:flex; 
                 justify-content: center; 
