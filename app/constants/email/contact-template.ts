@@ -1,6 +1,4 @@
-import { formValueProps } from "@/app/utils/contactformhandler";
-
-const generateEmail = (data : formValueProps) : string => {
+const generateEmail = (name : string, theme : string) : string => {
   const emailTemplate : string = `
   <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -19,15 +17,15 @@ const generateEmail = (data : formValueProps) : string => {
               }
               .main-container {
                 height: 100vh; 
-                background-color: #101522;
+                background-color: ${theme === "dark" ? "#101522" : "#F8FAFC"};
                 display:flex; 
                 justify-content: center; 
                 align-items: center; 
               }
               .main {
-                color: #F8FAFC;
-                background-color: #020617;
-                border: 1px solid #1E293B;
+                color: ${theme === "dark" ? "#F8FAFC" : "#222222"};
+                background-color: ${theme === "dark" ? "#020617" : "#F8FAFC"};
+                border: 1px solid ${theme === "dark" ? "#1E293B" : "#B9B9BC"};
                 padding: 1.5rem;
                 border-radius: 0.75rem;
                 font-family: 'Roboto', sans-serif;
@@ -40,7 +38,7 @@ const generateEmail = (data : formValueProps) : string => {
             }
             .title {
               display: flex; 
-              color: #F8FAFC;
+              color: ${theme === "dark" ? "#F8FAFC" : "#222222"};
               height: 33%;
               font-family: 'Lato', sans-serif;
               font-size: 30px;
@@ -52,7 +50,7 @@ const generateEmail = (data : formValueProps) : string => {
             width: 100%; 
             padding: 0.5rem;
             padding-top: 0px; 
-            border-bottom: 4px solid #2D53BD;
+            border-bottom: 4px solid ${theme === "dark" ? "#2D53BD" : "#1959EE"};
             height: fit-content;
           }
           .greeting {
@@ -81,7 +79,7 @@ const generateEmail = (data : formValueProps) : string => {
           <span class="text">WebNebula - Transforming Ideas into Reality</span>
         </div>
           <div class="main">
-            <p class="greeting">Dear ${data.Name}</p>
+            <p class="greeting">Dear ${name}</p>
             <p class="message">Thank you for reaching out to us through our website's contact form. We appreciate you taking the time to get in touch with us, and we value your interest in our products/services.</p>
             <p class="message">Our team has received your message, and we are currently reviewing the details you provided. We strive to respond to all inquiries promptly, and you can expect to hear back from us within 24 hours.</p>
             <p class="message">While we work on addressing your query, please feel free to explore our website further. We have a wealth of information about our offerings and frequently asked questions that may already answer some of your queries.</p>

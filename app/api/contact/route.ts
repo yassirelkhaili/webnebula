@@ -60,7 +60,7 @@ export async function GET(request: NextRequest) {
       from: "elkhailiyassir@gmail.com", 
       to: `${data.Email}`, 
       subject: "Thank you for contacting us!", 
-      html: generateEmail(data)
+      html: generateEmail(data.Name, data.theme)
     })
   }
   if (success) {
