@@ -46,25 +46,27 @@ export async function GET(request: NextRequest) {
     },
   });
   const { success } = response.data;
-  const sendMail = async() => {
+  const sendMail = async( user : boolean ) => {
     const transporter = createTransport({
       host: "smtp.gmail.com",
       port: 465,
       secure: true,
       auth: {
-        user: 'elkhailiyassir@gmail.com',
-        pass: process.env.GOOGLE_SMTP_EMAIL_TEST
+        user: user ? process.env.NEXT_PUBLIC_CONTACT_EMAIL : process.env.NEXT_PUBLIC_CONTACT_EMAIL_OWNER,
+        pass: user ? process.env.GOOGLE_SMTP_EMAIL : process.env.GOOGLE_SMTP_EMAIL_OWNER
       }
     });
     await transporter.sendMail({
-      from: "elkhailiyassir@gmail.com", 
-      to: `${data.Email}`, 
-      subject: "Thank you for contacting us!", 
-      html: generateEmail(data.Name, data.theme)
+      from: process.env.NEXT_PUBLIC_CONTACT_EMAIL,
+      to: user ? `${data.Email}` : process.env.NEXT_PUBLIC_CONTACT_EMAIL, 
+      subject: user ? "Thank you for contacting us!" : "New Contact message!", 
+      html: generateEmail(data, data.theme, user)
     })
   }
+ 
   if (success) {
-  sendMail()
+  sendMail(true)
+  sendMail(false)
   return new Response(JSON.stringify({error: false, message: "email has been sent"}), {status: 200})
   } else {
     return new Response(JSON.stringify({error: true, message: "reCAPTCHA verification failed"}), {status: 401})
