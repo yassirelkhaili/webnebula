@@ -15,11 +15,11 @@ import { navitem } from "./constants/navitems";
 import OutsideClickHandler from "./utils/outsideclickhandler"
 
 export default function Header() {
-  const { setTheme, theme, systemTheme } = useTheme();
   const [isScrolled, setIsScrolled] = useState(false);
   const [prevscrollY, setprevscrollY] = useState(0);
-  const [currentTheme, setcurrentTheme] = useState(theme);
   const [ishidden, setishidden] = useState(true); 
+  const { setTheme, theme, systemTheme } = useTheme();
+  const [currentTheme, setcurrentTheme] = useState(theme);
   useEffect(() => {
     setcurrentTheme(theme === "system" ? systemTheme : theme);
   }, [theme, systemTheme]);

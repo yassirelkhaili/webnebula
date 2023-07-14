@@ -85,7 +85,7 @@ const formSchema = z.object({
               headers: {
                 'Content-Type': 'application/json',
               },
-              body: JSON.stringify({...data, recaptchaToken: recaptchaToken}),
+              body: JSON.stringify({...data, recaptchaToken: recaptchaToken, theme: currentTheme}),
             });
             const responseMessage = await response.json()
             if (response.ok) {
