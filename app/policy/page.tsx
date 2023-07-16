@@ -1,10 +1,9 @@
-import Policy from "../partials/policy"
+import Policy from "../partials/policy";
 
-export default function Home() { 
-    return (
-      <main>
-        <Policy />
-      </main>
-    )
-  }
-  
+export default function Home() {
+  return (
+    <main>
+      <Policy />
+    </main>
+  );
+}

@@ -1,10 +1,9 @@
-import Terms from "../partials/terms"
+import Terms from "../partials/terms";
 
-export default function Home() { 
-    return (
-      <main>
-        <Terms />
-      </main>
-    )
-  }
-  
+export default function Home() {
+  return (
+    <main>
+      <Terms />
+    </main>
+  );
+}

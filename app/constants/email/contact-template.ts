@@ -1,7 +1,11 @@
-import { formValueProps } from "@/app/utils/contactformhandler"
+import { formValueProps } from "@/app/utils/contactformhandler";
 
-const generateEmail = (data : formValueProps, theme : string, user: boolean) : string => {
-  const emailTemplateUser : string = `
+const generateEmail = (
+  data: formValueProps,
+  theme: string,
+  user: boolean
+): string => {
+  const emailTemplateUser: string = `
   <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -52,7 +56,9 @@ const generateEmail = (data : formValueProps, theme : string, user: boolean) : s
             width: 100%; 
             padding: 0.5rem;
             padding-top: 0px; 
-            border-bottom: 4px solid ${theme === "dark" ? "#2D53BD" : "#1959EE"};
+            border-bottom: 4px solid ${
+              theme === "dark" ? "#2D53BD" : "#1959EE"
+            };
             height: fit-content;
           }
           .greeting {
@@ -95,8 +101,8 @@ const generateEmail = (data : formValueProps, theme : string, user: boolean) : s
       </div>
     </div>
   </body>
-  </html>`
-  const emailTemplateOwner : string = `
+  </html>`;
+  const emailTemplateOwner: string = `
   <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -147,7 +153,9 @@ const generateEmail = (data : formValueProps, theme : string, user: boolean) : s
             width: 100%; 
             padding: 0.5rem;
             padding-top: 0px; 
-            border-bottom: 4px solid ${theme === "dark" ? "#2D53BD" : "#1959EE"};
+            border-bottom: 4px solid ${
+              theme === "dark" ? "#2D53BD" : "#1959EE"
+            };
             height: fit-content;
           }
           .greeting {
@@ -190,13 +198,13 @@ const generateEmail = (data : formValueProps, theme : string, user: boolean) : s
       </div>
     </div>
   </body>
-  </html>`
+  </html>`;
 
- if(user) {
-  return emailTemplateUser
- } else {
-  return emailTemplateOwner
- }
-}
+  if (user) {
+    return emailTemplateUser;
+  } else {
+    return emailTemplateOwner;
+  }
+};
 
-export default generateEmail
+export default generateEmail;

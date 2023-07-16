@@ -1,9 +1,18 @@
-"use client"
+"use client";
 
 import { useTheme } from "next-themes";
 import Image from "next/image";
-import { useEffect, useState, useMemo} from "react"
-import { inertiaSvgDark, inertiaSvgLight, nodeSvg, livewireSvg, expressSvgDark, expressSvgLight, nextSvgStringDark, nextSvgStringLight } from "../constants/skills";
+import { useEffect, useState, useMemo } from "react";
+import {
+  inertiaSvgDark,
+  inertiaSvgLight,
+  nodeSvg,
+  livewireSvg,
+  expressSvgDark,
+  expressSvgLight,
+  nextSvgStringDark,
+  nextSvgStringLight,
+} from "../constants/skills";
 
 export function InertiaSvgHandler() {
   const { theme, systemTheme } = useTheme();
@@ -17,8 +26,8 @@ export function InertiaSvgHandler() {
     }
   }, [systemTheme, theme]);
 
-  const svgSrc  : string = useMemo(() => {
-    if (currentTheme === "light") { 
+  const svgSrc: string = useMemo(() => {
+    if (currentTheme === "light") {
       return encodeURIComponent(inertiaSvgDark);
     } else {
       return encodeURIComponent(inertiaSvgLight);
@@ -35,10 +44,9 @@ export function InertiaSvgHandler() {
   );
 }
 
-
-export function NodeSvgHandler () {
-  const svgSrc  : string = useMemo(() => {
-      return encodeURIComponent(nodeSvg);
+export function NodeSvgHandler() {
+  const svgSrc: string = useMemo(() => {
+    return encodeURIComponent(nodeSvg);
   }, [nodeSvg]);
   return (
     <Image
@@ -50,9 +58,9 @@ export function NodeSvgHandler () {
   );
 }
 
-export function LivewireSvgHandler () {
-  const svgSrc  : string = useMemo(() => {
-      return encodeURIComponent(livewireSvg);
+export function LivewireSvgHandler() {
+  const svgSrc: string = useMemo(() => {
+    return encodeURIComponent(livewireSvg);
   }, [livewireSvg]);
   return (
     <Image
@@ -64,7 +72,7 @@ export function LivewireSvgHandler () {
   );
 }
 
-export function ExpressSvgHandler () {
+export function ExpressSvgHandler() {
   const { theme, systemTheme } = useTheme();
   const [currentTheme, setCurrentTheme] = useState<string>(
     theme === "dark" ? "light" : "dark"
@@ -76,8 +84,8 @@ export function ExpressSvgHandler () {
     }
   }, [systemTheme, theme]);
 
-  const svgSrc  : string = useMemo(() => {
-    if (currentTheme === "light") { 
+  const svgSrc: string = useMemo(() => {
+    if (currentTheme === "light") {
       return encodeURIComponent(expressSvgDark);
     } else {
       return encodeURIComponent(expressSvgLight);
@@ -92,9 +100,9 @@ export function ExpressSvgHandler () {
       alt="expressjs-logo"
     />
   );
-};
+}
 
-const NextsvgHandler = () => {
+export default function NextsvgHandler () {
   const { theme, systemTheme } = useTheme();
   const [currentTheme, setCurrentTheme] = useState<string>(
     theme === "dark" ? "light" : "dark"
@@ -106,8 +114,8 @@ const NextsvgHandler = () => {
     }
   }, [systemTheme, theme]);
 
-  const svgSrc  : string = useMemo(() => {
-    if (currentTheme === "light") { 
+  const svgSrc: string = useMemo(() => {
+    if (currentTheme === "light") {
       return encodeURIComponent(nextSvgStringDark);
     } else {
       return encodeURIComponent(nextSvgStringLight);
@@ -123,5 +131,3 @@ const NextsvgHandler = () => {
     />
   );
 };
-
-export default NextsvgHandler;

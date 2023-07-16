@@ -1,15 +1,15 @@
-import Hero from "./partials/hero"
-import About from "./partials/about"
-import Packages from "./partials/packages"
-import Skills from "./partials/skills"
-import Process from "./partials/process"
-import Contact from "./partials/contact"
-import Header from "./header"
+import Hero from "./partials/hero";
+import About from "./partials/about";
+import Packages from "./partials/packages";
+import Skills from "./partials/skills";
+import Process from "./partials/process";
+import Contact from "./partials/contact";
+import Header from "./header";
 
-export default function Home() { 
+export default function Home() {
   return (
     <main>
-      <Header/>
+      <Header />
       <Hero />
       <About />
       <Packages />
@@ -17,5 +17,5 @@ export default function Home() {
       <Process />
       <Contact />
     </main>
-  )
+  );
 }

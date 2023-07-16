@@ -1,33 +1,33 @@
 export type navitem = {
-  name: string, 
-  key: number
-}
+  name: string;
+  key: number;
+};
 
 const navitems: Array<navitem> = [
   {
-    name : "Home", 
-    key : 1
-  }, 
+    name: "Home",
+    key: 1,
+  },
   {
-    name : "About", 
-    key : 2
-  }, 
+    name: "About",
+    key: 2,
+  },
   {
-    name : "Services", 
-    key : 3
-  }, 
+    name: "Services",
+    key: 3,
+  },
   {
-    name : "Skills", 
-    key : 4
-  }, 
+    name: "Skills",
+    key: 4,
+  },
   {
-    name : "Process", 
-    key : 5
-  }, 
+    name: "Process",
+    key: 5,
+  },
   {
-    name : "Contact", 
-    key : 6
-  }
+    name: "Contact",
+    key: 6,
+  },
 ];
 
-export default navitems
+export default navitems;
