@@ -32,12 +32,12 @@ const formSchema = z.object({
     .string()
     .nonempty("Please enter your name.")
     .min(3, { message: "Name must be at least 3 characters." })
-    .max(30, { message: "Name must not be longer than 30 characters." }),
-  Email: z.string().email("Please enter a valid email address."),
+    .max(70, { message: "Name must not exceed 70 characters." }),
+  Email: z.string().email("Please enter a valid email address.").max(320, { message: "Email must not exceed 320 characters." }),
   Phone: z.string().regex(/^\d{10}$/i, "Please enter a valid phone number."),
-  Organisation: z.string().nonempty("Please enter your organization."),
-  Subject: z.string().nonempty("Please enter a subject."),
-  Message: z.string().nonempty("Please enter a message."),
+  Organisation: z.string().nonempty("Please enter your organization.").max(160, { message: "Company name must not exceed 160 characters." }),
+  Subject: z.string().nonempty("Please enter a subject.").max(255, { message: "Subject must not exceed 255 characters." }),
+  Message: z.string().nonempty("Please enter a message.").max(2000, { message: "Message must not exceed 2000 characters." }),
 });
 
 export type formValueProps = z.infer<typeof formSchema>;

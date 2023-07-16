@@ -5,6 +5,7 @@ import { NextRequest } from "next/server";
 import { randomBytes } from "crypto";
 import axios from "axios";
 import { createTransport } from "nodemailer";
+import * as z from "zod";
 
 let csrf_token: string;
 
@@ -86,7 +87,9 @@ export async function POST(request: NextRequest) {
       html: generateEmail(data, data.theme, user),
     });
   };
-
+  const validationSchema = z.object({
+    
+  })
   if (success) {
     sendMail(true);
     sendMail(false);
