@@ -134,6 +134,7 @@ export default function ContactForm() {
           });
           console.log(responseMessage.message);
         } else {
+          console.error(responseMessage.errors && responseMessage.errors)
           toast({
             title:
               "Form submission failed. Refresh the page and try again or contact us directly via:",

@@ -54,6 +54,54 @@ export async function POST(request: NextRequest) {
     );
   }
   const data = await request.json();
+  const { Name, Phone, ...newdata } = data;
+  const validationSchema = z.object({
+    Name: z
+      .string()
+      .nonempty("Please enter your name.")
+      .min(3, { message: "Name must be at least 3 characters." })
+      .max(70, { message: "Name must not exceed 70 characters." }),
+    Email: z
+      .string()
+      .email("Please enter a valid email address.")
+      .max(255, { message: "Email must not exceed 255 characters." }),
+    Phone: z.string().regex(/^\d{10}$/i, "Please enter a valid phone number."),
+    Organisation: z
+      .string()
+      .nonempty("Please enter your organization.")
+      .max(160, { message: "Company name must not exceed 160 characters." }),
+    Subject: z
+      .string()
+      .nonempty("Please enter a subject.")
+      .max(255, { message: "Subject must not exceed 255 characters." }),
+    Message: z
+      .string()
+      .nonempty("Please enter a message.")
+      .max(2000, { message: "Message must not exceed 2000 characters." }),
+    recaptchaToken: z.string(),
+    theme: z.string(),
+  });
+  try {
+    const validatedData = validationSchema.parse(newdata);
+  } catch (err) {
+    if (err instanceof z.ZodError) {
+      const errors = err.errors.map((err) => {
+        return {
+          code: err.code,
+          path: err.path,
+          message: err.message,
+        };
+      });
+      return new Response(
+        JSON.stringify({
+          error: true,
+          message: "data validation issue",
+          errors: errors,
+        }),
+        { status: 401 }
+      );
+    }
+  }
   const recaptchaToken = data.recaptchaToken;
   const response = await axios.post(
     "https://www.google.com/recaptcha/api/siteverify",
@@ -87,9 +135,6 @@ export async function POST(request: NextRequest) {
       html: generateEmail(data, data.theme, user),
     });
   };
-  const validationSchema = z.object({
-    
-  })
   if (success) {
     sendMail(true);
     sendMail(false);
