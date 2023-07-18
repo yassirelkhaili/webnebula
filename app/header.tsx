@@ -9,12 +9,16 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import navitems from "./constants/navitems";
+import { generateNavitems } from "./constants/navitems";
 import { useEffect, useState } from "react";
 import { navitem } from "./constants/navitems";
 import OutsideClickHandler from "./utils/outsideclickhandler";
 
-export default function Header() {
+interface HeaderProps {
+  mainNavitems: boolean;
+}
+
+export default function Header({ mainNavitems }: HeaderProps) {
   const [isScrolled, setIsScrolled] = useState(false);
   const [prevscrollY, setprevscrollY] = useState(0);
   const [ishidden, setishidden] = useState(true);
@@ -60,7 +64,7 @@ export default function Header() {
         </div>
         <nav className="md:flex items-center text-dark dark:text-slate-50 mx-auto hidden">
           <ul className="nav-items font-inter text-xl flex gap-x-6">
-            {navitems.map((item: navitem) => (
+            {generateNavitems(mainNavitems).map((item: navitem) => (
               <li
                 key={item.name}
                 className={`cursor-pointer duration-200 dark:hover:text-gray-200 hover:text-[#696969] h-full`}
@@ -128,7 +132,7 @@ export default function Header() {
           </div>
           <nav className="flex items-center flex-col z-50 text-dark dark:text-slate-50 mx-auto">
             <ul className=" flex flex-col gap-4 nav-items font-inter text-xl flex gap-x-6">
-              {navitems.map((item: navitem) => (
+              {generateNavitems(mainNavitems).map((item: navitem) => (
                 <li
                   key={item.name}
                   className={`cursor-pointer duration-200 dark:hover:text-gray-200 hover:text-[#696969] h-full`}
