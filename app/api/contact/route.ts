@@ -154,7 +154,7 @@ export async function POST(request: NextRequest) {
   };
   if (success) {
     const validatedData = validationSchema.parse(data);
-    saveUserContactData(validatedData).then((user) => console.log("userData saved", user)).catch((error) => console.log("error occured", error)).finally(() => prisma.$disconnect())
+    saveUserContactData(validatedData).then(() => console.log("User data has been saved")).catch((error) => console.log("An error has occured", error)).finally(() => prisma.$disconnect())
     sendMail(true);
     sendMail(false);
     return new Response(
