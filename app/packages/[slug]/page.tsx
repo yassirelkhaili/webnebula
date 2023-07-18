@@ -1,26 +1,33 @@
-import { Card, CardContent, CardFooter } from "@/components/ui/card";
-import policyContent from "@/app/constants/policy";
+import Header from "@/app/header";
+import Contact from "@/app/partials/contact";
+import generateNavitems from "@/app/constants/navitems";
 
 const Booking = ({ params }: { params: { slug: string } }) => {
   return (
+    <>
+    <Header mainNavitems={false} />
+    <Contact />
     <section className="min-h-screen mt-4 flex flex-col items-center">
-      <div>
+    <div>
         <h1
-          id="About"
+          id="f"
           className="text-3xl font-lato font-bold dark:text-slate-50 text-dark p-3 border-b-[3px] border-b-logo-100 dark:border-b-logo-900 w-fit"
         >
-          {policyContent.title}
+          {generateNavitems(false)[1].name}
         </h1>
       </div>
-      <Card className="mt-8 sm:max-w-[40rem] mx-8 font-robotolight">
-        <CardContent className="flex flex-col gap-2 pt-[1.5rem]">
-          {policyContent.content}
-        </CardContent>
-        <CardFooter className="flex flex-col items-start gap-2">
-          {policyContent.footer}
-        </CardFooter>
-      </Card>
     </section>
+    <section className="min-h-screen mt-4 flex flex-col items-center">
+    <div>
+        <h1
+          id="Contact"
+          className="text-3xl font-lato font-bold dark:text-slate-50 text-dark p-3 border-b-[3px] border-b-logo-100 dark:border-b-logo-900 w-fit"
+        >
+          {generateNavitems(false)[2].name}
+        </h1>
+      </div>
+    </section>
+    </>
   );
 };
 

@@ -67,7 +67,6 @@ export default function ContactForm() {
   }, [theme, systemTheme]);
   useEffect(() => {
     const fetchToken = async () => {
-      console.log("token changed");
       try {
         const response = await fetch(
           `${process.env.NEXT_PUBLIC_APP_URL}/api/contact`,

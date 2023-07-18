@@ -3,7 +3,7 @@ export type navitem = {
   key: number;
 };
 
-export function generateNavitems (mainpage: boolean) {
+export default function generateNavitems(mainpage: boolean) {
   const mainNavitems: Array<navitem> = [
     {
       name: "Home",
@@ -51,32 +51,4 @@ export function generateNavitems (mainpage: boolean) {
   } else {
     return checkoutNavitems;
   }
-};
-const navitems: Array<navitem> = [
-  {
-    name: "Home",
-    key: 1,
-  },
-  {
-    name: "About",
-    key: 2,
-  },
-  {
-    name: "Services",
-    key: 3,
-  },
-  {
-    name: "Skills",
-    key: 4,
-  },
-  {
-    name: "Process",
-    key: 5,
-  },
-  {
-    name: "Contact",
-    key: 6,
-  },
-];
-
-export default navitems;
+}

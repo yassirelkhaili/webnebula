@@ -11,7 +11,7 @@ import { Content } from "../constants/skills";
 
 const Skills = () => {
   return (
-    <section className="min-h-screen mt-4 flex flex-col items-center">
+    <section className="min-h-screen mt-4 flex flex-col items-center mt-0">
       <div>
         <h1
           id="Skills"

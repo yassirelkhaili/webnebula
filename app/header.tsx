@@ -9,7 +9,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { generateNavitems } from "./constants/navitems";
+import generateNavitems from "./constants/navitems";
 import { useEffect, useState } from "react";
 import { navitem } from "./constants/navitems";
 import OutsideClickHandler from "./utils/outsideclickhandler";
@@ -66,7 +66,7 @@ export default function Header({ mainNavitems }: HeaderProps) {
           <ul className="nav-items font-inter text-xl flex gap-x-6">
             {generateNavitems(mainNavitems).map((item: navitem) => (
               <li
-                key={item.name}
+                key={item.key}
                 className={`cursor-pointer duration-200 dark:hover:text-gray-200 hover:text-[#696969] h-full`}
               >
                 <a href={`#${item.name}`}>{item.name}</a>
@@ -134,7 +134,7 @@ export default function Header({ mainNavitems }: HeaderProps) {
             <ul className=" flex flex-col gap-4 nav-items font-inter text-xl flex gap-x-6">
               {generateNavitems(mainNavitems).map((item: navitem) => (
                 <li
-                  key={item.name}
+                  key={item.key}
                   className={`cursor-pointer duration-200 dark:hover:text-gray-200 hover:text-[#696969] h-full`}
                 >
                   <a href={`#${item.name}`}>{item.name}</a>
