@@ -6,10 +6,10 @@ import { randomBytes } from "crypto";
 import axios from "axios";
 import { createTransport } from "nodemailer";
 import * as z from "zod";
-import { PrismaClient } from '@prisma/client'
+import { PrismaClient } from "@prisma/client";
 
 let csrf_token: string;
-const prisma = new PrismaClient()
+const prisma = new PrismaClient();
 const validationSchema = z.object({
   Name: z
     .string()
@@ -36,9 +36,10 @@ const validationSchema = z.object({
   recaptchaToken: z.string(),
   theme: z.string(),
 });
-type validationProps = z.infer<typeof validationSchema>
-export async function saveUserContactData(validatedData : validationProps) {
-  const {Name, Email, Phone, Organisation, Subject, Message, theme} = validatedData
+type validationProps = z.infer<typeof validationSchema>;
+export async function saveUserContactData(validatedData: validationProps) {
+  const { Name, Email, Phone, Organisation, Subject, Message, theme } =
+    validatedData;
   const user = await prisma.contactdata.create({
     data: {
       clientName: Name,
@@ -47,10 +48,10 @@ export async function saveUserContactData(validatedData : validationProps) {
       clientOrg: Organisation,
       messageSubject: Subject,
       messageContent: Message,
-      clientTheme: theme
+      clientTheme: theme,
     },
   });
-  return user
+  return user;
 }
 
 export async function GET(request: NextRequest) {
@@ -69,7 +70,7 @@ export async function GET(request: NextRequest) {
         { status: 403 }
       );
     }
-  }z
+  }
 
   const referer = request.headers.get("Referer");
   if (
@@ -154,7 +155,10 @@ export async function POST(request: NextRequest) {
   };
   if (success) {
     const validatedData = validationSchema.parse(data);
-    saveUserContactData(validatedData).then(() => console.log("User data has been saved")).catch((error) => console.log("An error has occured", error)).finally(() => prisma.$disconnect())
+    saveUserContactData(validatedData)
+      .then(() => console.log("User data has been saved"))
+      .catch((error) => console.log("An error has occured", error))
+      .finally(() => prisma.$disconnect());
     sendMail(true);
     sendMail(false);
     return new Response(
