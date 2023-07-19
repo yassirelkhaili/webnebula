@@ -33,11 +33,11 @@ export default function generateNavitems(mainpage: boolean) {
 
   const checkoutNavitems: Array<navitem> = [
     {
-      name: "Confirm",
+      name: "Confirm Order",
       key: 1,
     },
     {
-      name: "Main Features",
+      name: "Key Features",
       key: 2,
     },
     {
