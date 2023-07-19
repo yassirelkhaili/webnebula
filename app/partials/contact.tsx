@@ -7,7 +7,7 @@ interface contactProps {
 
 const Contact = ({ mainpage } : contactProps) => {
   return (
-    <section className="min-h-screen flex flex-col items-center mx-8 mt-0">
+    <section className="min-h-screen flex flex-col items-center mt-0">
       <div className={`container flex flex-col items-center ${!mainpage && "mt-24"}`}>
       <div>
         <h1

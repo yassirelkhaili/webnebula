@@ -58,6 +58,10 @@ export function generateCheckoutContent(packageType : string): Array<checkoutPro
           isChecked: true,
         },
         {
+            columnTitle: "Admin panel",
+            isChecked: false,
+        },
+        {
           columnTitle: "Number of pages",
           isChecked: 6,
         },
@@ -72,7 +76,7 @@ export function generateCheckoutContent(packageType : string): Array<checkoutPro
         {
           columnTitle: "Delivery Time",
           isChecked: 7,
-          hint: "Express delivery is available",
+          hint: "Express delivery available",
         },
       ];
       const standardContent: Array<checkoutProps | deliveryTimeProps> = [
@@ -86,19 +90,19 @@ export function generateCheckoutContent(packageType : string): Array<checkoutPro
         },
         {
           columnTitle: "E-commerce functionality",
-          isChecked: false,
+          isChecked: true,
         },
         {
           columnTitle: "Payment processing",
-          isChecked: false,
+          isChecked: true,
         },
         {
           columnTitle: "Opt-in form",
-          isChecked: false,
+          isChecked: true,
         },
         {
           columnTitle: "Autoresponder integration",
-          isChecked: false,
+          isChecked: true,
         },
         {
           columnTitle: "Speed optimization",
@@ -113,21 +117,25 @@ export function generateCheckoutContent(packageType : string): Array<checkoutPro
           isChecked: true,
         },
         {
+            columnTitle: "Admin panel",
+            isChecked: false,
+        },
+        {
           columnTitle: "Number of pages",
-          isChecked: 6,
+          isChecked: 8,
         },
         {
           columnTitle: "Number of products",
-          isChecked: false,
+          isChecked: 40,
         },
         {
           columnTitle: "Revisions",
-          isChecked: 3,
+          isChecked: 5,
         },
         {
           columnTitle: "Delivery Time",
-          isChecked: 7,
-          hint: "Express delivery is available",
+          isChecked: 21,
+          hint: "Express delivery available",
         },
       ];
       const premiumContent: Array<checkoutProps | deliveryTimeProps> = [
@@ -141,19 +149,19 @@ export function generateCheckoutContent(packageType : string): Array<checkoutPro
         },
         {
           columnTitle: "E-commerce functionality",
-          isChecked: false,
+          isChecked: true,
         },
         {
           columnTitle: "Payment processing",
-          isChecked: false,
+          isChecked: true,
         },
         {
           columnTitle: "Opt-in form",
-          isChecked: false,
+          isChecked: true,
         },
         {
           columnTitle: "Autoresponder integration",
-          isChecked: false,
+          isChecked: true,
         },
         {
           columnTitle: "Speed optimization",
@@ -168,21 +176,25 @@ export function generateCheckoutContent(packageType : string): Array<checkoutPro
           isChecked: true,
         },
         {
+            columnTitle: "Admin panel",
+            isChecked: true,
+        },
+        {
           columnTitle: "Number of pages",
-          isChecked: 6,
+          isChecked: 10,
         },
         {
           columnTitle: "Number of products",
-          isChecked: false,
+          isChecked: 50,
         },
         {
           columnTitle: "Revisions",
-          isChecked: 3,
+          isChecked: 7,
         },
         {
           columnTitle: "Delivery Time",
-          isChecked: 7,
-          hint: "Express delivery is available",
+          isChecked: 30,
+          hint: "Express delivery available",
         },
       ];
       switch (packageType) {
