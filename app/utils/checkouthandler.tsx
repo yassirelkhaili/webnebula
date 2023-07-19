@@ -48,8 +48,8 @@ export default function CheckoutPage({ slug }: checkoutPageProps) {
     if (index % 2 === 0) {
       return (
         <TableRow key={checkoutItem.columnTitle}>
-          <TableCell className="font-medium">{checkoutItem.columnTitle}</TableCell>
-          <TableCell>
+          <TableCell className="font-medium w-[25%]">{checkoutItem.columnTitle}</TableCell>
+          <TableCell className="w-[25%]">
             {(typeof checkoutItem.isChecked === "number")
                   ? (checkoutItem.isChecked + (checkoutItem.columnTitle === "Delivery Time" ? " days" : ""))
               : (
@@ -65,8 +65,8 @@ export default function CheckoutPage({ slug }: checkoutPageProps) {
           </TableCell>
           {nextItem && (
             <>
-              <TableCell className="font-medium">{nextItem.columnTitle}</TableCell>
-              <TableCell>
+              <TableCell className="font-medium w-[25%]">{nextItem.columnTitle}</TableCell>
+              <TableCell className="w-[25%]">
                 {(typeof nextItem.isChecked === "number")
                   ? (nextItem.isChecked + (nextItem.columnTitle === "Delivery Time" ? " days" : ""))
                   : (
