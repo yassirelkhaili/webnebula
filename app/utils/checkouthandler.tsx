@@ -38,7 +38,7 @@ export default function CheckoutPage({ slug }: checkoutPageProps) {
   <TableCaption>This list highlights the key features of this package.</TableCaption>
   <TableHeader>
     <TableRow>
-      <TableHead>Package</TableHead>
+      <TableHead className="px-4">Package</TableHead>
       <TableHead colSpan={3}>{generatePackageTitle(slug)}</TableHead>
     </TableRow>
   </TableHeader>
@@ -105,7 +105,7 @@ export default function CheckoutPage({ slug }: checkoutPageProps) {
   <TableCaption>A comprehensive comparison of available packages.</TableCaption>
   <TableHeader>
     <TableRow>
-      <TableHead className="font-medium" colSpan={1}>Packages</TableHead>
+      <TableHead className="px-4" colSpan={1}>Packages</TableHead>
       <TableHead colSpan={1}>{generatePackageTitle("basic")}</TableHead>
       <TableHead colSpan={1}>{generatePackageTitle("standard")}</TableHead>
       <TableHead colSpan={1}>{generatePackageTitle("premium")}</TableHead>
