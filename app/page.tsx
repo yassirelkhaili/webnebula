@@ -15,7 +15,7 @@ export default function Home() {
       <Packages />
       <Skills />
       <Process />
-      <Contact />
+      <Contact mainpage={true} />
     </main>
   );
 }

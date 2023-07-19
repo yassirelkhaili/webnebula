@@ -30,7 +30,8 @@ export default function Header({ mainNavitems }: HeaderProps) {
   useEffect(() => {
     const handleScroll = () => {
       const scrollY: number = window.scrollY;
-      const threshold: number = 120;
+      let threshold: number; 
+      mainNavitems ? threshold = 120 : threshold = 30
       ishidden && setIsScrolled(scrollY > prevscrollY && scrollY > threshold);
       setprevscrollY(scrollY);
     };

@@ -56,7 +56,11 @@ const formSchema = z.object({
 
 export type formValueProps = z.infer<typeof formSchema>;
 
-export default function ContactForm() {
+interface contactFormProps {
+  mainpage : boolean 
+}
+
+export default function ContactForm({ mainpage } : contactFormProps) {
   const { theme, systemTheme } = useTheme();
   const [currentTheme, setcurrentTheme] = useState(theme);
   const [forceRerender, setforceRerender] = useState(false);
@@ -231,4 +235,5 @@ export default function ContactForm() {
   );
 }
 
-export const contactTitle: string = "Contact Us";
+export const mainContactTitle: string = "Contact Us";
+export const checkoutFormTitle : string = "Confirm Order"; 
