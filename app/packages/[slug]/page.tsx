@@ -10,7 +10,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table"
-import { checkoutContent, checkoutProps, deliveryTimeProps, packageTitle} from "@/app/constants/checkout";
+import { checkoutProps, deliveryTimeProps, generateCheckoutContent } from "@/app/constants/checkout";
 import generatePackageTitle from "@/app/constants/checkout";
 
 function isDeliveryTimeProps(
@@ -43,7 +43,7 @@ const Booking = ({ params }: { params: { slug: string } }) => {
     </TableRow>
   </TableHeader>
   <TableBody>
-    {checkoutContent.map((checkoutItem : checkoutProps | deliveryTimeProps) => {
+    {generateCheckoutContent(params.slug).map((checkoutItem : checkoutProps | deliveryTimeProps) => {
       return (
         <TableRow key={checkoutItem.columnTitle}>
         <TableCell className="font-medium">{checkoutItem.columnTitle}</TableCell>
