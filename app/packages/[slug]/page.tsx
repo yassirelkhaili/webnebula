@@ -1,15 +1,17 @@
 "use client"
 import Header from "@/app/header";
 import Contact from "@/app/partials/contact";
-import { useEffect } from "react";
+import { useEffect, useState} from "react";
 import CheckoutPage from "@/app/utils/checkouthandler";
 
 const Booking = ({ params }: { params: { slug: string } }) => {
+  const [scrolled, setscrolled] = useState(true)
   useEffect(() => {
     const scrollToTop = () => {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
+     scrolled && window.scrollTo({ top: 0, behavior: 'smooth' }); 
     };
     scrollToTop();
+    setscrolled(false)
     return () => {
       window.removeEventListener('scroll', scrollToTop);
     };
