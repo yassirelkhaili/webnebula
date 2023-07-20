@@ -53,8 +53,8 @@ interface payementoptionContentProps extends formContentProps {
 export const payementoptionContent : payementoptionContentProps = {
   name: "Payement",
   label: "Payement",
-  placeholder: "Select Payement option",
-  description: "Kindly choose your payment option to complete the order.",
+  placeholder: "Select a Payement option",
+  description: "Kindly choose your prefered payment option to complete the order.",
   options: [
     "Visa, MasterCard, American Express", 
     "Wire transfer", 
