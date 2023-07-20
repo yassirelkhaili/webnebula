@@ -35,11 +35,11 @@ export default function CheckoutPage({ slug }: checkoutPageProps) {
       </div>
       <div className="container mt-8 sm:max-w-[50rem]">
       <Table>
-  <TableCaption>This list highlights the key features of this package.</TableCaption>
   <TableHeader>
+  <TableCaption>This list highlights the key features of this package.</TableCaption>
     <TableRow>
       <TableHead className="px-4">Package</TableHead>
-      <TableHead colSpan={3}>{generatePackageTitle(slug)}</TableHead>
+      <TableHead colSpan={3} className="text-center">{generatePackageTitle(slug)}</TableHead>
     </TableRow>
   </TableHeader>
   <TableBody>
@@ -100,7 +100,7 @@ export default function CheckoutPage({ slug }: checkoutPageProps) {
           {generateNavitems(false)[2].name}
         </h1>
       </div>
-      <div className="container mt-8">
+      <div className="container mt-8 sm:max-w-[70rem]">
       <Table>
   <TableCaption>A comprehensive comparison of available packages.</TableCaption>
   <TableHeader>
