@@ -35,8 +35,8 @@ export default function CheckoutPage({ slug }: checkoutPageProps) {
       </div>
       <div className="container mt-8 sm:max-w-[50rem]">
       <Table>
+      <TableCaption>This list highlights the key features of this package.</TableCaption>
   <TableHeader>
-  <TableCaption>This list highlights the key features of this package.</TableCaption>
     <TableRow>
       <TableHead className="px-4">Package</TableHead>
       <TableHead colSpan={3} className="text-center">{generatePackageTitle(slug)}</TableHead>

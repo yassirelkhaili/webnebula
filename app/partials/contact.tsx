@@ -1,5 +1,6 @@
 import { mainContactTitle, checkoutFormTitle } from "../utils/contactformhandler";
 import ContactForm from "../utils/contactformhandler";
+import CheckoutForm from "../utils/checkoutformHandler";
 
 interface contactProps {
   mainpage: boolean, 
@@ -17,7 +18,7 @@ const Contact = ({ mainpage } : contactProps) => {
           {mainpage ? mainContactTitle : checkoutFormTitle}
         </h1>
       </div>
-      <ContactForm mainpage={mainpage}/>
+      {mainpage ? <ContactForm /> : <CheckoutForm />}
       </div>
     </section>
   );

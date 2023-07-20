@@ -30,12 +30,6 @@ export const formContent: Array<formContentProps> = [
     placeholder: "Company",
     description: "Specify the name of your company or organization.",
   },
-  {
-    name: "Subject",
-    label: "Subject",
-    placeholder: "Subject",
-    description: "Enter the subject or topic of your message.",
-  },
 ];
 
 export const messageContent: formContentProps = {
@@ -44,6 +38,30 @@ export const messageContent: formContentProps = {
   placeholder: "Message",
   description: "Compose your message or inquiry here.",
 };
+
+export const feedbackContent: formContentProps = {
+  name: "Feedback",
+  label: "Feedback",
+  placeholder: "Feedback",
+  description: "Your opinion matters to us. Let us know how we can improve!",
+};
+
+interface payementoptionContentProps extends formContentProps {
+  options: Array<string>
+}
+
+export const payementoptionContent : payementoptionContentProps = {
+  name: "Payement",
+  label: "Payement",
+  placeholder: "Select Payement option",
+  description: "Kindly choose your payment option to complete the order.",
+  options: [
+    "Visa, MasterCard, American Express", 
+    "Wire transfer", 
+    "PayPal", 
+    "Monero",
+  ]
+}
 
 export const buttonLabel: string = "Send Message";
 

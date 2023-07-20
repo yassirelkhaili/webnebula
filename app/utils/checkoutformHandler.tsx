@@ -24,8 +24,16 @@ import {
   formContentProps,
   buttonLabel,
   formContent,
-  messageContent,
+  feedbackContent, 
+  payementoptionContent
 } from "../constants/contact";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select"
 
 const formSchema = z.object({
   Name: z
@@ -44,19 +52,18 @@ const formSchema = z.object({
     .string()
     .nonempty("Please enter your organization.")
     .max(160, { message: "Company name must not exceed 160 characters." }),
-  Subject: z
+  Payement: z
+  .string({
+    required_error: "Please select a payement option.",
+  }), 
+  Feedback: z
     .string()
-    .nonempty("Please enter a subject.")
-    .max(255, { message: "Subject must not exceed 255 characters." }),
-  Message: z
-    .string()
-    .nonempty("Please enter a message.")
-    .max(2000, { message: "Message must not exceed 2000 characters." }),
+    .max(2000, { message: "Feedback must not exceed 2000 characters." }),
 });
 
 export type formValueProps = z.infer<typeof formSchema>;
 
-export default function ContactForm() {
+export default function CheckoutForm() {
   const { theme, systemTheme } = useTheme();
   const [currentTheme, setcurrentTheme] = useState(theme);
   const [forceRerender, setforceRerender] = useState(false);
@@ -93,8 +100,7 @@ export default function ContactForm() {
       Email: "",
       Phone: "",
       Organisation: "",
-      Subject: "",
-      Message: "",
+      Feedback: "",
     },
   });
 
@@ -185,20 +191,51 @@ export default function ContactForm() {
               );
             })}
             <FormField
+          control={form.control}
+          name={payementoptionContent.name as "Payement"}
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>{payementoptionContent.label}</FormLabel>
+              <Select onValueChange={field.onChange} defaultValue={field.value}>
+                <FormControl>
+                  <SelectTrigger>
+                    <SelectValue placeholder={payementoptionContent.placeholder} />
+                  </SelectTrigger>
+                </FormControl>
+                <SelectContent>
+                  {payementoptionContent.options.map((payementOption : string, index) => {
+                    if (index === 0) {
+                      return <SelectItem value="Stripe">{payementOption}</SelectItem>
+                    } else if (index === 1) {
+                      return <SelectItem value="Transfer">{payementOption}</SelectItem>
+                    } else {
+                      return <SelectItem value={payementOption}>{payementOption}</SelectItem>
+                    }
+                  })}
+                </SelectContent>
+              </Select>
+              <FormDescription>
+                {payementoptionContent.description}
+              </FormDescription>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+            <FormField
               control={form.control}
-              name={messageContent.name as "Message"}
+              name={feedbackContent.name as "Feedback"}
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>{messageContent.label}</FormLabel>
+                  <FormLabel>{feedbackContent.label}</FormLabel>
                   <FormControl>
                     <Textarea
-                      placeholder={messageContent.placeholder}
+                      placeholder={feedbackContent.placeholder}
                       className="resize-none"
                       {...field}
                     />
                   </FormControl>
                   <FormDescription>
-                    {messageContent.description}
+                    {feedbackContent.description}
                   </FormDescription>
                   <FormMessage />
                 </FormItem>
