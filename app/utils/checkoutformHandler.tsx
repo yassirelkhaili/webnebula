@@ -111,7 +111,6 @@ export default function CheckoutForm() {
 
   async function onSubmit(data: formValueProps) {
     setisloading(true)
-    console.log(data)
     if (recaptchaToken) {
       try {
         const response = await fetch(

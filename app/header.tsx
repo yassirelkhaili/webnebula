@@ -3,6 +3,7 @@ import { useTheme } from "next-themes";
 import { Moon, Sun } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
+import Link from "next/link";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -30,8 +31,8 @@ export default function Header({ mainNavitems }: HeaderProps) {
   useEffect(() => {
     const handleScroll = () => {
       const scrollY: number = window.scrollY;
-      let threshold: number; 
-      mainNavitems ? threshold = 120 : threshold = 30
+      let threshold: number;
+      mainNavitems ? (threshold = 120) : (threshold = 30);
       ishidden && setIsScrolled(scrollY > prevscrollY && scrollY > threshold);
       setprevscrollY(scrollY);
     };
@@ -50,18 +51,20 @@ export default function Header({ mainNavitems }: HeaderProps) {
         }`}
       >
         <div className="main-logo flex items-center text-logo-100 dark:text-logo-900 pl-5 text-xl font-roboto font-bold">
+        <Link href={process.env.NEXT_PUBLIC_APP_URL ? process.env.NEXT_PUBLIC_APP_URL : ""}>
           <div className="flex flex-row gap-1">
-            <Image
-              src={
-                currentTheme === "dark" ? "/dark-icon.png" : "/light-icon.png"
-              }
-              alt="main brand icon"
-              width={40}
-              height={40}
-              priority
-            />
+              <Image
+                src={
+                  currentTheme === "dark" ? "/dark-icon.png" : "/light-icon.png"
+                }
+                alt="main brand icon"
+                width={40}
+                height={40}
+                priority
+              />
             <h1>WebNebula</h1>
           </div>
+          </Link>
         </div>
         <nav className="md:flex items-center text-dark dark:text-slate-50 mx-auto hidden">
           <ul className="nav-items font-inter text-xl flex gap-x-6">

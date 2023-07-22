@@ -61,6 +61,7 @@ export default function ContactForm() {
   const [currentTheme, setcurrentTheme] = useState(theme);
   const [forceRerender, setforceRerender] = useState(false);
   const [recaptchaToken, setrecaptchaToken] = useState("");
+  const [isloading, setisloading] = useState(false)
   useEffect(() => {
     setcurrentTheme(theme === "system" ? systemTheme : theme);
     setforceRerender((prev) => !prev);
@@ -103,6 +104,7 @@ export default function ContactForm() {
   };
 
   async function onSubmit(data: formValueProps) {
+    setisloading(true)
     if (recaptchaToken) {
       try {
         const response = await fetch(
@@ -159,6 +161,7 @@ export default function ContactForm() {
         message: "Please complete the reCAPTCHA",
       });
     }
+    setisloading(false)
   }
   const errorMessage = errors.recaptcha?.message?.toString() ?? null;
   return (
@@ -221,6 +224,7 @@ export default function ContactForm() {
             <Button
               type="submit"
               className={buttonVariants({ variant: "primary" })}
+              disabled={isloading}
             >
               {buttonLabel}
             </Button>
