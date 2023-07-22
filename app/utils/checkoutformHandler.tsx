@@ -68,6 +68,7 @@ export default function CheckoutForm() {
   const [currentTheme, setcurrentTheme] = useState(theme);
   const [forceRerender, setforceRerender] = useState(false);
   const [recaptchaToken, setrecaptchaToken] = useState("");
+  const [isloading, setisloading] = useState(false)
   useEffect(() => {
     setcurrentTheme(theme === "system" ? systemTheme : theme);
     setforceRerender((prev) => !prev);
@@ -109,6 +110,7 @@ export default function CheckoutForm() {
   };
 
   async function onSubmit(data: formValueProps) {
+    setisloading(true)
     console.log(data)
     if (recaptchaToken) {
       try {
@@ -166,6 +168,7 @@ export default function CheckoutForm() {
         message: "Please complete the reCAPTCHA",
       });
     }
+    setisloading(false)
   }
   const errorMessage = errors.recaptcha?.message?.toString() ?? null;
   return (
@@ -260,6 +263,7 @@ export default function CheckoutForm() {
             <Button
               type="submit"
               className={buttonVariants({ variant: "primary" })}
+              disabled={isloading}
             >
               {buttonLabel}
             </Button>
