@@ -172,6 +172,7 @@ export default function ContactForm() {
             {formContent.map((formItem: formContentProps) => {
               return (
                 <FormField
+                  key={formItem.name}
                   control={form.control}
                   name={formItem.name as "Name"}
                   render={({ field }) => (
