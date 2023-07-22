@@ -20,38 +20,27 @@ const validationSchema = z.object({
     .string()
     .email("Please enter a valid email address.")
     .max(255, { message: "Email must not exceed 255 characters." }),
-  Phone: z.string().regex(/^\d{10}$/i, "Please enter a valid phone number."),
+  Phone: z
+    .string()
+    .regex(/^\d{10}$/i, "Please enter a valid phone number."),
   Organisation: z
     .string()
     .nonempty("Please enter your organization.")
     .max(160, { message: "Company name must not exceed 160 characters." }),
-  Subject: z
+  Payment: z
+  .string({
+    required_error: "Please select a payment option.",
+  }), 
+  Feedback: z
     .string()
-    .nonempty("Please enter a subject.")
-    .max(255, { message: "Subject must not exceed 255 characters." }),
-  Message: z
-    .string()
-    .nonempty("Please enter a message.")
-    .max(2000, { message: "Message must not exceed 2000 characters." }),
+    .max(2000, { message: "Feedback must not exceed 2000 characters." }),
   recaptchaToken: z.string(),
   theme: z.string(),
 });
 type validationProps = z.infer<typeof validationSchema>;
-export async function saveUserContactData(validatedData: validationProps) {
-  const { Name, Email, Phone, Organisation, Subject, Message, theme } =
+export async function saveUserCheckoutData(validatedData: validationProps) {
+  const { Name, Email, Phone, Organisation, Payment, Feedback, theme } =
     validatedData;
-  const user = await prisma.contactdata.create({
-    data: {
-      clientName: Name,
-      clientEmail: Email,
-      clientPhone: Phone,
-      clientOrg: Organisation,
-      messageSubject: Subject,
-      messageContent: Message,
-      clientTheme: theme,
-    },
-  });
-  return user;
 }
 
 export async function GET(request: NextRequest) {
@@ -99,6 +88,59 @@ export async function POST(request: NextRequest) {
       );
     }
     const data = await request.json()
-    return new Response(JSON.stringify({error: false, message: "tokens match" + data }), { status : 200 })
+    try {
+      validationSchema.parse(data);
+    } catch (err) {
+      if (err instanceof z.ZodError) {
+        const errors = err.errors.map((err) => {
+          return {
+            code: err.code,
+            path: err.path,
+            message: err.message,
+          };
+        });
+        return new Response(
+          JSON.stringify({
+            error: true,
+            message: "data validation issue",
+            errors: errors,
+          }),
+          { status: 401 }
+        );
+      }
+    }
+    const recaptchaToken = data.recaptchaToken;
+  const response = await axios.post(
+    "https://www.google.com/recaptcha/api/siteverify",
+    null,
+    {
+      params: {
+        secret: process.env.RECAPTCHA_SECRET_KEY,
+        response: recaptchaToken,
+      },
+    }
+  );
+  const { success } = response.data;
+  const sendMail = async (user: boolean) => {
+    const transporter = createTransport({
+      host: "smtp.gmail.com",
+      port: 465,
+      secure: true,
+      auth: {
+        user: user
+          ? process.env.NEXT_PUBLIC_CONTACT_EMAIL
+          : process.env.NEXT_PUBLIC_CONTACT_EMAIL_OWNER,
+        pass: user
+          ? process.env.GOOGLE_SMTP_EMAIL
+          : process.env.GOOGLE_SMTP_EMAIL_OWNER,
+      },
+    });
+    await transporter.sendMail({
+      from: process.env.NEXT_PUBLIC_CONTACT_EMAIL,
+      to: user ? `${data.Email}` : process.env.NEXT_PUBLIC_CONTACT_EMAIL,
+      subject: user ? "Thank you for contacting us!" : "New Contact message!",
+      html: generateEmail(data, data.theme, user),
+    });
+  };
   }
   

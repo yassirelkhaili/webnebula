@@ -52,14 +52,14 @@ export const feedbackContent: formContentProps = {
   description: "Your opinion matters to us. Let us know how we can improve!",
 };
 
-interface payementoptionContentProps extends formContentProps {
+interface paymentoptionContentProps extends formContentProps {
   options: Array<string>
 }
 
-export const payementoptionContent : payementoptionContentProps = {
-  name: "Payement",
-  label: "Payement",
-  placeholder: "Select Payement option",
+export const paymentoptionContent : paymentoptionContentProps = {
+  name: "Payment",
+  label: "Payment",
+  placeholder: "Select Payment option",
   description: "Kindly choose your payment option to complete the order.",
   options: [
     "Visa, MasterCard, American Express", 

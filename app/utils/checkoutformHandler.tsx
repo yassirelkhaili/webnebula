@@ -25,7 +25,7 @@ import {
   buttonLabel,
   formContent,
   feedbackContent, 
-  payementoptionContent
+  paymentoptionContent
 } from "../constants/contact";
 import {
   Select,
@@ -52,9 +52,9 @@ const formSchema = z.object({
     .string()
     .nonempty("Please enter your organization.")
     .max(160, { message: "Company name must not exceed 160 characters." }),
-  Payement: z
+  payment: z
   .string({
-    required_error: "Please select a payement option.",
+    required_error: "Please select a payment option.",
   }), 
   Feedback: z
     .string()
@@ -196,30 +196,30 @@ export default function CheckoutForm() {
             })}
             <FormField
           control={form.control}
-          name={payementoptionContent.name as "Payement"}
+          name={paymentoptionContent.name as "payment"}
           render={({ field }) => (
             <FormItem>
-              <FormLabel>{payementoptionContent.label}</FormLabel>
+              <FormLabel>{paymentoptionContent.label}</FormLabel>
               <Select onValueChange={field.onChange} defaultValue={field.value}>
                 <FormControl>
                   <SelectTrigger>
-                    <SelectValue placeholder={payementoptionContent.placeholder} />
+                    <SelectValue placeholder={paymentoptionContent.placeholder} />
                   </SelectTrigger>
                 </FormControl>
                 <SelectContent>
-                  {payementoptionContent.options.map((payementOption : string, index) => {
+                  {paymentoptionContent.options.map((paymentOption : string, index) => {
                     if (index === 0) {
-                      return <SelectItem value="Stripe">{payementOption}</SelectItem>
+                      return <SelectItem value="Stripe">{paymentOption}</SelectItem>
                     } else if (index === 1) {
-                      return <SelectItem value="WireTransfer">{payementOption}</SelectItem>
+                      return <SelectItem value="WireTransfer">{paymentOption}</SelectItem>
                     } else {
-                      return <SelectItem value={payementOption}>{payementOption}</SelectItem>
+                      return <SelectItem value={paymentOption}>{paymentOption}</SelectItem>
                     }
                   })}
                 </SelectContent>
               </Select>
               <FormDescription>
-                {payementoptionContent.description}
+                {paymentoptionContent.description}
               </FormDescription>
               <FormMessage />
             </FormItem>
