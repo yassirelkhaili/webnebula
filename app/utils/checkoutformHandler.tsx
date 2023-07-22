@@ -208,7 +208,7 @@ export default function CheckoutForm() {
                     if (index === 0) {
                       return <SelectItem value="Stripe">{payementOption}</SelectItem>
                     } else if (index === 1) {
-                      return <SelectItem value="Transfer">{payementOption}</SelectItem>
+                      return <SelectItem value="WireTransfer">{payementOption}</SelectItem>
                     } else {
                       return <SelectItem value={payementOption}>{payementOption}</SelectItem>
                     }

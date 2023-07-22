@@ -89,3 +89,16 @@ export async function GET(request: NextRequest) {
     },
   });
 }
+
+export async function POST(request: NextRequest) {
+    const Token = request.cookies.get("csrf");
+    if (Token?.value !== csrf_token) {
+      return new Response(
+        JSON.stringify({ error: true, message: "Tokens dont match" }),
+        { status: 401 }
+      );
+    }
+    const data = await request.json()
+    return new Response(JSON.stringify({error: false, message: "tokens match" + data }), { status : 200 })
+  }
+  
