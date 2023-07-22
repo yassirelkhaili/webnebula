@@ -162,7 +162,7 @@ export async function POST(request: NextRequest) {
     sendMail(true);
     sendMail(false);
     return new Response(
-      JSON.stringify({ error: false, message: "email has been sent" }),
+      JSON.stringify({ error: false, message: "message has been sent" }),
       { status: 200 }
     );
   } else {
