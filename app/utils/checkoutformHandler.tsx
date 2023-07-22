@@ -76,7 +76,7 @@ export default function CheckoutForm() {
     const fetchToken = async () => {
       try {
         const response = await fetch(
-          `${process.env.NEXT_PUBLIC_APP_URL}/api/contact`,
+          `${process.env.NEXT_PUBLIC_APP_URL}/api/checkout`,
           { method: "GET" }
         );
         if (!response.ok) {
@@ -109,10 +109,11 @@ export default function CheckoutForm() {
   };
 
   async function onSubmit(data: formValueProps) {
+    console.log(data)
     if (recaptchaToken) {
       try {
         const response = await fetch(
-          `${process.env.NEXT_PUBLIC_APP_URL}/api/contact`,
+          `${process.env.NEXT_PUBLIC_APP_URL}/api/checkout`,
           {
             method: "POST",
             headers: {
