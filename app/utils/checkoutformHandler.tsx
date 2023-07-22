@@ -231,7 +231,6 @@ export default function CheckoutForm() {
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>{feedbackContent.label}</FormLabel>
-                  <span className="text-sm pl-1 text-slate-500 dark:text-slate-400">(optional)</span>
                   <FormControl>
                     <Textarea
                       placeholder={feedbackContent.placeholder}
