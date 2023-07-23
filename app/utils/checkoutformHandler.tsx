@@ -52,7 +52,7 @@ const formSchema = z.object({
     .string()
     .nonempty("Please enter your organization.")
     .max(160, { message: "Company name must not exceed 160 characters." }),
-  payment: z
+  Payment: z
   .string({
     required_error: "Please select a payment option.",
   }), 
@@ -196,7 +196,7 @@ export default function CheckoutForm() {
             })}
             <FormField
           control={form.control}
-          name={paymentoptionContent.name as "payment"}
+          name={paymentoptionContent.name as "Payment"}
           render={({ field }) => (
             <FormItem>
               <FormLabel>{paymentoptionContent.label}</FormLabel>
