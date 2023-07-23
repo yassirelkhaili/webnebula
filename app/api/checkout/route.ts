@@ -20,17 +20,14 @@ const validationSchema = z.object({
     .string()
     .email("Please enter a valid email address.")
     .max(255, { message: "Email must not exceed 255 characters." }),
-  Phone: z
-    .string()
-    .regex(/^\d{10}$/i, "Please enter a valid phone number."),
+  Phone: z.string().regex(/^\d{10}$/i, "Please enter a valid phone number."),
   Organisation: z
     .string()
     .nonempty("Please enter your organization.")
     .max(160, { message: "Company name must not exceed 160 characters." }),
-  Payment: z
-  .string({
+  Payment: z.string({
     required_error: "Please select a payment option.",
-  }), 
+  }),
   Feedback: z
     .string()
     .max(2000, { message: "Feedback must not exceed 2000 characters." }),
@@ -41,6 +38,18 @@ type validationProps = z.infer<typeof validationSchema>;
 export async function saveUserCheckoutData(validatedData: validationProps) {
   const { Name, Email, Phone, Organisation, Payment, Feedback, theme } =
     validatedData;
+  const user = await prisma.checkoutdata.create({
+    data: {
+      clientName: Name,
+      clientEmail: Email,
+      clientPhone: Phone,
+      clientOrg: Organisation,
+      clientTheme: theme,
+      PaymentMethod: Payment,
+      clientFeedback: Feedback,
+    },
+  });
+  return user;
 }
 
 export async function GET(request: NextRequest) {
@@ -80,36 +89,36 @@ export async function GET(request: NextRequest) {
 }
 
 export async function POST(request: NextRequest) {
-    const Token = request.cookies.get("csrf");
-    if (Token?.value !== csrf_token) {
+  const Token = request.cookies.get("csrf");
+  if (Token?.value !== csrf_token) {
+    return new Response(
+      JSON.stringify({ error: true, message: "Tokens dont match" }),
+      { status: 401 }
+    );
+  }
+  const data = await request.json();
+  try {
+    validationSchema.parse(data);
+  } catch (err) {
+    if (err instanceof z.ZodError) {
+      const errors = err.errors.map((err) => {
+        return {
+          code: err.code,
+          path: err.path,
+          message: err.message,
+        };
+      });
       return new Response(
-        JSON.stringify({ error: true, message: "Tokens dont match" }),
+        JSON.stringify({
+          error: true,
+          message: "data validation issue",
+          errors: errors,
+        }),
         { status: 401 }
       );
     }
-    const data = await request.json()
-    try {
-      validationSchema.parse(data);
-    } catch (err) {
-      if (err instanceof z.ZodError) {
-        const errors = err.errors.map((err) => {
-          return {
-            code: err.code,
-            path: err.path,
-            message: err.message,
-          };
-        });
-        return new Response(
-          JSON.stringify({
-            error: true,
-            message: "data validation issue",
-            errors: errors,
-          }),
-          { status: 401 }
-        );
-      }
-    }
-    const recaptchaToken = data.recaptchaToken;
+  }
+  const recaptchaToken = data.recaptchaToken;
   const response = await axios.post(
     "https://www.google.com/recaptcha/api/siteverify",
     null,
@@ -142,5 +151,20 @@ export async function POST(request: NextRequest) {
       html: generateEmail(data, data.theme, user),
     });
   };
+  if (success) {
+    const validatedData = validationSchema.parse(data);
+    saveUserCheckoutData(validatedData)
+      .then(() => console.log("User checkoutdata has been saved"))
+      .catch((error) => console.log("An error has occured", error))
+      .finally(() => prisma.$disconnect());  
+    return new Response(
+      JSON.stringify({ error: false, message: validatedData.Payment }),
+      { status: 200 }
+    );
+  } else {
+    return new Response(
+      JSON.stringify({ error: true, message: "reCAPTCHA verification failed" }),
+      { status: 401 }
+    );
   }
-  
+}

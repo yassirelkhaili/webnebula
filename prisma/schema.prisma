@@ -17,3 +17,14 @@ model contactdata {
   messageSubject String @db.VarChar(255)
   messageContent String @db.Text
 }
+
+model checkoutdata {
+  id             Int    @id @default(autoincrement())
+  clientName     String @db.VarChar(70)
+  clientEmail    String @db.VarChar(255)
+  clientPhone    String @db.VarChar(10)
+  clientOrg      String @db.VarChar(160)
+  clientTheme    String @db.VarChar(10)
+  PaymentMethod String @db.VarChar(10)
+  clientFeedback String @db.Text
+}
