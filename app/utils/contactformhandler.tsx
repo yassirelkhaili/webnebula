@@ -189,6 +189,21 @@ export default function ContactForm() {
               );
             })}
             <FormField
+                  key="Subject"
+                  control={form.control}
+                  name="Subject"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Subject</FormLabel>
+                      <FormControl>
+                        <Input placeholder="Subject" {...field} />
+                      </FormControl>
+                      <FormDescription>Enter the subject or topic of your message.</FormDescription>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+            <FormField
               control={form.control}
               name={messageContent.name as "Message"}
               render={({ field }) => (

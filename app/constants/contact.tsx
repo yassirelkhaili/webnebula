@@ -29,13 +29,7 @@ export const formContent: Array<formContentProps> = [
     label: "Company/Organisation",
     placeholder: "Company",
     description: "Specify the name of your company or organization.",
-  },
-  {
-    name: "Subject",
-    label: "Subject",
-    placeholder: "Subject",
-    description: "Enter the subject or topic of your message.",
-  },
+  }
 ];
 
 export const messageContent: formContentProps = {
