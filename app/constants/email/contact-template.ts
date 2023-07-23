@@ -3,7 +3,8 @@ import { formValueProps } from "@/app/utils/contactformhandler";
 const generateEmail = (
   data: formValueProps,
   theme: string,
-  user: boolean
+  user: boolean, 
+  type: string
 ): string => {
   const emailTemplateUser: string = `
   <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">

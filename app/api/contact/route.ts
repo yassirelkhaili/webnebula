@@ -132,7 +132,7 @@ export async function POST(request: NextRequest) {
     }
   );
   const { success } = response.data;
-  const sendMail = async (user: boolean) => {
+  const sendMail = async (user: boolean, type: string) => {
     const transporter = createTransport({
       host: "smtp.gmail.com",
       port: 465,
@@ -150,7 +150,7 @@ export async function POST(request: NextRequest) {
       from: process.env.NEXT_PUBLIC_CONTACT_EMAIL,
       to: user ? `${data.Email}` : process.env.NEXT_PUBLIC_CONTACT_EMAIL,
       subject: user ? "Thank you for contacting us!" : "New Contact message!",
-      html: generateEmail(data, data.theme, user),
+      html: generateEmail(data, data.theme, user, type),
     });
   };
   if (success) {
@@ -159,8 +159,8 @@ export async function POST(request: NextRequest) {
       .then(() => console.log("User data has been saved"))
       .catch((error) => console.log("An error has occured", error))
       .finally(() => prisma.$disconnect());
-    sendMail(true);
-    sendMail(false);
+    sendMail(true, "contact");
+    sendMail(false, "contact");
     return new Response(
       JSON.stringify({ error: false, message: "message has been sent" }),
       { status: 200 }
