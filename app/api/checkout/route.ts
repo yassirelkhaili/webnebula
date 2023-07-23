@@ -156,8 +156,21 @@ export async function POST(request: NextRequest) {
       .then(() => console.log("User checkoutdata has been saved"))
       .catch((error) => console.log("An error has occured", error))
       .finally(() => prisma.$disconnect());
+      switch(validatedData.Payment) {
+        case "WireTransfer": 
+        sendMail("checkout-transfer")
+        break
+        case "Monero": 
+        sendMail("checkout-monero")
+        break
+        default: 
+        return new Response(
+          JSON.stringify({ error: true, message: "Problem processing the request" }),
+          { status: 401 }
+        )
+      }
     return new Response(
-      JSON.stringify({ error: false, message: validatedData.Payment }),
+      JSON.stringify({ error: false, message: "payment instructions sent" }),
       { status: 200 }
     );
   } else {
