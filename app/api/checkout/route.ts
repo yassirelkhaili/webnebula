@@ -130,25 +130,21 @@ export async function POST(request: NextRequest) {
     }
   );
   const { success } = response.data;
-  const sendMail = async (user: boolean, type: string) => {
+  const sendMail = async (type: string) => {
     const transporter = createTransport({
       host: "smtp.gmail.com",
       port: 465,
       secure: true,
       auth: {
-        user: user
-          ? process.env.NEXT_PUBLIC_CONTACT_EMAIL
-          : process.env.NEXT_PUBLIC_CONTACT_EMAIL_OWNER,
-        pass: user
-          ? process.env.GOOGLE_SMTP_EMAIL
-          : process.env.GOOGLE_SMTP_EMAIL_OWNER,
+        user: process.env.NEXT_PUBLIC_CONTACT_EMAIL,
+        pass: process.env.GOOGLE_SMTP_EMAIL,
       },
     });
     await transporter.sendMail({
       from: process.env.NEXT_PUBLIC_CONTACT_EMAIL,
-      to: user ? `${data.Email}` : process.env.NEXT_PUBLIC_CONTACT_EMAIL,
-      subject: user ? "Thank you for contacting us!" : "New Contact message!",
-      html: generateEmail(data, data.theme, user, type),
+      to: data.Email,
+      subject: type === "checkout-transfer" ? `Wire Transfer Payment Details for ${data.Organisation}` : `Monero Payment Details for ${data.Organisation}`,
+      html: generateEmail(data, data.theme, type),
     });
   };
   if (success) {

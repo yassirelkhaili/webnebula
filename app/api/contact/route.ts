@@ -132,25 +132,25 @@ export async function POST(request: NextRequest) {
     }
   );
   const { success } = response.data;
-  const sendMail = async (user: boolean, type: string) => {
+  const sendMail = async (type: string) => {
     const transporter = createTransport({
       host: "smtp.gmail.com",
       port: 465,
       secure: true,
       auth: {
-        user: user
+        user: type === "contact-user"
           ? process.env.NEXT_PUBLIC_CONTACT_EMAIL
           : process.env.NEXT_PUBLIC_CONTACT_EMAIL_OWNER,
-        pass: user
+        pass: type === "contact-user"
           ? process.env.GOOGLE_SMTP_EMAIL
           : process.env.GOOGLE_SMTP_EMAIL_OWNER,
       },
     });
     await transporter.sendMail({
       from: process.env.NEXT_PUBLIC_CONTACT_EMAIL,
-      to: user ? `${data.Email}` : process.env.NEXT_PUBLIC_CONTACT_EMAIL,
-      subject: user ? "Thank you for contacting us!" : "New Contact message!",
-      html: generateEmail(data, data.theme, user, type),
+      to: type === "contact-user" ? `${data.Email}` : process.env.NEXT_PUBLIC_CONTACT_EMAIL,
+      subject: type === "contact-user" ? "Thank you for contacting us!" : "New Contact message!",
+      html: generateEmail(data, data.theme, type),
     });
   };
   if (success) {
@@ -159,8 +159,8 @@ export async function POST(request: NextRequest) {
       .then(() => console.log("User data has been saved"))
       .catch((error) => console.log("An error has occured", error))
       .finally(() => prisma.$disconnect());
-    sendMail(true, "contact");
-    sendMail(false, "contact");
+    sendMail("contact-user");
+    sendMail("contact-owner");
     return new Response(
       JSON.stringify({ error: false, message: "message has been sent" }),
       { status: 200 }
