@@ -396,17 +396,17 @@ const generateEmail = (
   </body>
   </html>`;
 
-  switch(type) {
-    case "contact-user": 
-    return emailTemplateUser
-    case "contact-owner": 
-    return emailTemplateOwner
-    case "checkout-transfer": 
-    return emailTemplateTransfer
-    case "checkout-monero": 
-    return emailTemplateMonero
-    default: 
-    return "type does not exist"
+  switch (type) {
+    case "contact-user":
+      return emailTemplateUser;
+    case "contact-owner":
+      return emailTemplateOwner;
+    case "checkout-transfer":
+      return emailTemplateTransfer;
+    case "checkout-monero":
+      return emailTemplateMonero;
+    default:
+      return "type does not exist";
   }
 };
 

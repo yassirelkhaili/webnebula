@@ -143,7 +143,10 @@ export async function POST(request: NextRequest) {
     await transporter.sendMail({
       from: process.env.NEXT_PUBLIC_CONTACT_EMAIL,
       to: data.Email,
-      subject: type === "checkout-transfer" ? `Wire Transfer Payment Details for ${data.Organisation}` : `Monero Payment Details for ${data.Organisation}`,
+      subject:
+        type === "checkout-transfer"
+          ? `Wire Transfer Payment Details for ${data.Organisation}`
+          : `Monero Payment Details for ${data.Organisation}`,
       html: generateEmail(data, data.theme, type),
     });
   };
@@ -152,7 +155,7 @@ export async function POST(request: NextRequest) {
     saveUserCheckoutData(validatedData)
       .then(() => console.log("User checkoutdata has been saved"))
       .catch((error) => console.log("An error has occured", error))
-      .finally(() => prisma.$disconnect());  
+      .finally(() => prisma.$disconnect());
     return new Response(
       JSON.stringify({ error: false, message: validatedData.Payment }),
       { status: 200 }

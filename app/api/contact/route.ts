@@ -138,18 +138,26 @@ export async function POST(request: NextRequest) {
       port: 465,
       secure: true,
       auth: {
-        user: type === "contact-user"
-          ? process.env.NEXT_PUBLIC_CONTACT_EMAIL
-          : process.env.NEXT_PUBLIC_CONTACT_EMAIL_OWNER,
-        pass: type === "contact-user"
-          ? process.env.GOOGLE_SMTP_EMAIL
-          : process.env.GOOGLE_SMTP_EMAIL_OWNER,
+        user:
+          type === "contact-user"
+            ? process.env.NEXT_PUBLIC_CONTACT_EMAIL
+            : process.env.NEXT_PUBLIC_CONTACT_EMAIL_OWNER,
+        pass:
+          type === "contact-user"
+            ? process.env.GOOGLE_SMTP_EMAIL
+            : process.env.GOOGLE_SMTP_EMAIL_OWNER,
       },
     });
     await transporter.sendMail({
       from: process.env.NEXT_PUBLIC_CONTACT_EMAIL,
-      to: type === "contact-user" ? `${data.Email}` : process.env.NEXT_PUBLIC_CONTACT_EMAIL,
-      subject: type === "contact-user" ? "Thank you for contacting us!" : "New Contact message!",
+      to:
+        type === "contact-user"
+          ? `${data.Email}`
+          : process.env.NEXT_PUBLIC_CONTACT_EMAIL,
+      subject:
+        type === "contact-user"
+          ? "Thank you for contacting us!"
+          : "New Contact message!",
       html: generateEmail(data, data.theme, type),
     });
   };
