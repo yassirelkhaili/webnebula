@@ -102,6 +102,7 @@ const generateEmail = (
     </div>
   </body>
   </html>`;
+
   const emailTemplateOwner: string = `
   <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -282,12 +283,12 @@ const generateEmail = (
           <span class="text">WebNebula - Transforming Ideas into Reality</span>
         </div>
           <div class="main">
-            <p class="greeting">Message from ${data.Name}</p>
-            <p class="message">Email: ${data.Email}</p>
-            <p class="message">Phone: ${data.Phone}</p>
-            <p class="message">Company/Organisation: ${data.Organisation}</p>
-            <p class="message">Subject: ${data.Subject}</p>
-            <p class="message">Message: ${data.Message}</p>
+            <p class="greeting">Dear ${data.Name}</p>
+            <p class="message">Thank you for reaching out to us through our website's contact form. We appreciate you taking the time to get in touch with us, and we value your interest in our products/services.</p>
+            <p class="message">Our team has received your message, and we are currently reviewing the details you provided. We strive to respond to all inquiries promptly, and you can expect to hear back from us within 24 hours.</p>
+            <p class="message">While we work on addressing your query, please feel free to explore our website further. We have a wealth of information about our offerings and frequently asked questions that may already answer some of your queries.</p>
+            <p class="message">If you have any additional information or if there's anything else you'd like us to know, please don't hesitate to reply to this email. We're here to help and ensure you have a seamless experience with our company.</p>
+            <p class="message">Once again, thank you for getting in touch with us. We look forward to assisting you further.</p>
             <p class="messagefooter">Best regards,</p>
             <p class="endmessage">Yassir Elkhaili</p>
             <p class="endmessage">Founder and Developer, Webnebula</p>
@@ -380,12 +381,12 @@ const generateEmail = (
           <span class="text">WebNebula - Transforming Ideas into Reality</span>
         </div>
           <div class="main">
-            <p class="greeting">Message from ${data.Name}</p>
-            <p class="message">Email: ${data.Email}</p>
-            <p class="message">Phone: ${data.Phone}</p>
-            <p class="message">Company/Organisation: ${data.Organisation}</p>
-            <p class="message">Subject: ${data.Subject}</p>
-            <p class="message">Message: ${data.Message}</p>
+            <p class="greeting">Dear ${data.Name}</p>
+            <p class="message">Thank you for reaching out to us through our website's contact form. We appreciate you taking the time to get in touch with us, and we value your interest in our products/services.</p>
+            <p class="message">Our team has received your message, and we are currently reviewing the details you provided. We strive to respond to all inquiries promptly, and you can expect to hear back from us within 24 hours.</p>
+            <p class="message">While we work on addressing your query, please feel free to explore our website further. We have a wealth of information about our offerings and frequently asked questions that may already answer some of your queries.</p>
+            <p class="message">If you have any additional information or if there's anything else you'd like us to know, please don't hesitate to reply to this email. We're here to help and ensure you have a seamless experience with our company.</p>
+            <p class="message">Once again, thank you for getting in touch with us. We look forward to assisting you further.</p>
             <p class="messagefooter">Best regards,</p>
             <p class="endmessage">Yassir Elkhaili</p>
             <p class="endmessage">Founder and Developer, Webnebula</p>
