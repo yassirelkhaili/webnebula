@@ -3,7 +3,7 @@ import { formValueProps } from "@/app/utils/contactformhandler";
 const generateEmail = (
   data: formValueProps,
   theme: string,
-  type: string
+  type: "checkout-transfer" | "checkout-monero"| "contact-user" | "contact-owner"
 ): string => {
   const emailTemplateUser: string = `
   <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
