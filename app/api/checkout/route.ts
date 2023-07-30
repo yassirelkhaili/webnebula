@@ -10,6 +10,8 @@ import { PrismaClient } from "@prisma/client";
 
 let csrf_token: string;
 const prisma = new PrismaClient();
+const isValidPackageType = (value: string): boolean =>
+  ["basic", "standard", "premium"].includes(value);
 const validationSchema = z.object({
   Name: z
     .string()
@@ -31,6 +33,9 @@ const validationSchema = z.object({
   Feedback: z
     .string()
     .max(2000, { message: "Feedback must not exceed 2000 characters." }),
+  Packagetype: z.string().refine(isValidPackageType, {
+    message: "Please select a valid packagetype (basic, standard, or premium)",
+  }),
   recaptchaToken: z.string(),
   theme: z.string(),
 });
@@ -156,19 +161,22 @@ export async function POST(request: NextRequest) {
       .then(() => console.log("User checkoutdata has been saved"))
       .catch((error) => console.log("An error has occured", error))
       .finally(() => prisma.$disconnect());
-      switch(validatedData.Payment) {
-        case "WireTransfer": 
-        sendMail("checkout-transfer")
-        break
-        case "Monero": 
-        sendMail("checkout-monero")
-        break
-        default: 
+    switch (validatedData.Payment) {
+      case "WireTransfer":
+        sendMail("checkout-transfer");
+        break;
+      case "Monero":
+        sendMail("checkout-monero");
+        break;
+      default:
         return new Response(
-          JSON.stringify({ error: true, message: "Problem processing the request" }),
+          JSON.stringify({
+            error: true,
+            message: "Problem processing the request",
+          }),
           { status: 401 }
-        )
-      }
+        );
+    }
     return new Response(
       JSON.stringify({ error: false, message: "payment instructions sent" }),
       { status: 200 }

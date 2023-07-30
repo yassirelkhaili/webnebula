@@ -20,7 +20,7 @@ const Booking = ({ params }: { params: { slug: string } }) => {
   return (
     <>
     <Header mainNavitems={false} />
-    <Contact mainpage={false} />
+    <Contact mainpage={false} slug={params.slug}/>
     <CheckoutPage slug={params.slug} />
     </>
   );

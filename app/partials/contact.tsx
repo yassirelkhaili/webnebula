@@ -4,9 +4,10 @@ import CheckoutForm from "../utils/checkoutformHandler";
 
 interface contactProps {
   mainpage: boolean, 
+  slug : string
 }
 
-const Contact = ({ mainpage } : contactProps) => {
+const Contact = ({ mainpage, slug} : contactProps) => {
   return (
     <section className="min-h-screen flex flex-col items-center mt-0">
       <div className={`container flex flex-col items-center ${!mainpage && "mt-24"}`}>
@@ -18,7 +19,7 @@ const Contact = ({ mainpage } : contactProps) => {
           {mainpage ? mainContactTitle : checkoutFormTitle}
         </h1>
       </div>
-      {mainpage ? <ContactForm /> : <CheckoutForm />}
+      {mainpage ? <ContactForm /> : <CheckoutForm slug={slug}/>}
       </div>
     </section>
   );

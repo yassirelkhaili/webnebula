@@ -62,8 +62,10 @@ const formSchema = z.object({
 });
 
 export type formValueProps = z.infer<typeof formSchema>;
-
-export default function CheckoutForm() {
+type checkoutformProps = {
+  slug : string
+}
+export default function CheckoutForm({ slug } : checkoutformProps) {
   const { theme, systemTheme } = useTheme();
   const [currentTheme, setcurrentTheme] = useState(theme);
   const [forceRerender, setforceRerender] = useState(false);
@@ -122,6 +124,7 @@ export default function CheckoutForm() {
             },
             body: JSON.stringify({
               ...data,
+              Packagetype: slug, 
               recaptchaToken: recaptchaToken,
               theme: currentTheme,
             }),
