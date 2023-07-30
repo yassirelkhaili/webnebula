@@ -132,7 +132,7 @@ export async function POST(request: NextRequest) {
     }
   );
   const { success } = response.data;
-  const sendMail = async (type: string) => {
+  const sendMail = async (type: "contact-user" | "contact-owner" | "checkout-transfer" | "checkout-monero") => {
     const transporter = createTransport({
       host: "smtp.gmail.com",
       port: 465,
