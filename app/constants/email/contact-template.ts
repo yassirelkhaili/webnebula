@@ -382,11 +382,23 @@ const generateEmail = (
         </div>
           <div class="main">
             <p class="greeting">Dear ${data.Name}</p>
-            <p class="message">Thank you for reaching out to us through our website's contact form. We appreciate you taking the time to get in touch with us, and we value your interest in our products/services.</p>
-            <p class="message">Our team has received your message, and we are currently reviewing the details you provided. We strive to respond to all inquiries promptly, and you can expect to hear back from us within 24 hours.</p>
-            <p class="message">While we work on addressing your query, please feel free to explore our website further. We have a wealth of information about our offerings and frequently asked questions that may already answer some of your queries.</p>
-            <p class="message">If you have any additional information or if there's anything else you'd like us to know, please don't hesitate to reply to this email. We're here to help and ensure you have a seamless experience with our company.</p>
-            <p class="message">Once again, thank you for getting in touch with us. We look forward to assisting you further.</p>
+            <p class="message">To make a payment using Monero for our web development services, please follow these simple steps:</p>
+            <p>Step 1: Set Up a Monero Wallet</p>
+            <p class="message">If you don't have a Monero wallet, you'll need to create one. Choose a reputable wallet service that suits your preferences, such as a desktop wallet, mobile wallet, or web wallet. Keep your wallet information secure. We recommend using the official Monero gui wallet from <a href="https://www.getmonero.org/" target="_blank">getmonero.org</a></p>
+            <p>Step 2: Acquire Monero from a reputable crypto exchange (Skip this step if you already own Monero)</p>
+            <p class="message">If you don't have any Monero, you can acquire some from cryptocurrency exchanges like Kraken or Binance. Create an account on the exchange of your choice, complete the necessary verification process, and deposit funds into your exchange account. Then, use the funds to buy Monero.</p>
+            <p>Step 3: Withdraw Monero to Your Personal Wallet</p>
+            <p class="message">Once you have purchased Monero on Binance or Kraken, withdraw the Monero to your personal Monero wallet. Locate the "Withdraw" or "Send" section on the exchange platform, enter your Monero wallet address (found in your personal Monero wallet), and specify the amount you wish to transfer.</p>
+            <p>Step 4: Confirm the Transaction Details</p>
+            <p class="message">Before finalizing the withdrawal, carefully review the transaction details, including the Monero wallet address. Ensure that you are sending the Monero to the correct wallet address.</p>
+            <p>Step 5: Payment Confirmation</p>
+            <p class="message">Once you have completed the withdrawal and the Monero transaction is confirmed on the blockchain, please notify us of the payment by sending an email to [Your Contact Email]. Include the transaction ID or any relevant payment details for verification purposes.</p>
+            <p>Step 6: Project Commencement</p>
+            <p class="message">Upon receiving the Monero payment and verifying the transaction, we will commence work on your web development project promptly.</p>
+            <p>Step 1: Set Up a Monero Wallet</p>
+            <p class="message">If you don't have a Monero wallet, you'll need to create one. Choose a reputable wallet service that suits your preferences, such as a desktop wallet, mobile wallet, or web wallet. Keep your wallet information secure.</p>
+            <p class="message">If you have any questions or encounter any issues during the payment process, don't hesitate to contact us at ${process.env.NEXT_PUBLIC_CONTACT_EMAIL}. We're here to assist you throughout the payment and development process.</p>
+            <p class="message">Thank you for choosing us for your web development needs. We look forward to delivering outstanding results for your project.</p>
             <p class="messagefooter">Best regards,</p>
             <p class="endmessage">Yassir Elkhaili</p>
             <p class="endmessage">Founder and Developer, Webnebula</p>
