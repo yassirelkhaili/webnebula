@@ -1,6 +1,6 @@
+"use server"
+
 import { formValueProps } from "@/app/utils/contactformhandler";
-import path from "path";
-import fs from "fs";
 
 const generateEmail = (
   data: formValueProps,
@@ -378,7 +378,14 @@ const generateEmail = (
             padding: 0px; 
           }
           .moneroimg {
-            border-radius: 0.5rem; 
+            border-radius: 0.5rem;
+            display: block; 
+          }
+          .center {
+            margin: 0 auto; 
+          }
+          .monero-container {
+            margin-bottom: 0.5rem; 
           }
           </style>
       </head>
@@ -392,7 +399,10 @@ const generateEmail = (
           <div class="main">
             <p class="greeting">Dear ${data.Name}</p>
             <div class="monero-container">
-            <img src="https://i.ibb.co/9bM08pf/monero.png" class="moneroimg" alt="Monero QR code" border="0">
+            <p class="message">We hope this message finds you well. Below, you will find all the necessary payment information for the Monero transfer:</p>
+            <img src="https://i.ibb.co/9bM08pf/monero.png" class="moneroimg center message" alt="Monero QR code" border="0">
+            <p class="message">Monero Wallet Address:</p>
+            <p class="endmessage">87FrtUuvTGPMm6C5KNL5oW2WPFjEj4qfBZjrUoJb1mWgZ5xva5gvdYqHVzztoktXpbD3g1rPpVPuz3wd8aSc3CyaSqywWLt</p>
             </div>
             <p class="message">To make a payment using Monero for our web development services, please follow these simple steps:</p>
             <p class="endmessage">Step 1: Set Up a Monero Wallet</p>
