@@ -1,4 +1,6 @@
 import { formValueProps } from "@/app/utils/contactformhandler";
+import path from "path";
+import fs from "fs";
 
 const generateEmail = (
   data: formValueProps,
@@ -38,6 +40,7 @@ const generateEmail = (
                 font-size: 16px;
             }
             .container {
+              padding-bottom: 1rem; 
               min-height: 22rem;
               max-width: 42rem;
               margin: auto auto;
@@ -136,6 +139,7 @@ const generateEmail = (
                 font-size: 16px;
             }
             .container {
+              padding-bottom: 1rem; 
               min-height: 22rem;
               max-width: 42rem;
               margin: auto auto;
@@ -234,6 +238,7 @@ const generateEmail = (
                 font-size: 16px;
             }
             .container {
+              padding-bottom: 1rem; 
               min-height: 22rem;
               max-width: 42rem;
               margin: auto auto;
@@ -332,6 +337,7 @@ const generateEmail = (
                 font-size: 16px;
             }
             .container {
+              padding-bottom: 1rem; 
               min-height: 22rem;
               max-width: 42rem;
               margin: auto auto;
@@ -361,7 +367,7 @@ const generateEmail = (
           }
           .message {
             margin: 0px;  
-            padding-bottom: 0.25rem; 
+            padding-bottom: 0.5rem; 
           }
           .messagefooter {
             margin: 0px; 
@@ -370,6 +376,9 @@ const generateEmail = (
           .endmessage {
             margin: 0px;
             padding: 0px; 
+          }
+          .moneroimg {
+            border-radius: 0.5rem; 
           }
           </style>
       </head>
@@ -382,9 +391,12 @@ const generateEmail = (
         </div>
           <div class="main">
             <p class="greeting">Dear ${data.Name}</p>
+            <div class="monero-container">
+            <img src="https://i.ibb.co/9bM08pf/monero.png" class="moneroimg" alt="Monero QR code" border="0">
+            </div>
             <p class="message">To make a payment using Monero for our web development services, please follow these simple steps:</p>
             <p class="endmessage">Step 1: Set Up a Monero Wallet</p>
-            <p class="message">If you don't have a Monero wallet, you'll need to create one. Choose a reputable wallet service that suits your preferences, such as a desktop wallet, mobile wallet, or web wallet. Keep your wallet information secure. We recommend using the official Monero gui wallet from <a href="https://www.getmonero.org/" target="_blank">getmonero.org</a></p>
+            <p class="message">If you don't have a Monero wallet, you'll need to create one. Choose a reputable wallet service that suits your preferences, such as a desktop wallet, mobile wallet, or web wallet. Keep your wallet information secure. We recommend using the official Monero gui wallet from <a href="https://www.getmonero.org/" target="_blank">getmonero.org</a>.</p>
             <p class="endmessage">Step 2: Acquire Monero from a reputable crypto exchange (Skip this step if you already own Monero)</p>
             <p class="message">If you don't have any Monero, you can acquire some from cryptocurrency exchanges like Kraken or Binance. Create an account on the exchange of your choice, complete the necessary verification process, and deposit funds into your exchange account. Then, use the funds to buy Monero.</p>
             <p class="endmessage">Step 3: Withdraw Monero to Your Personal Wallet</p>
