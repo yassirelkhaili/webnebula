@@ -135,7 +135,7 @@ export default function Header({ mainNavitems }: HeaderProps) {
             </div>
           </div>
           <nav className="flex items-center flex-col z-50 text-dark dark:text-slate-50 mx-auto">
-            <ul className=" flex flex-col gap-4 nav-items font-inter text-xl flex gap-x-6">
+            <ul className="flex flex-col gap-4 nav-items font-inter text-xl gap-x-6">
               {generateNavitems(mainNavitems).map((item: navitem) => (
                 <li
                   key={item.key}

@@ -44,21 +44,60 @@ const validationSchema = z.object({
   theme: z.string(),
 });
 type validationProps = z.infer<typeof validationSchema>;
+const couponIsValid = (Coupon : string) => ["NEBULA2023", "LAUNCHPARTY", "WEBLAUNCH10"].includes(Coupon)
 export async function saveUserCheckoutData(validatedData: validationProps) {
-  const { Name, Email, Phone, Organisation, Payment, Feedback, theme } =
+  const { Name, Email, Phone, Organisation, Payment, Feedback, theme, Coupon} =
     validatedData;
-  const user = await prisma.checkoutdata.create({
-    data: {
-      clientName: Name,
-      clientEmail: Email,
-      clientPhone: Phone,
-      clientOrg: Organisation,
-      clientTheme: theme,
-      PaymentMethod: Payment,
-      clientFeedback: Feedback,
-    },
-  });
-  return user;
+    const existingUser = await prisma.checkoutdata.findFirst({
+      where: {
+        OR: [
+          { clientName: Name },
+          { clientEmail: Email },
+          { clientOrg: Organisation },
+        ],
+      },
+    });
+    if (couponIsValid(Coupon)) {
+      if (existingUser) {
+        if (existingUser.CouponCode) {
+          if (existingUser.CouponCode === Coupon) {
+            return new Response(JSON.stringify({ error: true, message: "This Coupon code has already been used" }), { status: 403 })
+          } else {
+            const updatedUser = await prisma.checkoutdata.update({
+              where: { id: existingUser.id },
+              data: {
+                CouponCode: Coupon,
+              },
+            })
+            return updatedUser
+          }
+        } else {
+          const updatedUser = await prisma.checkoutdata.update({
+            where: { id: existingUser.id },
+            data: {
+              CouponCode: Coupon,
+            },
+          })
+          return updatedUser
+        }
+        } else {
+          const user = await prisma.checkoutdata.create({
+            data: {
+              clientName: Name,
+              clientEmail: Email,
+              clientPhone: Phone,
+              clientOrg: Organisation,
+              clientTheme: theme,
+              PaymentMethod: Payment,
+              CouponCode: Coupon, 
+              clientFeedback: Feedback,
+            },
+          });
+          return user;
+        }
+    } else {
+      return new Response(JSON.stringify({ error: true, message: "Invalid Coupon code." }), { status: 403 })
+    }
 }
 
 export async function GET(request: NextRequest) {
