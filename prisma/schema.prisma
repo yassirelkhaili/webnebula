@@ -26,6 +26,6 @@ model checkoutdata {
   clientOrg      String @db.VarChar(160)
   clientTheme    String @db.VarChar(10)
   PaymentMethod  String @db.VarChar(12)
-  CouponCode     String @db.VarChar(10)
+  CouponCode     String @db.VarChar(12)
   clientFeedback String @db.Text
 }

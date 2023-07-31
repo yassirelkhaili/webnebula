@@ -60,7 +60,7 @@ const formSchema = z.object({
   Coupon: z
   .string()
   .min(5, { message: "Coupon codes are at least 5 charracters long." })
-  .max(10, { message : "Coupon codes are 10 charracters long."}), 
+  .max(12, { message : "Coupon codes are 12 charracters long."}), 
   Feedback: z
     .string()
     .max(2000, { message: "Feedback must not exceed 2000 characters." }),
