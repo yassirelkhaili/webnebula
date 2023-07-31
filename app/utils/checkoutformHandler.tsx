@@ -25,7 +25,8 @@ import {
   buttonLabel,
   formContent,
   feedbackContent, 
-  paymentoptionContent
+  paymentoptionContent,
+  couponContent
 } from "../constants/contact";
 import {
   Select,
@@ -56,6 +57,10 @@ const formSchema = z.object({
   .string({
     required_error: "Please select a payment option.",
   }), 
+  Coupon: z
+  .string()
+  .min(5, { message: "Coupon codes are at least 5 charracters long." })
+  .max(10, { message : "Coupon codes are 10 charracters long."}), 
   Feedback: z
     .string()
     .max(2000, { message: "Feedback must not exceed 2000 characters." }),
@@ -228,6 +233,21 @@ export default function CheckoutForm({ slug } : checkoutformProps) {
             </FormItem>
           )}
         />
+        <FormField
+                  key={couponContent.name}
+                  control={form.control}
+                  name={couponContent.name as "Coupon"}
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>{couponContent.label}</FormLabel>
+                      <FormControl>
+                        <Input placeholder={couponContent.placeholder} {...field} />
+                      </FormControl>
+                      <FormDescription>{couponContent.description}</FormDescription>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
             <FormField
               control={form.control}
               name={feedbackContent.name as "Feedback"}

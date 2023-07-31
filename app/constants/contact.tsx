@@ -63,6 +63,13 @@ export const paymentoptionContent : paymentoptionContentProps = {
   ]
 }
 
+export const couponContent : formContentProps = {
+  name: "Coupon", 
+  label: "Coupon", 
+  placeholder: "Coupon", 
+  description: "Please enter the coupon code you received."
+}
+
 export const buttonLabel: string = "Send Message";
 
 export const contactTitle: string = "Contact Us";

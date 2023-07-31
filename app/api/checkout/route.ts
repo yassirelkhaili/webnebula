@@ -30,6 +30,10 @@ const validationSchema = z.object({
   Payment: z.string({
     required_error: "Please select a payment option.",
   }),
+  Coupon: z
+  .string()
+  .min(5, { message: "Coupon must be at least 5 charracters." })
+  .max(10, { message : "Coupon must not exceed 10 charracters."}), 
   Feedback: z
     .string()
     .max(2000, { message: "Feedback must not exceed 2000 characters." }),
