@@ -387,6 +387,9 @@ const generateEmail = (
           .monero-container {
             margin-bottom: 0.5rem; 
           }
+          .textcenter {
+            text-align: center;
+          }
           </style>
       </head>
       <body>
@@ -401,8 +404,8 @@ const generateEmail = (
             <div class="monero-container">
             <p class="message">We hope this message finds you well. Below, you will find all the necessary payment information for the Monero transfer:</p>
             <img src="https://i.ibb.co/9bM08pf/monero.png" class="moneroimg center message" alt="Monero QR code" border="0">
-            <p class="message">Monero Wallet Address:</p>
-            <p class="endmessage">87FrtUuvTGPMm6C5KNL5oW2WPFjEj4qfBZjrUoJb1mWgZ5xva5gvdYqHVzztoktXpbD3g1rPpVPuz3wd8aSc3CyaSqywWLt</p>
+            <p class="message textcenter">Monero Wallet Address:</p>
+            <p class="endmessage textcenter">87FrtUuvTGPMm6C5KNL5oW2WPFjEj4qfBZjrUoJb1mWgZ5xva5gvdYqHVzztoktXpbD3g1rPpVPuz3wd8aSc3CyaSqywWLt</p>
             </div>
             <p class="message">To make a payment using Monero for our web development services, please follow these simple steps:</p>
             <p class="endmessage">Step 1: Set Up a Monero Wallet</p>

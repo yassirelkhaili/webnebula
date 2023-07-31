@@ -44,7 +44,22 @@ const validationSchema = z.object({
   theme: z.string(),
 });
 type validationProps = z.infer<typeof validationSchema>;
-export async function saveUserCheckoutData(validatedData: validationProps) {
+type UserData = {
+  id: number;
+  clientName: string;
+  clientEmail: string;
+  clientPhone: string;
+  clientOrg: string;
+  clientTheme: string;
+  PaymentMethod: string;
+  CouponCode: string | null;
+  clientFeedback: string;
+};
+type ErrorData = {
+  error: true;
+  message: string;
+};
+export async function saveUserCheckoutData(validatedData: validationProps) : Promise<UserData | ErrorData>{
   const couponIsValid = (Coupon : string) => ["NEBULA2023", "LAUNCHPARTY", "WEBLAUNCH10"].includes(Coupon)
   const { Name, Email, Phone, Organisation, Payment, Feedback, theme, Coupon} =
     validatedData;
@@ -56,13 +71,11 @@ export async function saveUserCheckoutData(validatedData: validationProps) {
         ],
       },
     });
-    console.log(couponIsValid(Coupon))
     if (couponIsValid(Coupon)) {
       if (existingUser) {
         if (existingUser.CouponCode) {
           if (existingUser.CouponCode === Coupon) {
-            console.log("This Coupon code has already been used")
-            return new Response(JSON.stringify({ error: true, message: "This Coupon code has already been used" }), { status: 403 })
+            return { error: true, message: "This Coupon code has already been used" }
           } else {
             const updatedUser = await prisma.checkoutdata.update({
               where: { id: existingUser.id },
@@ -97,8 +110,7 @@ export async function saveUserCheckoutData(validatedData: validationProps) {
           return user;
         }
     } else {
-      console.log("Invalid Coupon code.")
-      return new Response(JSON.stringify({ error: true, message: "Invalid Coupon code." }), { status: 403 })
+      return { error: true, message: "Invalid Coupon code." }
     }
 }
 
@@ -203,7 +215,14 @@ export async function POST(request: NextRequest) {
   if (success) {
     const validatedData = validationSchema.parse(data);
     saveUserCheckoutData(validatedData)
-      .then(() => console.log("User checkoutdata has been saved"))
+      .then((response) => {
+        if('error' in response) {
+          return new Response(
+            JSON.stringify(response),
+            { status: 401 }
+          );
+        }
+      })
       .catch((error) => console.log("An error has occured", error))
       .finally(() => prisma.$disconnect());
     switch (validatedData.Payment) {
