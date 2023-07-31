@@ -61,6 +61,7 @@ export async function saveUserCheckoutData(validatedData: validationProps) {
       if (existingUser) {
         if (existingUser.CouponCode) {
           if (existingUser.CouponCode === Coupon) {
+            console.log("This Coupon code has already been used")
             return new Response(JSON.stringify({ error: true, message: "This Coupon code has already been used" }), { status: 403 })
           } else {
             const updatedUser = await prisma.checkoutdata.update({
@@ -96,6 +97,7 @@ export async function saveUserCheckoutData(validatedData: validationProps) {
           return user;
         }
     } else {
+      console.log("Invalid Coupon code.")
       return new Response(JSON.stringify({ error: true, message: "Invalid Coupon code." }), { status: 403 })
     }
 }
