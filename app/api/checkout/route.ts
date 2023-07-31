@@ -44,19 +44,19 @@ const validationSchema = z.object({
   theme: z.string(),
 });
 type validationProps = z.infer<typeof validationSchema>;
-const couponIsValid = (Coupon : string) => ["NEBULA2023", "LAUNCHPARTY", "WEBLAUNCH10"].includes(Coupon)
 export async function saveUserCheckoutData(validatedData: validationProps) {
+  const couponIsValid = (Coupon : string) => ["NEBULA2023", "LAUNCHPARTY", "WEBLAUNCH10"].includes(Coupon)
   const { Name, Email, Phone, Organisation, Payment, Feedback, theme, Coupon} =
     validatedData;
     const existingUser = await prisma.checkoutdata.findFirst({
       where: {
         OR: [
-          { clientName: Name },
           { clientEmail: Email },
           { clientOrg: Organisation },
         ],
       },
     });
+    console.log(couponIsValid(Coupon))
     if (couponIsValid(Coupon)) {
       if (existingUser) {
         if (existingUser.CouponCode) {
