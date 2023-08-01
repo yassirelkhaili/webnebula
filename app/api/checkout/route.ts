@@ -63,13 +63,15 @@ export async function saveUserCheckoutData(validatedData: validationProps) {
             message: "This Coupon code has already been used",
           };
         } else {
+          const newArray = Array.isArray(existingUser.CouponCode) ? existingUser.CouponCode : []
+          newArray.push(Coupon)
           const updatedUser = await prisma.checkoutdata.update({
-            where: { id: existingUser.id },
+            where: { id: existingUser.id}, 
             data: {
-              CouponCode: Coupon,
-            },
-          });
-          return updatedUser;
+              CouponCode: newArray
+            }
+          })
+          return updatedUser
         }
       } else {
         const updatedUser = await prisma.checkoutdata.update({
@@ -89,7 +91,7 @@ export async function saveUserCheckoutData(validatedData: validationProps) {
           clientOrg: Organisation,
           clientTheme: theme,
           PaymentMethod: Payment,
-          CouponCode: Coupon,
+          CouponCode: [`${Coupon}`],
           clientFeedback: Feedback,
         },
       });
