@@ -74,6 +74,7 @@ export default function CheckoutForm({ slug }: checkoutformProps) {
   const [forceRerender, setforceRerender] = useState(false);
   const [recaptchaToken, setrecaptchaToken] = useState("");
   const [isloading, setisloading] = useState(false);
+  const [showCouponError, setShowCouponError] = useState(true);
   useEffect(() => {
     setcurrentTheme(theme === "system" ? systemTheme : theme);
     setforceRerender((prev) => !prev);
@@ -113,6 +114,9 @@ export default function CheckoutForm({ slug }: checkoutformProps) {
   const handleRecaptchaChange = (token: string) => {
     setrecaptchaToken(token);
   };
+useEffect(() => {
+  console.log(showCouponError)
+}, [showCouponError])
 
   async function onSubmit(data: formValueProps) {
     setisloading(true);
@@ -267,14 +271,14 @@ export default function CheckoutForm({ slug }: checkoutformProps) {
                 <FormItem>
                   <FormLabel>{couponContent.label}</FormLabel>
                   <FormControl>
-                    <Input placeholder={couponContent.placeholder} {...field} />
+                    <Input placeholder={couponContent.placeholder} {...field} onChange={() => {errors.Coupon && setShowCouponError(false)}}/>
                   </FormControl>
                   <FormDescription>{couponContent.description}</FormDescription>
                   <FormMessage />
                 </FormItem>
               )}
             />
-                {errors.Coupon && (
+                {(errors.Coupon && showCouponError) && (
                 <p className="text-sm text-red-500 dark:text-red-900 mt-[8px]">
                   {couponError}
                 </p>

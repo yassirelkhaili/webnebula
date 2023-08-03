@@ -33,7 +33,8 @@ const validationSchema = z.object({
   Coupon: z
     .string()
     .min(5, { message: "Coupon must be at least 5 charracters." })
-    .max(12, { message: "Coupon must not exceed 12 charracters." }),
+    .max(12, { message: "Coupon must not exceed 12 charracters." })
+    .optional(), 
   Feedback: z
     .string()
     .max(2000, { message: "Feedback must not exceed 2000 characters." }),
@@ -54,7 +55,7 @@ export async function saveUserCheckoutData(validatedData: validationProps) {
       OR: [{ clientEmail: Email }, { clientOrg: Organisation }],
     },
   });
-  if (couponIsValid(Coupon)) {
+  if (Coupon && couponIsValid(Coupon)) {
     if (existingUser) {
       if (existingUser.CouponCode) {
         const newArray = Array.isArray(existingUser.CouponCode)
