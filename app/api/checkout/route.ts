@@ -64,6 +64,7 @@ export async function saveUserCheckoutData(validatedData: validationProps) {
           if (code === Coupon) {
             return {
               error: true,
+              type: "coupon", 
               message: "This Coupon code has already been used.",
             };
           }
@@ -101,7 +102,7 @@ export async function saveUserCheckoutData(validatedData: validationProps) {
       return user;
     }
   } else {
-    return { error: true, message: "Invalid or expired Coupon Code." };
+    return { error: true, type: "coupon", message: "Invalid or expired Coupon Code." };
   }
 }
 

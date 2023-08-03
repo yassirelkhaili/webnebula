@@ -24,9 +24,9 @@ import {
   formContentProps,
   buttonLabel,
   formContent,
-  feedbackContent, 
+  feedbackContent,
   paymentoptionContent,
-  couponContent
+  couponContent,
 } from "../constants/contact";
 import {
   Select,
@@ -34,7 +34,7 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/select"
+} from "@/components/ui/select";
 
 const formSchema = z.object({
   Name: z
@@ -46,21 +46,19 @@ const formSchema = z.object({
     .string()
     .email("Please enter a valid email address.")
     .max(255, { message: "Email must not exceed 255 characters." }),
-  Phone: z
-    .string()
-    .regex(/^\d{10}$/i, "Please enter a valid phone number."),
+  Phone: z.string().regex(/^\d{10}$/i, "Please enter a valid phone number."),
   Organisation: z
     .string()
     .nonempty("Please enter your organization.")
     .max(160, { message: "Company name must not exceed 160 characters." }),
-  Payment: z
-  .string({
+  Payment: z.string({
     required_error: "Please select a payment option.",
-  }), 
+  }),
   Coupon: z
-  .string()
-  .min(5, { message: "Coupon codes are at least 5 charracters long." })
-  .max(12, { message : "Coupon codes are 12 charracters long."}), 
+    .string()
+    .min(5, { message: "Coupon codes are at least 5 charracters long." })
+    .max(12, { message: "Coupon codes are 12 charracters long." })
+    .optional(), 
   Feedback: z
     .string()
     .max(2000, { message: "Feedback must not exceed 2000 characters." }),
@@ -68,14 +66,14 @@ const formSchema = z.object({
 
 export type formValueProps = z.infer<typeof formSchema>;
 type checkoutformProps = {
-  slug : string
-}
-export default function CheckoutForm({ slug } : checkoutformProps) {
+  slug: string;
+};
+export default function CheckoutForm({ slug }: checkoutformProps) {
   const { theme, systemTheme } = useTheme();
   const [currentTheme, setcurrentTheme] = useState(theme);
   const [forceRerender, setforceRerender] = useState(false);
   const [recaptchaToken, setrecaptchaToken] = useState("");
-  const [isloading, setisloading] = useState(false)
+  const [isloading, setisloading] = useState(false);
   useEffect(() => {
     setcurrentTheme(theme === "system" ? systemTheme : theme);
     setforceRerender((prev) => !prev);
@@ -117,7 +115,7 @@ export default function CheckoutForm({ slug } : checkoutformProps) {
   };
 
   async function onSubmit(data: formValueProps) {
-    setisloading(true)
+    setisloading(true);
     if (recaptchaToken) {
       try {
         const response = await fetch(
@@ -129,7 +127,7 @@ export default function CheckoutForm({ slug } : checkoutformProps) {
             },
             body: JSON.stringify({
               ...data,
-              Packagetype: slug, 
+              Packagetype: slug,
               recaptchaToken: recaptchaToken,
               theme: currentTheme,
             }),
@@ -149,7 +147,13 @@ export default function CheckoutForm({ slug } : checkoutformProps) {
           });
           console.log(responseMessage.message);
         } else {
-          console.error(responseMessage.errors && responseMessage.errors)
+          if(responseMessage.error && responseMessage.type === "coupon") {
+            setError("Coupon", {
+              type: "manual",
+              message: responseMessage.message,
+            })
+          } else {
+            console.error(responseMessage.errors && responseMessage.errors);
           toast({
             title:
               "Form submission failed. Refresh the page and try again or contact us directly via:",
@@ -165,6 +169,7 @@ export default function CheckoutForm({ slug } : checkoutformProps) {
             ),
           });
           throw new Error(responseMessage.message);
+          }
         }
       } catch (error) {
         console.error("Error:", error);
@@ -175,9 +180,10 @@ export default function CheckoutForm({ slug } : checkoutformProps) {
         message: "Please complete the reCAPTCHA",
       });
     }
-    setisloading(false)
+    setisloading(false);
   }
-  const errorMessage = errors.recaptcha?.message?.toString() ?? null;
+  const captchaError = errors.recaptcha?.message?.toString() ?? null;
+  const couponError = errors.Coupon?.message?.toString() ?? null;  
   return (
     <Card className="container mt-8 sm:max-w-[40rem]">
       <Form {...form}>
@@ -203,51 +209,77 @@ export default function CheckoutForm({ slug } : checkoutformProps) {
               );
             })}
             <FormField
-          control={form.control}
-          name={paymentoptionContent.name as "Payment"}
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>{paymentoptionContent.label}</FormLabel>
-              <Select onValueChange={field.onChange} defaultValue={field.value}>
-                <FormControl>
-                  <SelectTrigger>
-                    <SelectValue placeholder={paymentoptionContent.placeholder} />
-                  </SelectTrigger>
-                </FormControl>
-                <SelectContent>
-                  {paymentoptionContent.options.map((paymentOption : string, index) => {
-                    if (index === 0) {
-                      return <SelectItem value="Stripe">{paymentOption}</SelectItem>
-                    } else if (index === 1) {
-                      return <SelectItem value="WireTransfer">{paymentOption}</SelectItem>
-                    } else {
-                      return <SelectItem value={paymentOption}>{paymentOption}</SelectItem>
-                    }
-                  })}
-                </SelectContent>
-              </Select>
-              <FormDescription>
-                {paymentoptionContent.description}
-              </FormDescription>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <FormField
-                  key={couponContent.name}
-                  control={form.control}
-                  name={couponContent.name as "Coupon"}
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>{couponContent.label}</FormLabel>
-                      <FormControl>
-                        <Input placeholder={couponContent.placeholder} {...field} />
-                      </FormControl>
-                      <FormDescription>{couponContent.description}</FormDescription>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
+              control={form.control}
+              name={paymentoptionContent.name as "Payment"}
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>{paymentoptionContent.label}</FormLabel>
+                  <Select
+                    onValueChange={field.onChange}
+                    defaultValue={field.value}
+                  >
+                    <FormControl>
+                      <SelectTrigger>
+                        <SelectValue
+                          placeholder={paymentoptionContent.placeholder}
+                        />
+                      </SelectTrigger>
+                    </FormControl>
+                    <SelectContent>
+                      {paymentoptionContent.options.map(
+                        (paymentOption: string, index) => {
+                          if (index === 0) {
+                            return (
+                              <SelectItem value="Stripe">
+                                {paymentOption}
+                              </SelectItem>
+                            );
+                          } else if (index === 1) {
+                            return (
+                              <SelectItem value="WireTransfer">
+                                {paymentOption}
+                              </SelectItem>
+                            );
+                          } else {
+                            return (
+                              <SelectItem value={paymentOption}>
+                                {paymentOption}
+                              </SelectItem>
+                            );
+                          }
+                        }
+                      )}
+                    </SelectContent>
+                  </Select>
+                  <FormDescription>
+                    {paymentoptionContent.description}
+                  </FormDescription>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <div className="couponContainer">
+            <FormField
+              key={couponContent.name}
+              control={form.control}
+              name={couponContent.name as "Coupon"}
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>{couponContent.label}</FormLabel>
+                  <FormControl>
+                    <Input placeholder={couponContent.placeholder} {...field} />
+                  </FormControl>
+                  <FormDescription>{couponContent.description}</FormDescription>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+                {errors.Coupon && (
+                <p className="text-sm text-red-500 dark:text-red-900 mt-[8px]">
+                  {couponError}
+                </p>
+              )}
+            </div>
             <FormField
               control={form.control}
               name={feedbackContent.name as "Feedback"}
@@ -276,9 +308,9 @@ export default function CheckoutForm({ slug } : checkoutformProps) {
                 key={forceRerender}
                 onChange={handleRecaptchaChange}
               />
-              {errors.recaptcha && (
+              {(errors.recaptcha && !recaptchaToken) && (
                 <p className="text-sm font-medium text-red-500 dark:text-red-900 mt-[8px]">
-                  {errorMessage}
+                  {captchaError}
                 </p>
               )}
             </div>
@@ -297,4 +329,4 @@ export default function CheckoutForm({ slug } : checkoutformProps) {
 }
 
 export const mainContactTitle: string = "Contact Us";
-export const checkoutFormTitle : string = "Confirm Order"; 
+export const checkoutFormTitle: string = "Confirm Order";

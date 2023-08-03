@@ -231,7 +231,7 @@ export default function ContactForm() {
                 key={forceRerender}
                 onChange={handleRecaptchaChange}
               />
-              {errors.recaptcha && (
+              {(errors.recaptcha && !recaptchaToken) && (
                 <p className="text-sm font-medium text-red-500 dark:text-red-900 mt-[8px]">
                   {errorMessage}
                 </p>
