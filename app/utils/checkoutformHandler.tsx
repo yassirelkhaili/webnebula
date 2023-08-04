@@ -54,11 +54,13 @@ const formSchema = z.object({
   Payment: z.string({
     required_error: "Please select a payment option.",
   }),
-  Coupon: z
-  .string()
-  .min(5, {message: "Coupon must be at least 5 characters."})
-  .max(12, {message: "Coupon must not exceed 12 characters."})
-  .optional(),  
+  Coupon: z.string().refine(
+    (value: String) => {
+      if (value === "") {
+        return true;
+      }
+      return value.length >= 5 && value.length <= 12;
+    }, (val) => (val.length < 5 ? {message: "Coupon must be at least 5 charracters"} : {message : "Coupon must not exceed 12 charracters"})),
   Feedback: z
     .string()
     .max(2000, { message: "Feedback must not exceed 2000 characters." }),
@@ -107,6 +109,7 @@ export default function CheckoutForm({ slug }: checkoutformProps) {
       Email: "",
       Phone: "",
       Organisation: "",
+      Coupon: "",
       Feedback: "",
     },
   });
@@ -148,28 +151,28 @@ export default function CheckoutForm({ slug }: checkoutformProps) {
           });
           console.log(responseMessage.message);
         } else {
-          if(responseMessage.error && responseMessage.type === "coupon") {
+          if (responseMessage.error && responseMessage.type === "coupon") {
             setError("Coupon", {
               type: "manual",
               message: responseMessage.message,
-            })
+            });
           } else {
             console.error(responseMessage.errors && responseMessage.errors);
-          toast({
-            title:
-              "Form submission failed. Refresh the page and try again or contact us directly via:",
-            description: (
-              <pre className="mt-2 w-[340px] rounded-md dark:bg-slate-950 bg-slate-50 p-4">
-                <a
-                  className="underline dark:text-white text-dark"
-                  href={`mailto:${process.env.NEXT_PUBLIC_CONTACT_EMAIL}`}
-                >
-                  {process.env.NEXT_PUBLIC_CONTACT_EMAIL}
-                </a>
-              </pre>
-            ),
-          });
-          throw new Error(responseMessage.message);
+            toast({
+              title:
+                "Form submission failed. Refresh the page and try again or contact us directly via:",
+              description: (
+                <pre className="mt-2 w-[340px] rounded-md dark:bg-slate-950 bg-slate-50 p-4">
+                  <a
+                    className="underline dark:text-white text-dark"
+                    href={`mailto:${process.env.NEXT_PUBLIC_CONTACT_EMAIL}`}
+                  >
+                    {process.env.NEXT_PUBLIC_CONTACT_EMAIL}
+                  </a>
+                </pre>
+              ),
+            });
+            throw new Error(responseMessage.message);
           }
         }
       } catch (error) {
@@ -184,7 +187,7 @@ export default function CheckoutForm({ slug }: checkoutformProps) {
     setisloading(false);
   }
   const captchaError = errors.recaptcha?.message?.toString() ?? null;
-  const couponError = errors.Coupon?.message?.toString() ?? null;  
+  const couponError = errors.Coupon?.message?.toString() ?? null;
   return (
     <Card className="container mt-8 sm:max-w-[40rem]">
       <Form {...form}>
@@ -260,22 +263,27 @@ export default function CheckoutForm({ slug }: checkoutformProps) {
               )}
             />
             <div className="couponContainer">
-            <FormField
-              key={couponContent.name}
-              control={form.control}
-              name={couponContent.name as "Coupon"}
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>{couponContent.label}</FormLabel>
-                  <FormControl>
-                    <Input placeholder={couponContent.placeholder} {...field}/>
-                  </FormControl>
-                  <FormDescription>{couponContent.description}</FormDescription>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-                {(errors.Coupon && showCouponError) && (
+              <FormField
+                key={couponContent.name}
+                control={form.control}
+                name={couponContent.name as "Coupon"}
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>{couponContent.label}</FormLabel>
+                    <FormControl>
+                      <Input
+                        placeholder={couponContent.placeholder}
+                        {...field}
+                      />
+                    </FormControl>
+                    <FormDescription>
+                      {couponContent.description}
+                    </FormDescription>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              {errors.Coupon && showCouponError && (
                 <p className="text-sm text-red-500 dark:text-red-900 mt-[8px]">
                   {couponError}
                 </p>
@@ -309,7 +317,7 @@ export default function CheckoutForm({ slug }: checkoutformProps) {
                 key={forceRerender}
                 onChange={handleRecaptchaChange}
               />
-              {(errors.recaptcha && !recaptchaToken) && (
+              {errors.recaptcha && !recaptchaToken && (
                 <p className="text-sm font-medium text-red-500 dark:text-red-900 mt-[8px]">
                   {captchaError}
                 </p>
