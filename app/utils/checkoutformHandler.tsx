@@ -55,10 +55,10 @@ const formSchema = z.object({
     required_error: "Please select a payment option.",
   }),
   Coupon: z
-    .string()
-    .min(5, { message: "Coupon codes are at least 5 charracters long." })
-    .max(12, { message: "Coupon codes are 12 charracters long." })
-    .optional(), 
+  .string()
+  .min(5, {message: "Coupon must be at least 5 characters."})
+  .max(12, {message: "Coupon must not exceed 12 characters."})
+  .optional(),  
   Feedback: z
     .string()
     .max(2000, { message: "Feedback must not exceed 2000 characters." }),
@@ -114,9 +114,6 @@ export default function CheckoutForm({ slug }: checkoutformProps) {
   const handleRecaptchaChange = (token: string) => {
     setrecaptchaToken(token);
   };
-useEffect(() => {
-  console.log(showCouponError)
-}, [showCouponError])
 
   async function onSubmit(data: formValueProps) {
     setisloading(true);
@@ -271,7 +268,7 @@ useEffect(() => {
                 <FormItem>
                   <FormLabel>{couponContent.label}</FormLabel>
                   <FormControl>
-                    <Input placeholder={couponContent.placeholder} {...field} onChange={() => {errors.Coupon && setShowCouponError(false)}}/>
+                    <Input placeholder={couponContent.placeholder} {...field}/>
                   </FormControl>
                   <FormDescription>{couponContent.description}</FormDescription>
                   <FormMessage />

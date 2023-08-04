@@ -31,10 +31,10 @@ const validationSchema = z.object({
     required_error: "Please select a payment option.",
   }),
   Coupon: z
-    .string()
-    .min(5, { message: "Coupon must be at least 5 charracters." })
-    .max(12, { message: "Coupon must not exceed 12 charracters." })
-    .optional(), 
+  .string()
+  .min(5, {message: "Coupon must be at least 5 characters."})
+  .max(12, {message: "Coupon must not exceed 12 characters."})
+  .optional(), 
   Feedback: z
     .string()
     .max(2000, { message: "Feedback must not exceed 2000 characters." }),
@@ -55,55 +55,70 @@ export async function saveUserCheckoutData(validatedData: validationProps) {
       OR: [{ clientEmail: Email }, { clientOrg: Organisation }],
     },
   });
-  if (Coupon && couponIsValid(Coupon)) {
-    if (existingUser) {
-      if (existingUser.CouponCode) {
-        const newArray = Array.isArray(existingUser.CouponCode)
-          ? existingUser.CouponCode
-          : [];
-        for (const code of newArray) {
-          if (code === Coupon) {
-            return {
-              error: true,
-              type: "coupon", 
-              message: "This Coupon code has already been used.",
-            };
+  if(Coupon) {
+    if (couponIsValid(Coupon)) {
+      if (existingUser) {
+        if (existingUser.CouponCode) {
+          const newArray = Array.isArray(existingUser.CouponCode)
+            ? existingUser.CouponCode
+            : [];
+          for (const code of newArray) {
+            if (code === Coupon) {
+              return {
+                error: true,
+                type: "coupon", 
+                message: "This Coupon code has already been used.",
+              };
+            }
           }
+          newArray.push(Coupon);
+          const updatedUser = await prisma.checkoutdata.update({
+            where: { id: existingUser.id },
+            data: {
+              CouponCode: newArray,
+            },
+          });
+          return updatedUser;
+        } else {
+          const updatedUser = await prisma.checkoutdata.update({
+            where: { id: existingUser.id },
+            data: {
+              CouponCode: [`${Coupon}`],
+            },
+          });
+          return updatedUser;
         }
-        newArray.push(Coupon);
-        const updatedUser = await prisma.checkoutdata.update({
-          where: { id: existingUser.id },
-          data: {
-            CouponCode: newArray,
-          },
-        });
-        return updatedUser;
       } else {
-        const updatedUser = await prisma.checkoutdata.update({
-          where: { id: existingUser.id },
+        const user = await prisma.checkoutdata.create({
           data: {
+            clientName: Name,
+            clientEmail: Email,
+            clientPhone: Phone,
+            clientOrg: Organisation,
+            clientTheme: theme,
+            PaymentMethod: Payment,
             CouponCode: [`${Coupon}`],
+            clientFeedback: Feedback,
           },
         });
-        return updatedUser;
+        return user;
       }
     } else {
-      const user = await prisma.checkoutdata.create({
-        data: {
-          clientName: Name,
-          clientEmail: Email,
-          clientPhone: Phone,
-          clientOrg: Organisation,
-          clientTheme: theme,
-          PaymentMethod: Payment,
-          CouponCode: [`${Coupon}`],
-          clientFeedback: Feedback,
-        },
-      });
-      return user;
+      return { error: true, type: "coupon", message: "Invalid or expired Coupon Code." };
     }
   } else {
-    return { error: true, type: "coupon", message: "Invalid or expired Coupon Code." };
+    const user = await prisma.checkoutdata.create({
+      data: {
+        clientName: Name,
+        clientEmail: Email,
+        clientPhone: Phone,
+        clientOrg: Organisation,
+        clientTheme: theme,
+        PaymentMethod: Payment,
+        clientFeedback: Feedback,
+      },
+    });
+    return user;
   }
 }
 
