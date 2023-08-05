@@ -7,6 +7,7 @@ import axios from "axios";
 import { createTransport } from "nodemailer";
 import * as z from "zod";
 import { PrismaClient } from "@prisma/client";
+import getUSDToMoneroExchangeRate from "@/lib/access-coinapi-data";
 
 let csrf_token: string;
 const prisma = new PrismaClient();
@@ -30,11 +31,13 @@ const validationSchema = z.object({
   Payment: z.string({
     required_error: "Please select a payment option.",
   }),
-  Coupon: z
-  .string()
-  .min(5, {message: "Coupon must be at least 5 characters."})
-  .max(12, {message: "Coupon must not exceed 12 characters."})
-  .optional(), 
+  Coupon: z.string().refine(
+    (value: String) => {
+      if (value === "") {
+        return true;
+      }
+      return value.length >= 5 && value.length <= 12;
+    }, (val) => (val.length < 5 ? {message: "Coupon must be at least 5 charracters"} : {message : "Coupon must not exceed 12 charracters"})), 
   Feedback: z
     .string()
     .max(2000, { message: "Feedback must not exceed 2000 characters." }),
@@ -232,6 +235,38 @@ export async function POST(request: NextRequest) {
     }
     if (prismaReponse && "error" in prismaReponse) {
       return new Response(JSON.stringify(prismaReponse), { status: 401 });
+    }
+    if (process.env.COIN_API_KEY) {
+      try {
+        const exchangeRateData = await getUSDToMoneroExchangeRate(process.env.COIN_API_KEY);
+        console.log('USD to XMR exchange rate:', exchangeRateData.rate);
+        let usdAmount: number;
+        switch (data.Packagetype) {
+          case "basic":
+            usdAmount = 149.99;
+            break;
+          case "standard":
+            usdAmount = 249.99;
+            break;
+          case "premium":
+            usdAmount = 349.99;
+            break;
+          default:
+            console.log("error", "no package type");
+            usdAmount = 0;
+        }
+        
+        if (usdAmount !== undefined) {
+          const xmrAmount = (usdAmount * exchangeRateData.rate).toFixed(4);
+          console.log(`USD Amount: $${usdAmount}`);
+          console.log(`XMR Amount: ${xmrAmount} XMR`);
+        } else {
+          console.log("Error: Unable to calculate XMR amount due to missing or invalid package type.");
+        }
+        
+      } catch (error) {
+        console.log(error)
+      }
     }
     switch (validatedData.Payment) {
       case "WireTransfer":
