@@ -156,6 +156,7 @@ export default function CheckoutForm({ slug }: checkoutformProps) {
               type: "manual",
               message: responseMessage.message,
             });
+            setShowCouponError(true)
           } else {
             console.error(responseMessage.errors && responseMessage.errors);
             toast({
@@ -274,6 +275,12 @@ export default function CheckoutForm({ slug }: checkoutformProps) {
                       <Input
                         placeholder={couponContent.placeholder}
                         {...field}
+                        onChange={(e) => {
+                          if (e.target.value.length > 0 && errors.Coupon) {
+                            setShowCouponError(false);
+                          }
+                          field.onChange(e);
+                        }}
                       />
                     </FormControl>
                     <FormDescription>

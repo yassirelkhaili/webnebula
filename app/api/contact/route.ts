@@ -1,6 +1,6 @@
 "use server";
 
-import generateEmail from "@/app/constants/email/contact-template";
+import generateEmail from "@/app/email/contact-template";
 import { NextRequest } from "next/server";
 import { randomBytes } from "crypto";
 import axios from "axios";

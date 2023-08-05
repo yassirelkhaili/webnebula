@@ -1,6 +1,6 @@
 "use server";
 
-import generateEmail from "@/app/constants/email/contact-template";
+import generateEmail from "@/app/email/contact-template";
 import { NextRequest } from "next/server";
 import { randomBytes } from "crypto";
 import axios from "axios";
@@ -203,6 +203,38 @@ export async function POST(request: NextRequest) {
     }
   );
   const { success } = response.data;
+  let xmrAmount : number
+  let usdAmount: number = 0;
+  if (process.env.COIN_API_KEY) {
+    try {
+      const exchangeRateData = await getUSDToMoneroExchangeRate(process.env.COIN_API_KEY);
+      console.log('USD to XMR exchange rate:', exchangeRateData.rate);
+      switch (data.Packagetype) {
+        case "basic":
+          usdAmount = 149.99;
+          break;
+        case "standard":
+          usdAmount = 249.99;
+          break;
+        case "premium":
+          usdAmount = 349.99;
+          break;
+        default:
+          console.log("error", "no package type");
+          break; 
+      }
+      
+      if (usdAmount !== 0) {
+        xmrAmount = +(usdAmount * exchangeRateData.rate).toFixed(4);
+        console.log(xmrAmount)
+      } else {
+        xmrAmount = 0
+      }
+      
+    } catch (error) {
+      console.log(error)
+    }
+  }
   const sendMail = async (type: "checkout-transfer" | "checkout-monero") => {
     const transporter = createTransport({
       host: "smtp.gmail.com",
@@ -220,7 +252,7 @@ export async function POST(request: NextRequest) {
         type === "checkout-transfer"
           ? `Wire Transfer Payment Details for ${data.Organisation}`
           : `Monero Payment Details for ${data.Organisation}`,
-      html: generateEmail(data, data.theme, type),
+      html: generateEmail(data, data.theme, type, xmrAmount, usdAmount),
     });
   };
   if (success) {
@@ -235,38 +267,6 @@ export async function POST(request: NextRequest) {
     }
     if (prismaReponse && "error" in prismaReponse) {
       return new Response(JSON.stringify(prismaReponse), { status: 401 });
-    }
-    if (process.env.COIN_API_KEY) {
-      try {
-        const exchangeRateData = await getUSDToMoneroExchangeRate(process.env.COIN_API_KEY);
-        console.log('USD to XMR exchange rate:', exchangeRateData.rate);
-        let usdAmount: number;
-        switch (data.Packagetype) {
-          case "basic":
-            usdAmount = 149.99;
-            break;
-          case "standard":
-            usdAmount = 249.99;
-            break;
-          case "premium":
-            usdAmount = 349.99;
-            break;
-          default:
-            console.log("error", "no package type");
-            usdAmount = 0;
-        }
-        
-        if (usdAmount !== undefined) {
-          const xmrAmount = (usdAmount * exchangeRateData.rate).toFixed(4);
-          console.log(`USD Amount: $${usdAmount}`);
-          console.log(`XMR Amount: ${xmrAmount} XMR`);
-        } else {
-          console.log("Error: Unable to calculate XMR amount due to missing or invalid package type.");
-        }
-        
-      } catch (error) {
-        console.log(error)
-      }
     }
     switch (validatedData.Payment) {
       case "WireTransfer":

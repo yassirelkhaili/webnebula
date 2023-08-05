@@ -5,7 +5,9 @@ import { formValueProps } from "@/app/utils/contactformhandler";
 const generateEmail = (
   data: formValueProps,
   theme: string,
-  type: "checkout-transfer" | "checkout-monero"| "contact-user" | "contact-owner"
+  type: "checkout-transfer" | "checkout-monero"| "contact-user" | "contact-owner", 
+  xmrAmount? : number, 
+  usdAmount? : number
 ): string => {
   const emailTemplateUser: string = `
   <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -407,6 +409,7 @@ const generateEmail = (
             <p class="message textcenter">Monero Wallet Address:</p>
             <p class="endmessage textcenter">87FrtUuvTGPMm6C5KNL5oW2WPFjEj4qfBZjrUoJb1mWgZ5xva5gvdYqHVzztoktXpbD3g1rPpVPuz3wd8aSc3CyaSqywWLt</p>
             </div>
+            <p class="message">amount: USD: ${usdAmount} XMR: ${xmrAmount}</p>
             <p class="message">To make a payment using Monero for our web development services, please follow these simple steps:</p>
             <p class="endmessage">Step 1: Set Up a Monero Wallet</p>
             <p class="message">If you don't have a Monero wallet, you'll need to create one. Choose a reputable wallet service that suits your preferences, such as a desktop wallet, mobile wallet, or web wallet. Keep your wallet information secure. We recommend using the official Monero gui wallet from <a href="https://www.getmonero.org/" target="_blank">getmonero.org</a>.</p>
