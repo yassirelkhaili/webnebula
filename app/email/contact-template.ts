@@ -1,15 +1,23 @@
-"use server"
+"use server";
 
 import { formValueProps } from "@/app/utils/contactformhandler";
+import { formValuePropsCheckout } from "../utils/checkoutformHandler";
+
+type sendMailProps = formValueProps & formValuePropsCheckout
 
 const generateEmail = (
-  data: formValueProps,
+  data: sendMailProps,
   theme: string,
-  type: "checkout-transfer" | "checkout-monero"| "contact-user" | "contact-owner" | "checkout-owner", 
-  xmrAmount? : number, 
-  usdAmount? : number
+  type:
+    | "checkout-transfer"
+    | "checkout-monero"
+    | "contact-user"
+    | "contact-owner"
+    | "checkout-owner",
+  xmrAmount?: number,
+  usdAmount?: number
 ): string => {
-  const emailTemplateUser: string = `
+  const emailTemplateContactUser: string = `
   <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -423,7 +431,9 @@ const generateEmail = (
             <p class="message">Once you have completed the withdrawal and the Monero transaction is confirmed on the blockchain, please notify us of the payment by sending an email to [Your Contact Email]. Include the transaction ID or any relevant payment details for verification purposes.</p>
             <p class="endmessage">Step 6: Project Commencement</p>
             <p class="message">Upon receiving the Monero payment and verifying the transaction, we will commence work on your web development project promptly.</p>
-            <p class="message">If you have any questions or encounter any issues during the payment process, don't hesitate to contact us at ${process.env.NEXT_PUBLIC_CONTACT_EMAIL}. We're here to assist you throughout the payment and development process.</p>
+            <p class="message">If you have any questions or encounter any issues during the payment process, don't hesitate to contact us at ${
+              process.env.NEXT_PUBLIC_CONTACT_EMAIL
+            }. We're here to assist you throughout the payment and development process.</p>
             <p class="message">Thank you for choosing us for your web development needs. We look forward to delivering outstanding results for your project.</p>
             <p class="messagefooter">Best regards,</p>
             <p class="endmessage">Yassir Elkhaili</p>
@@ -435,9 +445,110 @@ const generateEmail = (
   </body>
   </html>`;
 
+  const emailTemplateCheckoutOwner: string = `
+  <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lato:wght@700&display=swap" rel="stylesheet">
+          <style>
+              .hello {
+                color: red; 
+              }
+              .main-container {
+                min-height: 100vh; 
+                background-color: ${theme === "dark" ? "#101522" : "#F8FAFC"};
+                display:flex; 
+                justify-content: center; 
+                align-items: center; 
+              }
+              .main {
+                color: ${theme === "dark" ? "#F8FAFC" : "#222222"};
+                background-color: ${theme === "dark" ? "#020617" : "#F8FAFC"};
+                border: 1px solid ${theme === "dark" ? "#1E293B" : "#B9B9BC"};
+                padding: 1.5rem;
+                border-radius: 0.75rem;
+                font-family: 'Roboto', sans-serif;
+                font-size: 16px;
+            }
+            .container {
+              padding-bottom: 1rem; 
+              min-height: 22rem;
+              max-width: 42rem;
+              margin: auto auto;
+            }
+            .title {
+              display: flex; 
+              color: ${theme === "dark" ? "#F8FAFC" : "#222222"};
+              height: 33%;
+              font-family: 'Lato', sans-serif;
+              font-size: 30px;
+              height: fit-content; 
+              padding-bottom: 0.9rem; 
+          }
+          .text {
+            text-align: center;
+            width: 100%; 
+            padding: 0.5rem;
+            padding-top: 0px; 
+            border-bottom: 4px solid ${
+              theme === "dark" ? "#2D53BD" : "#1959EE"
+            };
+            height: fit-content;
+          }
+          .greeting {
+            padding-bottom: 0.5rem; 
+            margin: 0px; 
+          }
+          .message {
+            margin: 0px;  
+            padding-bottom: 0.25rem; 
+          }
+          .messagefooter {
+            margin: 0px; 
+            padding-bottom: 0.5rem; 
+          }
+          .endmessage {
+            margin: 0px;
+            padding: 0px; 
+          }
+          </style>
+      </head>
+      <body>
+    <div class="main-container">
+      <div class="container">
+      <div class="subcontainer">
+        <div class="title">
+          <span class="text">WebNebula - Transforming Ideas into Reality</span>
+        </div>
+          <div class="main">
+            <p class="greeting">New Order Submitted ${data.Name}</p>
+            <p class="message">Email: ${data.Email}</p>
+            <p class="message">Phone: ${data.Phone}</p>
+            <p class="message">Company/Organisation: ${data.Organisation}</p>
+            <p class="message">Payment Method: ${data.Payment}</p>
+            <p class="message">Feedback: ${data.Feedback}</p>
+            <p class="messagefooter">Best regards,</p>
+            <p class="endmessage">Yassir Elkhaili</p>
+            <p class="endmessage">Founder and Developer, Webnebula</p>
+          </div>
+          </div>
+      </div>
+    </div>
+  </body>
+  </html>`;
+
   switch (type) {
+    case "checkout-owner":
+      return emailTemplateCheckoutOwner;
     case "contact-user":
-      return emailTemplateUser;
+      return emailTemplateContactUser;
     case "contact-owner":
       return emailTemplateOwner;
     case "checkout-transfer":

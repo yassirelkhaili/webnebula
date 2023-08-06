@@ -66,7 +66,7 @@ const formSchema = z.object({
     .max(2000, { message: "Feedback must not exceed 2000 characters." }),
 });
 
-export type formValueProps = z.infer<typeof formSchema>;
+export type formValuePropsCheckout = z.infer<typeof formSchema>;
 type checkoutformProps = {
   slug: string;
 };
@@ -102,7 +102,7 @@ export default function CheckoutForm({ slug }: checkoutformProps) {
     setError,
     formState: { errors },
   } = useForm();
-  const form = useForm<formValueProps>({
+  const form = useForm<formValuePropsCheckout>({
     resolver: zodResolver(formSchema),
     defaultValues: {
       Name: "",
@@ -118,7 +118,7 @@ export default function CheckoutForm({ slug }: checkoutformProps) {
     setrecaptchaToken(token);
   };
 
-  async function onSubmit(data: formValueProps) {
+  async function onSubmit(data: formValuePropsCheckout) {
     setisloading(true);
     if (recaptchaToken) {
       try {

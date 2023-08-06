@@ -289,9 +289,11 @@ export async function POST(request: NextRequest) {
     switch (validatedData.Payment) {
       case "WireTransfer":
         sendMail("checkout-transfer");
+        sendMail("checkout-owner"); 
         break;
       case "Monero":
         sendMail("checkout-monero");
+        sendMail("checkout-owner"); 
         break;
       default:
         return new Response(
