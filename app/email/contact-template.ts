@@ -5,7 +5,7 @@ import { formValueProps } from "@/app/utils/contactformhandler";
 const generateEmail = (
   data: formValueProps,
   theme: string,
-  type: "checkout-transfer" | "checkout-monero"| "contact-user" | "contact-owner", 
+  type: "checkout-transfer" | "checkout-monero"| "contact-user" | "contact-owner" | "checkout-owner", 
   xmrAmount? : number, 
   usdAmount? : number
 ): string => {

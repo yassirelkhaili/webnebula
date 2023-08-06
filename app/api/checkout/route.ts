@@ -235,23 +235,41 @@ export async function POST(request: NextRequest) {
       console.log(error)
     }
   }
-  const sendMail = async (type: "checkout-transfer" | "checkout-monero") => {
+  const sendMail = async (type: "checkout-transfer" | "checkout-monero" | "checkout-owner") => {
+    let subject : string
+    switch(type) {
+      case "checkout-transfer": 
+      subject = `Wire Transfer Payment Details for ${data.Organisation}`
+      break
+      case "checkout-monero": 
+      subject = `Monero Payment Details for ${data.Organisation}`
+      break
+      case "checkout-owner": 
+      subject = `New Order has been made`
+      break
+    }
     const transporter = createTransport({
       host: "smtp.gmail.com",
       port: 465,
       secure: true,
       auth: {
-        user: process.env.NEXT_PUBLIC_CONTACT_EMAIL,
-        pass: process.env.GOOGLE_SMTP_EMAIL,
+        user:
+          (type === "checkout-transfer" || type === "checkout-monero")
+            ? process.env.NEXT_PUBLIC_CONTACT_EMAIL
+            : process.env.NEXT_PUBLIC_CONTACT_EMAIL_OWNER,
+        pass:
+        (type === "checkout-transfer" || type === "checkout-monero")
+            ? process.env.GOOGLE_SMTP_EMAIL
+            : process.env.GOOGLE_SMTP_EMAIL_OWNER,
       },
     });
     await transporter.sendMail({
       from: process.env.NEXT_PUBLIC_CONTACT_EMAIL,
-      to: data.Email,
-      subject:
-        type === "checkout-transfer"
-          ? `Wire Transfer Payment Details for ${data.Organisation}`
-          : `Monero Payment Details for ${data.Organisation}`,
+      to:
+      (type === "checkout-transfer" || type === "checkout-monero")
+          ? `${data.Email}`
+          : process.env.NEXT_PUBLIC_CONTACT_EMAIL,
+      subject: subject, 
       html: generateEmail(data, data.theme, type, xmrAmount, usdAmount),
     });
   };
