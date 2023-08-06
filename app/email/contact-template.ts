@@ -377,7 +377,7 @@ const generateEmail = (
           }
           .message {
             margin: 0px;  
-            padding-bottom: 0.5rem; 
+            margin-bottom: 0.5rem !important; 
           }
           .messagefooter {
             margin: 0px; 
