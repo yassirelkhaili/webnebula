@@ -3,7 +3,7 @@
 import { formValueProps } from "@/app/utils/contactformhandler";
 import { formValuePropsCheckout } from "../utils/checkoutformHandler";
 
-type sendMailProps = formValueProps & formValuePropsCheckout
+type sendMailProps = formValueProps & formValuePropsCheckout;
 
 const generateEmail = (
   data: sendMailProps,
@@ -278,7 +278,7 @@ const generateEmail = (
           }
           .message {
             margin: 0px;  
-            padding-bottom: 0.25rem; 
+            margin-bottom: 0.5rem !important; 
           }
           .messagefooter {
             margin: 0px; 
@@ -287,6 +287,15 @@ const generateEmail = (
           .endmessage {
             margin: 0px;
             padding: 0px; 
+          }
+          .center {
+            margin: 0 auto; 
+          }
+          .transfer-container {
+            margin-bottom: 0.5rem; 
+          }
+          .textcenter {
+            text-align: center;
           }
           </style>
       </head>
@@ -299,11 +308,26 @@ const generateEmail = (
         </div>
           <div class="main">
             <p class="greeting">Dear ${data.Name}</p>
-            <p class="message">Thank you for reaching out to us through our website's contact form. We appreciate you taking the time to get in touch with us, and we value your interest in our products/services.</p>
-            <p class="message">Our team has received your message, and we are currently reviewing the details you provided. We strive to respond to all inquiries promptly, and you can expect to hear back from us within 24 hours.</p>
-            <p class="message">While we work on addressing your query, please feel free to explore our website further. We have a wealth of information about our offerings and frequently asked questions that may already answer some of your queries.</p>
-            <p class="message">If you have any additional information or if there's anything else you'd like us to know, please don't hesitate to reply to this email. We're here to help and ensure you have a seamless experience with our company.</p>
-            <p class="message">Once again, thank you for getting in touch with us. We look forward to assisting you further.</p>
+            <div class="transfer-container">
+            <p class="message">We hope this message finds you well. Below, you will find all the necessary payment information for the Wire transfer:</p>
+            <p class="message textcenter">Morocco:</p>
+            <p class="endmessage textcenter">87FrtUuvTGPMm6C5KNL5oW2WPFjEj4qfBZjrUoJb1mWgZ5xva5gvdYqHVzztoktXpbD3g1rPpVPuz3wd8aSc3CyaSqywWLt</p>
+            <p class="message textcenter">Europe:</p>
+            <p class="endmessage textcenter">87FrtUuvTGPMm6C5KNL5oW2WPFjEj4qfBZjrUoJb1mWgZ5xva5gvdYqHVzztoktXpbD3g1rPpVPuz3wd8aSc3CyaSqywWLt</p>
+            <p class="message">Amount: ${usdAmount}$</p>
+            </div>
+            <p class="message">Please ensure the following to verify your payment:</p>
+            <p class="endmessage">Step 1: Set Up a Monero Wallet</p>
+            <p class="message"></p>
+            <p class="message">To make a payment through Wire transfer for our web development services, please follow these simple steps:</p>
+            <p class="endmessage">Step 1: Set Up a Monero Wallet</p>
+            <p class="message"></p>
+            <p class="endmessage">Step 6: Project Commencement</p>
+            <p class="message">Upon receiving the Wire transfer payment and verifying the transaction, we will commence work on your web development project promptly.</p>
+            <p class="message">If you have any questions or encounter any issues during the payment process, don't hesitate to contact us at ${
+              process.env.NEXT_PUBLIC_CONTACT_EMAIL
+            }. We're here to assist you throughout the payment and development process.</p>
+            <p class="message">Thank you for choosing us for your web development needs. We look forward to delivering outstanding results for your project.</p>
             <p class="messagefooter">Best regards,</p>
             <p class="endmessage">Yassir Elkhaili</p>
             <p class="endmessage">Founder and Developer, Webnebula</p>
