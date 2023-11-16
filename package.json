@@ -41,14 +41,10 @@
     {
       "name": "Yassir Elkhaili",
       "url": "https://github.com/yassirelkhaili"
-    },
-    {
-      "name": "Zakaria Ghazoune",
-      "url": "https://github.com/ZakariaCoder"
     }
   ],
-  "license": "All Rights Reserved",
-  "private": true,
+  "license": "MIT",
+  "private": false,
   "scripts": {
     "dev": "next dev",
     "build": "next build",
