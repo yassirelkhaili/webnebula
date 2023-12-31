@@ -1,6 +1,6 @@
 "use client";
 import ReCAPTCHA from "react-google-recaptcha";
-import { zodResolver } from "@hookform/resolvers/zod";
+import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from "react-hook-form";
 import * as z from "zod";
 import { Button } from "@/components/ui/button";
@@ -232,22 +232,22 @@ export default function CheckoutForm({ slug }: checkoutformProps) {
                     </FormControl>
                     <SelectContent>
                       {paymentoptionContent.options.map(
-                        (paymentOption: string, index) => {
+                        (paymentOption: string, index: number) => {
                           if (index === 0) {
                             return (
-                              <SelectItem value="Stripe">
+                              <SelectItem value="Stripe" key={index}>
                                 {paymentOption}
                               </SelectItem>
                             );
                           } else if (index === 1) {
                             return (
-                              <SelectItem value="WireTransfer">
+                              <SelectItem value="WireTransfer"key={index}>
                                 {paymentOption}
                               </SelectItem>
                             );
                           } else {
                             return (
-                              <SelectItem value={paymentOption}>
+                              <SelectItem value={paymentOption} key={index}>
                                 {paymentOption}
                               </SelectItem>
                             );

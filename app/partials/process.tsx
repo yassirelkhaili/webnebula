@@ -20,9 +20,9 @@ const Process = () => {
         </h1>
       </div>
       <div className="container mt-[1.2rem]">
-        {processContent.map((item: processProps) => {
+        {processContent.map((item: processProps, index: number) => {
           return (
-            <Accordion type="single" collapsible>
+            <Accordion type="single" collapsible key={index}>
               <AccordionItem value="item-1">
                 <AccordionTrigger>{item.question}</AccordionTrigger>
                 <AccordionContent>{item.answer}</AccordionContent>

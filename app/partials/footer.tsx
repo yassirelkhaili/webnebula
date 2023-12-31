@@ -19,9 +19,9 @@ const Footer = () => {
               <Logo />
             </div>
             <div className="grid grid-cols-2 gap-8 sm:gap-6 sm:grid-cols-3">
-              {footerContent.map((footerItem: footerContentProps) => {
+              {footerContent.map((footerItem: footerContentProps, index: number) => {
                 return (
-                  <div>
+                  <div key={index}>
                     <h2 className="mb-6 text-sm font-semibold text-dark uppercase dark:text-slate-50">
                       {footerItem.sectionTitle}
                     </h2>
@@ -29,7 +29,7 @@ const Footer = () => {
                       {footerItem.sectionContent.map(
                         (liItem: sectionContent, index: number) => {
                           return (
-                            <li className={index === 0 ? "mb-4" : ""}>
+                            <li className={index === 0 ? "mb-4" : ""} key={index}>
                               <Link
                                 href={liItem.href}
                                 className="hover:underline"
@@ -56,9 +56,10 @@ const Footer = () => {
               {copyrightNotice.copyrightStatement}
             </span>
             <div className="flex mt-4 space-x-5 sm:justify-center sm:mt-0">
-              {socialsContent.map((socialsItem: socialsContentProps) => {
+              {socialsContent.map((socialsItem: socialsContentProps, index: number) => {
                 return (
                   <a
+                    key={index}
                     href={socialsItem.href}
                     className="text-slate-500 hover:text-slate-900 dark:hover:text-slate-50"
                   >
