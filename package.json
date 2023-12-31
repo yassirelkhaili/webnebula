@@ -1,5 +1,5 @@
 {
-  "vercel-build": "npx prisma generate && next build",
+  "build": "npx prisma db push && npx prisma generate && next build",
   "name": "webnebula",
   "version": "0.1.0",
   "description": "At Webnebula, we specialize in crafting dynamic and visually stunning websites that captivate users and drive results. Get a seamless and interactive web solution with our custom front-end and back-end development packages.",
