@@ -14,8 +14,8 @@ const packagesContent: Array<Content> = [
     title: "Essential Web Presence Package",
     description:
       "Responsive,Custom Website Front-End.Built with React,Tailwind and more.SEO/Documentation included.",
-    price: "$149.99",
-    discountPrice: "$199.99",
+      price: "$888.88",
+      discountPrice: "$999.99",
     href: `${process.env.NEXT_PUBLIC_APP_URL}/packages/basic`,
     features: (
       <>
@@ -45,8 +45,8 @@ const packagesContent: Array<Content> = [
     title: "Complete Web Solution Package",
     description:
       "Complete Website Front-End+Back-End.Built with React, Laravel and more.SEO/Documentation included.",
-    price: "$249.99",
-    discountPrice: "$299.99",
+      price: "$888.88",
+      discountPrice: "$999.99",
     href: `${process.env.NEXT_PUBLIC_APP_URL}/packages/standard`,
     features: (
       <>
@@ -77,8 +77,8 @@ const packagesContent: Array<Content> = [
     title: "Premium Web Solution Package",
     description:
       "Complete Website Front-End+Back-End including a customized admin panel.SEO/Documentation included.",
-    price: "$349.99",
-    discountPrice: "$399.99",
+      price: "$888.88",
+      discountPrice: "$999.99",
     href: `${process.env.NEXT_PUBLIC_APP_URL}/packages/premium`,
     features: (
       <>

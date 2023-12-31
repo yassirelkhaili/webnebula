@@ -211,13 +211,13 @@ export async function POST(request: NextRequest) {
       console.log('USD to XMR exchange rate:', exchangeRateData.rate);
       switch (data.Packagetype) {
         case "basic":
-          usdAmount = 149.99;
+          usdAmount = 999.99;
           break;
         case "standard":
-          usdAmount = 249.99;
+          usdAmount = 999.99;
           break;
         case "premium":
-          usdAmount = 349.99;
+          usdAmount = 999.99;
           break;
         default:
           console.log("error", "no package type");

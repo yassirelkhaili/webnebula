@@ -8,14 +8,16 @@ import {
 } from "../utils/svghandler";
 
 export interface Content {
-  title: string;
-  img: React.ReactNode;
+  title: string,
+  key: number,
+  img: React.ReactNode
 }
 
 export const skillsTitle: string = "Technologies We Use";
 const skillsContent: Array<Content> = [
   {
     title: "Laravel",
+    key: 1,
     img: (
       <Image
         width="30"
@@ -27,10 +29,12 @@ const skillsContent: Array<Content> = [
   },
   {
     title: "Next",
+    key: 2,
     img: <NextsvgHandler />,
   },
   {
     title: "Typescript",
+    key: 3,
     img: (
       <Image
         width="30"
@@ -42,6 +46,7 @@ const skillsContent: Array<Content> = [
   },
   {
     title: "React",
+    key: 4,
     img: (
       <Image
         width="30"
@@ -53,22 +58,27 @@ const skillsContent: Array<Content> = [
   },
   {
     title: "Livewire",
+    key: 5,
     img: <LivewireSvgHandler />,
   },
   {
     title: "Inertia",
+    key: 6,
     img: <InertiaSvgHandler />,
   },
   {
     title: "Express",
+    key: 7,
     img: <ExpressSvgHandler />,
   },
   {
     title: "Node",
+    key: 8,
     img: <NodeSvgHandler />,
   },
   {
     title: "Prisma",
+    key: 9,
     img: (
       <Image
         width="30"
@@ -80,6 +90,7 @@ const skillsContent: Array<Content> = [
   },
   {
     title: "Eloquent",
+    key: 10,
     img: (
       <Image
         width="30"
@@ -91,6 +102,7 @@ const skillsContent: Array<Content> = [
   },
   {
     title: "Tailwind",
+    key: 11,
     img: (
       <Image
         width="30"
@@ -102,6 +114,7 @@ const skillsContent: Array<Content> = [
   },
   {
     title: "Bootstrap",
+    key: 12,
     img: (
       <Image
         width="30"
