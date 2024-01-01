@@ -26,7 +26,23 @@ At Webnebula, we are passionate about creating dynamic and visually striking web
 
 ## Screenshots
 
-Screenshots Coming Soon
+![Hero Section](https://i.imgur.com/V9Vf5HT.png)
+
+![About us Section](https://i.imgur.com/b2OKmez.png)
+
+![Contact Section](https://i.imgur.com/6Z9hE2m.png)
+
+![Order now Section](https://i.imgur.com/I145DLj.png)
+
+![Technologies Section](https://i.imgur.com/uRZkK1E.png)
+
+![Order now Section](https://i.imgur.com/I145DLj.png)
+
+![Package Comparison Section](https://i.imgur.com/KHez8kY.png)
+
+![Privacy policy](https://i.imgur.com/OJ7j88y.png)
+
+![Email Example](https://i.imgur.com/OJ7j88y.png)
 
 ## 🚀 Contributors
 
