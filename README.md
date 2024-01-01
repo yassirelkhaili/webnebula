@@ -24,6 +24,7 @@ At Webnebula, we are passionate about creating dynamic and visually striking web
 - Package Types
 - Different email template depending on user theme
 - Monero, Paypal, MasterCard checkout...
+- optimized SEO using NextJS SEO features
 - and more...
   
 ## Screenshots
