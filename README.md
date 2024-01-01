@@ -45,7 +45,9 @@ At Webnebula, we are passionate about creating dynamic and visually striking web
 
 ![Privacy policy](https://i.imgur.com/OJ7j88y.png)
 
-![Email Example](https://i.imgur.com/OJ7j88y.png)
+![Email Example](https://i.imgur.com/gZsTmTp.png)
+
+![Email Example](https://i.imgur.com/C6Cnvg2.png)
 
 ## 🚀 Contributors
 
