@@ -23,7 +23,9 @@ At Webnebula, we are passionate about creating dynamic and visually striking web
 - Privacy Policy Page
 - Package Types
 - Different email template depending on user theme
-
+- Monero, Paypal, MasterCard checkout...
+- and more...
+  
 ## Screenshots
 
 ![Hero Section](https://i.imgur.com/V9Vf5HT.png)
